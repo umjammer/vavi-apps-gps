@@ -15,17 +15,17 @@ import vavi.util.Debug;
 
 
 /**
- * HGR ‚ÌƒGƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“‚ğs‚¤ƒNƒ‰ƒX‚Å‚·B
+ * HGR ã®ã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  * 
- * @author	<a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
- * @version	0.00	030410	nsano	initial version <br>
+ * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @version 0.00 030410 nsano initial version <br>
  */
 public class HgrEmulator3 extends HgrEmulator {
 
-    /** ‘‘—‚è‚Ì”{‘¬“x */
+    /** æ—©é€ã‚Šã®å€é€Ÿåº¦ */
     int ff = 10;
 
-    /** ƒVƒŠƒAƒ‹‰ñü‚Ö‚Ì GPS ƒf[ƒ^‚Ìo—Í */
+    /** ã‚·ãƒªã‚¢ãƒ«å›ç·šã¸ã® GPS ãƒ‡ãƒ¼ã‚¿ã®å‡ºåŠ› */
     protected TimerTask getOutputTimerTask() {
         return new TimerTask() {
             public void run() {
@@ -87,7 +87,7 @@ Debug.println("file: " + value);
             reader = new BufferedReader(new FileReader(file));
         } catch (Exception e) {
 Debug.println(e);
-	    System.exit(1);
+            throw new IllegalStateException(e);
         }
     }
 }

@@ -25,13 +25,13 @@ public class Pipe {
     private int pipeNo;
 
     /**
-     * USB ƒfƒoƒCƒX‚ÌƒGƒ“ƒhƒ|ƒCƒ“ƒg‚ÉƒAƒNƒZƒX‚·‚é‚½‚ß‚ÌƒIƒuƒWƒFƒNƒg‚ğì¬‚·‚éB
-     * Œ»İ‚Ìƒo[ƒWƒ‡ƒ“‚Å‚ÍƒCƒ“ƒ^[ƒ‰ƒvƒg“]‘—A
-     * ƒoƒ‹ƒN“]‘—‚ÌƒGƒ“ƒhƒ|ƒCƒ“ƒg‚É‚Â‚¢‚Ä—LŒø‚Å‚ ‚éB
+     * USB ãƒ‡ãƒã‚¤ã‚¹ã®ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ãŸã‚ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã™ã‚‹ã€‚
+     * ç¾åœ¨ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ©ãƒ—ãƒˆè»¢é€ã€
+     * ãƒãƒ«ã‚¯è»¢é€ã®ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆã«ã¤ã„ã¦æœ‰åŠ¹ã§ã‚ã‚‹ã€‚
      * 
-     * @param interfaceNo ƒCƒ“ƒ^[ƒtƒF[ƒX”Ô†
-     * @param pipeNo ƒpƒCƒv”Ô†
-     * @throws UsbException USBƒfƒoƒCƒX‚Éw’è‚µ‚½ƒpƒCƒv‚ª–³‚¢
+     * @param interfaceNo ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ç•ªå·
+     * @param pipeNo ãƒ‘ã‚¤ãƒ—ç•ªå·
+     * @throws UsbException USBãƒ‡ãƒã‚¤ã‚¹ã«æŒ‡å®šã—ãŸãƒ‘ã‚¤ãƒ—ãŒç„¡ã„
      */
     public Pipe(Usb usb, int interfaceNo, int pipeNo) throws UsbException {
 
@@ -44,13 +44,13 @@ public class Pipe {
     }
 
     /**
-     * USB ƒfƒoƒCƒX‚ÌƒGƒ“ƒhƒ|ƒCƒ“ƒg‚ÉƒAƒNƒZƒX‚·‚é‚½‚ß‚ÌƒIƒuƒWƒFƒNƒg‚ğ
-     * ƒI[ƒo[ƒ‰ƒbƒvƒ‚[ƒh‚Åì¬‚·‚éB
+     * USB ãƒ‡ãƒã‚¤ã‚¹ã®ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ãŸã‚ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’
+     * ã‚ªãƒ¼ãƒãƒ¼ãƒ©ãƒƒãƒ—ãƒ¢ãƒ¼ãƒ‰ã§ä½œæˆã™ã‚‹ã€‚
      * 
-     * @param interfaceNo ƒCƒ“ƒ^[ƒtƒF[ƒX”Ô†
-     * @param pipeNo ƒpƒCƒv”Ô†
-     * @param overlapped ƒI[ƒo[ƒ‰ƒbƒv
-     * @throws UsbException USBƒfƒoƒCƒX‚Éw’è‚µ‚½ƒpƒCƒv‚ª–³‚¢
+     * @param interfaceNo ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ç•ªå·
+     * @param pipeNo ãƒ‘ã‚¤ãƒ—ç•ªå·
+     * @param overlapped ã‚ªãƒ¼ãƒãƒ¼ãƒ©ãƒƒãƒ—
+     * @throws UsbException USBãƒ‡ãƒã‚¤ã‚¹ã«æŒ‡å®šã—ãŸãƒ‘ã‚¤ãƒ—ãŒç„¡ã„
      */
     public Pipe(Usb usb, int interfaceNo, int pipeNo, boolean overlapped)
         throws UsbException {
@@ -64,7 +64,7 @@ public class Pipe {
     }
 
     /**
-     * ƒpƒCƒv‚ğƒNƒ[ƒY‚µ‚Ü‚·B
+     * ãƒ‘ã‚¤ãƒ—ã‚’ã‚¯ãƒ­ãƒ¼ã‚ºã—ã¾ã™ã€‚
      */
     public native void close();
 
@@ -74,7 +74,7 @@ public class Pipe {
     public native int read() throws UsbException;
 
     /**
-     * “Ç‚İ‚İ‚Ü‚·D
+     * èª­ã¿è¾¼ã¿ã¾ã™ï¼
      */
     public native int read(byte[] b, int off, int len) throws UsbException;
 
@@ -84,26 +84,26 @@ public class Pipe {
     public native void write(int b) throws UsbException;
 
     /**
-     * ‘‚«‚İ‚Ü‚·D
+     * æ›¸ãè¾¼ã¿ã¾ã™ï¼
      */
     public native void write(byte[] b, int off, int len) throws UsbException;
 
     //-------------------------------------------------------------------------
 
-    /** USB ‚Ìƒnƒ“ƒhƒ‹ */
+    /** USB ã®ãƒãƒ³ãƒ‰ãƒ« */
     private long usbInstance;
 
-    /** ƒpƒCƒv‚Ìƒnƒ“ƒhƒ‹ */
+    /** ãƒ‘ã‚¤ãƒ—ã®ãƒãƒ³ãƒ‰ãƒ« */
     private long instance;
 
     /**
-     * ƒpƒCƒv‚ğì¬‚µ‚Ü‚·B
+     * ãƒ‘ã‚¤ãƒ—ã‚’ä½œæˆã—ã¾ã™ã€‚
      * 
-     * @param usbHandle USB ‚Ìƒnƒ“ƒhƒ‹
-     * @param interfaceNo ƒCƒ“ƒ^[ƒtƒF[ƒX”Ô†
-     * @param pipeNo ƒpƒCƒv”Ô†
-     * @param overlapped ƒI[ƒo[ƒ‰ƒbƒv
-     * @throws UsbException USBƒfƒoƒCƒX‚Éw’è‚µ‚½ƒpƒCƒv‚ª–³‚¢
+     * @param usbHandle USB ã®ãƒãƒ³ãƒ‰ãƒ«
+     * @param interfaceNo ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ç•ªå·
+     * @param pipeNo ãƒ‘ã‚¤ãƒ—ç•ªå·
+     * @param overlapped ã‚ªãƒ¼ãƒãƒ¼ãƒ©ãƒƒãƒ—
+     * @throws UsbException USBãƒ‡ãƒã‚¤ã‚¹ã«æŒ‡å®šã—ãŸãƒ‘ã‚¤ãƒ—ãŒç„¡ã„
      */
     private native void open(long usbHandle,
                              int interfaceNo,
@@ -112,12 +112,12 @@ public class Pipe {
         throws UsbException;
 
     /**
-     * ƒpƒCƒv‚ğƒŠƒZƒbƒg‚µ‚Ü‚·B
+     * ãƒ‘ã‚¤ãƒ—ã‚’ãƒªã‚»ãƒƒãƒˆã—ã¾ã™ã€‚
      */
     private native void reset() throws UsbException;
 
     /**
-     * ƒpƒCƒv‚ğƒAƒ{[ƒg‚µ‚Ü‚·B
+     * ãƒ‘ã‚¤ãƒ—ã‚’ã‚¢ãƒœãƒ¼ãƒˆã—ã¾ã™ã€‚
      */
     private native void abort() throws UsbException;
 

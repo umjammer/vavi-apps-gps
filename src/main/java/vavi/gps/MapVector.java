@@ -14,7 +14,7 @@ package vavi.gps;
  */
 public class MapVector {
 
-    /** ‘¬“x km/hour */
+    /** é€Ÿåº¦ km/hour */
     private int velocity;
 
     /** */
@@ -27,7 +27,7 @@ public class MapVector {
         return velocity;
     }
 
-    /** •ûˆÊ (True North) in degrees (–k‚©‚çŒv‰ñ‚è) */
+    /** æ–¹ä½ (True North) in degrees (åŒ—ã‹ã‚‰æ™‚è¨ˆå›ã‚Š) */
     private int bearingDirection;
 
     /** */
@@ -43,7 +43,7 @@ public class MapVector {
     /** */
     public String toString() {
         return velocity + " km/h, " +
-            bearingDirection + "ß";
+            bearingDirection + "ã‚œ";
     }
 }
 

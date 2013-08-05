@@ -15,8 +15,8 @@ package vavi.gps;
  */
 public interface GpsFormat {
     /**
-     * Raw ƒf[ƒ^‚ğo—Í‚³‚¹‚é‰Â”\«‚ª‚ ‚éê‡‚Í–ß‚è’l‚Ì {@link GpsData} ‚Ö
-     * {@link BasicGpsData#setRawData(byte[])} ƒƒ\ƒbƒh‚Å line ‚ğİ’è‚µ‚Ä‚¨‚¢‚Ä‚­‚¾‚³‚¢B
+     * Raw ãƒ‡ãƒ¼ã‚¿ã‚’å‡ºåŠ›ã•ã›ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹å ´åˆã¯æˆ»ã‚Šå€¤ã® {@link GpsData} ã¸
+     * {@link BasicGpsData#setRawData(byte[])} ãƒ¡ã‚½ãƒƒãƒ‰ã§ line ã‚’è¨­å®šã—ã¦ãŠã„ã¦ãã ã•ã„ã€‚
      */
     GpsData parse(byte[] line);
 

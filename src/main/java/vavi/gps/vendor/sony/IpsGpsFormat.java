@@ -23,41 +23,41 @@ import vavi.util.StringUtil;
 
 
 /**
- * SONY IPS Œn GPS ƒf[ƒ^ƒtƒH[ƒ}ƒbƒg‚ð•\‚·ƒNƒ‰ƒX‚Å‚·B
+ * SONY IPS ç³» GPS ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆã‚’è¡¨ã™ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  * 
  * <code><pre>
- * 1. ¶ƒf[ƒ^
+ * 1. ç”Ÿãƒ‡ãƒ¼ã‚¿
  * 
  * SM00200312163182241n3753525E14006172+02530001809812163181058Q3BREFABXGdABSCKABPCGACDHIABJEiABGCrBGMGrCEdDCEO
  * 
- * 2. ƒf[ƒ^•¶Žš—ñ‚ÌˆÓ–¡
+ * 2. ãƒ‡ãƒ¼ã‚¿æ–‡å­—åˆ—ã®æ„å‘³
  * 
  * ofs len      data            description
  * ---+---+--------------------+-----------------------------------------------
- *   0   6	SM0020		ƒxƒ“ƒ_[ƒo[ƒWƒ‡ƒ“
- *   6  13	0312163182241	“ú•t‚ÆŽž
- * 				03 (”N)
- * 				12 (ŒŽ)
- * 				16 (“ú)
- * 				 3 (—j“ú: 0(Sunday) - 6(Saturday))
- * 				18 (Žž)
- * 				22 (•ª)
- * 				41 (•b)
- *  19   1	N		–kˆÜ (N)‚ ‚é‚¢‚Í“ìˆÜ(S) n,s ‚Í”ñ‘ªˆÊ’†
- *  20   2	37		ˆÜ“x 37 (“x)
- *  22   2	53		ˆÜ“x 53 (•ª)
- *  24   3	525		ˆÜ“x 52.5 (•b)
- *  27   1	E		“ŒŒo (E)‚ ‚é‚¢‚Í¼Œo(W)
- *  28   3	140		Œo“x 140 (“x)
- *  31   2	06		Œo“x 06 (•ª)
- *  33   3	172		Œo“x 17.2 (•b)
- *  36   5	+0253		‚“x (ŠC”²H) m
- *  41   3	000		‘¬“x km/h
- *  44   3	180		•ûŠp (–k‚©‚çŽžŒv‰ñ‚è) degrees (True North)
- *  47  13	9812163181058	“ú•t‚ÆŽž (Œv‘ªŽž)
+ *   0   6	SM0020		ãƒ™ãƒ³ãƒ€ãƒ¼ãƒãƒ¼ã‚¸ãƒ§ãƒ³
+ *   6  13	0312163182241	æ—¥ä»˜ã¨æ™‚åˆ»
+ * 				03 (å¹´)
+ * 				12 (æœˆ)
+ * 				16 (æ—¥)
+ * 				 3 (æ›œæ—¥: 0(Sunday) - 6(Saturday))
+ * 				18 (æ™‚)
+ * 				22 (åˆ†)
+ * 				41 (ç§’)
+ *  19   1	N		åŒ—ç·¯ (N)ã‚ã‚‹ã„ã¯å—ç·¯(S) n,s ã¯éžæ¸¬ä½ä¸­
+ *  20   2	37		ç·¯åº¦ 37 (åº¦)
+ *  22   2	53		ç·¯åº¦ 53 (åˆ†)
+ *  24   3	525		ç·¯åº¦ 52.5 (ç§’)
+ *  27   1	E		æ±çµŒ (E)ã‚ã‚‹ã„ã¯è¥¿çµŒ(W)
+ *  28   3	140		çµŒåº¦ 140 (åº¦)
+ *  31   2	06		çµŒåº¦ 06 (åˆ†)
+ *  33   3	172		çµŒåº¦ 17.2 (ç§’)
+ *  36   5	+0253		é«˜åº¦ (æµ·æŠœï¼Ÿ) m
+ *  41   3	000		é€Ÿåº¦ km/h
+ *  44   3	180		æ–¹è§’ (åŒ—ã‹ã‚‰æ™‚è¨ˆå›žã‚Š) degrees (True North)
+ *  47  13	9812163181058	æ—¥ä»˜ã¨æ™‚åˆ» (è¨ˆæ¸¬æ™‚)
  * 		
  *  60   1	Q		dilution of precision (DOP)
- * 	 			ƒf[ƒ^	’l	ƒf[ƒ^	’l
+ * 	 			ãƒ‡ãƒ¼ã‚¿	å€¤	ãƒ‡ãƒ¼ã‚¿	å€¤
  * 	 			A	1	J	10
  * 	 			B	2	K	11 - 12
  * 	 			C	3	L	13 - 15
@@ -68,38 +68,38 @@ import vavi.util.StringUtil;
  * 	 			H	8	Q	100+
  * 	 			I	9
  * 		 
- *  61   1	3		‘ª’èƒ‚[ƒh
- * 		       	ƒf[ƒ^	ƒ‚[ƒh
- * 		       	3	‰q¯3‚ÂŽg—p‚Ì2ŽŸŒ³ƒ‚[ƒh
- * 		       	4	‰q¯4‚ÂŽg—p‚Ì3ŽŸŒ³ƒ‚[ƒh
+ *  61   1	3		æ¸¬å®šãƒ¢ãƒ¼ãƒ‰
+ * 		       	ãƒ‡ãƒ¼ã‚¿	ãƒ¢ãƒ¼ãƒ‰
+ * 		       	3	è¡›æ˜Ÿ3ã¤ä½¿ç”¨ã®2æ¬¡å…ƒãƒ¢ãƒ¼ãƒ‰
+ * 		       	4	è¡›æ˜Ÿ4ã¤ä½¿ç”¨ã®3æ¬¡å…ƒãƒ¢ãƒ¼ãƒ‰
  * 		
- *  62   1	B		‚“x•â³ƒf[ƒ^
+ *  62   1	B		é«˜åº¦è£œæ­£ãƒ‡ãƒ¼ã‚¿
  * 		
- *  63   5	REFAB		ƒ`ƒƒƒlƒ‹[1]
- *  68   5	XGdAB		ƒ`ƒƒƒlƒ‹[2]
- *  73   5	SCKAB		ƒ`ƒƒƒlƒ‹[3]
- *  78   5	PCGAC		ƒ`ƒƒƒlƒ‹[4]
- *  83   5	DHIAB		ƒ`ƒƒƒlƒ‹[5]
- *  88   5	JEiAB		ƒ`ƒƒƒlƒ‹[6]
- *  93   5	GCrBG		ƒ`ƒƒƒlƒ‹[7]
- *  98   5	MGrCE		ƒ`ƒƒƒlƒ‹[8]
- * 103   5	REFAB		ƒ`ƒƒƒlƒ‹[9]
- * 108   5	XGdAB		ƒ`ƒƒƒlƒ‹[10]
- * 113   5	SCKAB		ƒ`ƒƒƒlƒ‹[11]
- * 118   5	PCGAC		ƒ`ƒƒƒlƒ‹[12]
- * 123   5	DHIAB		ƒ`ƒƒƒlƒ‹[13]
- * 128   5	JEiAB		ƒ`ƒƒƒlƒ‹[14]
- * 133   5	GCrBG		ƒ`ƒƒƒlƒ‹[15]
- * 138   5	MGrCE		ƒ`ƒƒƒlƒ‹[16]
+ *  63   5	REFAB		ãƒãƒ£ãƒãƒ«[1]
+ *  68   5	XGdAB		ãƒãƒ£ãƒãƒ«[2]
+ *  73   5	SCKAB		ãƒãƒ£ãƒãƒ«[3]
+ *  78   5	PCGAC		ãƒãƒ£ãƒãƒ«[4]
+ *  83   5	DHIAB		ãƒãƒ£ãƒãƒ«[5]
+ *  88   5	JEiAB		ãƒãƒ£ãƒãƒ«[6]
+ *  93   5	GCrBG		ãƒãƒ£ãƒãƒ«[7]
+ *  98   5	MGrCE		ãƒãƒ£ãƒãƒ«[8]
+ * 103   5	REFAB		ãƒãƒ£ãƒãƒ«[9]
+ * 108   5	XGdAB		ãƒãƒ£ãƒãƒ«[10]
+ * 113   5	SCKAB		ãƒãƒ£ãƒãƒ«[11]
+ * 118   5	PCGAC		ãƒãƒ£ãƒãƒ«[12]
+ * 123   5	DHIAB		ãƒãƒ£ãƒãƒ«[13]
+ * 128   5	JEiAB		ãƒãƒ£ãƒãƒ«[14]
+ * 133   5	GCrBG		ãƒãƒ£ãƒãƒ«[15]
+ * 138   5	MGrCE		ãƒãƒ£ãƒãƒ«[16]
  * 		 
- * 		 		1 ”Ô–Ú‚Ì•¶Žš	‰q¯‚Ì PRN ”Ô†
- * 		 		2 ”Ô–Ú‚Ì•¶Žš	‰q¯‚Ì‚“x
- * 		 		3 ”Ô–Ú‚Ì•¶Žš	‰q¯‚Ì•ûˆÊ
- * 		 		4 ”Ô–Ú‚Ì•¶Žš	ŽóM‹@‚Æ‰q¯‚Ìî•ñ
- * 		 		5 ”Ô–Ú‚Ì•¶Žš	‰q¯‚©‚ç‚ÌM†‚Ì‹­‚³
+ * 		 		1 ç•ªç›®ã®æ–‡å­—	è¡›æ˜Ÿã® PRN ç•ªå·
+ * 		 		2 ç•ªç›®ã®æ–‡å­—	è¡›æ˜Ÿã®é«˜åº¦
+ * 		 		3 ç•ªç›®ã®æ–‡å­—	è¡›æ˜Ÿã®æ–¹ä½
+ * 		 		4 ç•ªç›®ã®æ–‡å­—	å—ä¿¡æ©Ÿã¨è¡›æ˜Ÿã®æƒ…å ±
+ * 		 		5 ç•ªç›®ã®æ–‡å­—	è¡›æ˜Ÿã‹ã‚‰ã®ä¿¡å·ã®å¼·ã•
  * 		 
- * 		 		1. ‰q¯‚Ì PRN (Pseudo-Range Navigation) ”Ô†
- * 		 		ƒf[ƒ^	PRN#	ƒf[ƒ^	PRN#	ƒf[ƒ^ PRN#
+ * 		 		1. è¡›æ˜Ÿã® PRN (Pseudo-Range Navigation) ç•ªå·
+ * 		 		ãƒ‡ãƒ¼ã‚¿	PRN#	ãƒ‡ãƒ¼ã‚¿	PRN#	ãƒ‡ãƒ¼ã‚¿ PRN#
  * 		 		A	1	L	12	W	23
  * 		 		B	2	M	13	X	24
  * 		 		C	3	N	14	a	25
@@ -112,8 +112,8 @@ import vavi.util.StringUtil;
  * 		 		J	10	U	21	h	32
  * 		 		K	11	V	22
  * 		 
- * 		 		2. ‰q¯‚Ì‚“x
- * 		 		ƒf[ƒ^	  ‚“x		ƒf[ƒ^	  ‚“x
+ * 		 		2. è¡›æ˜Ÿã®é«˜åº¦
+ * 		 		ãƒ‡ãƒ¼ã‚¿	  é«˜åº¦		ãƒ‡ãƒ¼ã‚¿	  é«˜åº¦
  * 		 		A	  0 >  +5	a	  0 >  -5
  * 		 		B	 +6 > +15	b	 -6 > -15
  * 		 		C	+16 > +25	c	-16 > -25
@@ -125,8 +125,8 @@ import vavi.util.StringUtil;
  * 		 		I	+76 > +85	i	-76 > -85
  * 		 		J	+86 > +90	j	-86 > -90
  * 		 
- * 		 		3. ‰q¯‚Ì•ûˆÊ
- * 		 		ƒf[ƒ^	   •ûˆÊ		ƒf[ƒ^	   •ûˆÊ
+ * 		 		3. è¡›æ˜Ÿã®æ–¹ä½
+ * 		 		ãƒ‡ãƒ¼ã‚¿	   æ–¹ä½		ãƒ‡ãƒ¼ã‚¿	   æ–¹ä½
  * 		 		A	   0 >   +5	a	   0 >   -5
  * 		 		B	  +6 >  +15	b	  -6 >  -15
  * 		 		C	 +16 >  +25	c	 -16 >  -25
@@ -147,26 +147,26 @@ import vavi.util.StringUtil;
  * 		 		R	+166 > +175	r	-166 > -175
  * 		 		S	+176 > +180	s	-176 > -180
  * 		 
- * 		 		4. ŽóM‹@‚Æ‰q¯‚Ìî•ñ
- * 		 		ƒf[ƒ^	ó‘Ô
- * 		 		A ‰q¯‚ð’T‚µ‚Ä‚¢‚é (SCAN)
- * 		 		B ŽóM‹@‚Í‰q¯‚ÌM†‚É“¯’²’† (LOCK)
- * 		 		C ˆÊ’uî•ñ‚ÌŒvŽZ€”õŠ®—¹ (READY)
- * 		 		D ‰q¯‚©‚ç‚ÌM†‚ÉŠ„‚èž‚Ý‚ª‚©‚©‚Á‚½ (HOLD)
- * 		 		E ‰q¯‚ª•s’²‚©‚à‚µ‚­‚ÍŒvŽZ•s”\ (ILL)
- * 		 		F ‰q¯‚ÍˆÊ’uî•ñŒvŽZ‰Â”\ (OK)
+ * 		 		4. å—ä¿¡æ©Ÿã¨è¡›æ˜Ÿã®æƒ…å ±
+ * 		 		ãƒ‡ãƒ¼ã‚¿	çŠ¶æ…‹
+ * 		 		A è¡›æ˜Ÿã‚’æŽ¢ã—ã¦ã„ã‚‹ (SCAN)
+ * 		 		B å—ä¿¡æ©Ÿã¯è¡›æ˜Ÿã®ä¿¡å·ã«åŒèª¿ä¸­ (LOCK)
+ * 		 		C ä½ç½®æƒ…å ±ã®è¨ˆç®—æº–å‚™å®Œäº† (READY)
+ * 		 		D è¡›æ˜Ÿã‹ã‚‰ã®ä¿¡å·ã«å‰²ã‚Šè¾¼ã¿ãŒã‹ã‹ã£ãŸ (HOLD)
+ * 		 		E è¡›æ˜ŸãŒä¸èª¿ã‹ã‚‚ã—ãã¯è¨ˆç®—ä¸èƒ½ (ILL)
+ * 		 		F è¡›æ˜Ÿã¯ä½ç½®æƒ…å ±è¨ˆç®—å¯èƒ½ (OK)
  * 		 
- * 		 		5. ‰q¯‚©‚ç‚ÌM†‚Ì‹­‚³
- * 		 		[A-Z] ‚Ìƒf[ƒ^
- * 		 		A:	’áƒŒƒxƒ‹	Z: ‚ƒŒƒxƒ‹
+ * 		 		5. è¡›æ˜Ÿã‹ã‚‰ã®ä¿¡å·ã®å¼·ã•
+ * 		 		[A-Z] ã®ãƒ‡ãƒ¼ã‚¿
+ * 		 		A:	ä½Žãƒ¬ãƒ™ãƒ«	Z: é«˜ãƒ¬ãƒ™ãƒ«
  * 		 
- * 143   1	d		“à•”Šî€”­MŠí‚Ìó‘Ô (Hz)
- * 				TCXO ‚Ì‚¸‚ê (1.57542Ghz Š·ŽZ)
- * 144   2	DC		•s–¾
+ * 143   1	d		å†…éƒ¨åŸºæº–ç™ºä¿¡å™¨ã®çŠ¶æ…‹ (Hz)
+ * 				TCXO ã®ãšã‚Œ (1.57542Ghz æ›ç®—)
+ * 144   2	DC		ä¸æ˜Ž
  * 146   1	E		Lat and Lon are shown as DMS if in Alphabet
  * 				Lat and Lon are shown as DMD if in Numeric
  * 
- * 147   1	O		ƒpƒŠƒeƒB(either E or O)
+ * 147   1	O		ãƒ‘ãƒªãƒ†ã‚£(either E or O)
  * </pre></code>
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
@@ -184,7 +184,7 @@ public class IpsGpsFormat implements GpsFormat {
     public static final String HEADER_HGR1 = "SM01??";
     public static final String HEADER_HGR3 = "SM0020";
 
-    // ‰q¯‚Ì PRN ”Ô†
+    // è¡›æ˜Ÿã® PRN ç•ªå·
     static final String prnData = "ABCDEFGHIJKLMNOPQRSTUVWXabcdefgh";
 
     // dilution of precision (DOP)
@@ -195,7 +195,7 @@ public class IpsGpsFormat implements GpsFormat {
         12, 14, 18, 25, 40, 75, 100, GpsData.INVALID_DOP
     };
 
-    // ‰q¯‚Ì‚“x
+    // è¡›æ˜Ÿã®é«˜åº¦
     static final String elevationData = "ABCDEFGHIJabcdefghij_";
 
     static final int[] elevationValues = {
@@ -204,7 +204,7 @@ public class IpsGpsFormat implements GpsFormat {
         Channel.INVALID_ELEVTION
     };
 
-    // ‰q¯‚Ì•ûˆÊ
+    // è¡›æ˜Ÿã®æ–¹ä½
     static final String azimuthData =
         "ABCDEFGHIJKLMNOPQRSabcdefghijklmnopqrs_";
 
@@ -216,7 +216,7 @@ public class IpsGpsFormat implements GpsFormat {
         Channel.INVALID_AZIMUTH
     };
 
-    // “à•”Šî€”­MŠí‚Ìó‘Ô
+    // å†…éƒ¨åŸºæº–ç™ºä¿¡å™¨ã®çŠ¶æ…‹
     static final String differenceOfClockData =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-";
 
@@ -279,8 +279,7 @@ public class IpsGpsFormat implements GpsFormat {
 
         if ("n".equals(type) || "s".equals(type)) {
             data.setReady(false);
-        }
-        else {
+        } else {
             data.setReady(true);
         }
 
@@ -327,8 +326,7 @@ public class IpsGpsFormat implements GpsFormat {
         Date timeOfFix = toDate(dateTime);
         if (timeOfFix == null) {
             data.setReady(false);
-        }
-        else {
+        } else {
             data.setReady(true);
         }
         data.setTimeOfFix(timeOfFix);
@@ -345,8 +343,7 @@ public class IpsGpsFormat implements GpsFormat {
             data.setPDop(dopValues[p]);
             data.setHDop(GpsData.INVALID_DOP);
 //Debug.println("pdop: " + dop + ": " + data.getPDop());
-        }
-        else {
+        } else {
             data.setPDop(GpsData.INVALID_DOP);
             data.setHDop(dopValues[p]);
 //Debug.println("hdop: " + dop + ": " + data.getHDop());
@@ -395,8 +392,7 @@ public class IpsGpsFormat implements GpsFormat {
         char c = unitType.charAt(0);
         if ('0' >= c && '9' <= c) {
             data.setUnitType(IpsGpsData.UNIT_DMD);
-        }
-        else if (('A' >= c && 'Z' <= c) || ('a' >= c && 'z' <= c)) {
+        } else if (('A' >= c && 'Z' <= c) || ('a' >= c && 'z' <= c)) {
             data.setUnitType(IpsGpsData.UNIT_DMS);
         }
 //Debug.println("unitType: " + unitType + ": " + (data.getUnitType() == IpsGpsData.UNIT_DMD ? "DMD" : "DMS"));
@@ -439,8 +435,7 @@ System.err.println(StringUtil.paramString(data));
         int type = point.getType();
         if (data.ready()) {
             line[19] = (byte) (type == PointSurface.NORTH_LATITUDE ? 'N' : 'S');
-        }
-        else {
+        } else {
             line[19] = (byte) (type == PointSurface.NORTH_LATITUDE ? 'n' : 's');
         }
 
@@ -512,32 +507,24 @@ System.err.println(StringUtil.paramString(data));
         int dop;
         if (mode == GpsData.MODE_2D) {
             dop = data.getHDop();
-        }
-        else {
+        } else {
             dop = data.getPDop();
         }
         if (dop > 0 && dop <= 10) {
             line[60] = (byte) ('A' + (dop - 1));
-        }
-        else if (dop >= 11 && dop < 12) {
+        } else if (dop >= 11 && dop < 12) {
             line[60] = 'K';
-        }
-        else if (dop >= 13 && dop < 15) {
+        } else if (dop >= 13 && dop < 15) {
             line[60] = 'L';
-        }
-        else if (dop >= 16 && dop < 20) {
+        } else if (dop >= 16 && dop < 20) {
             line[60] = 'M';
-        }
-        else if (dop >= 21 && dop < 30) {
+        } else if (dop >= 21 && dop < 30) {
             line[60] = 'N';
-        }
-        else if (dop >= 31 && dop < 50) {
+        } else if (dop >= 31 && dop < 50) {
             line[60] = 'O';
-        }
-        else if (dop >= 51 && dop < 99) {
+        } else if (dop >= 51 && dop < 99) {
             line[60] = 'P';
-        }
-        else {
+        } else {
             line[60] = 'Q';
         }
 

@@ -14,7 +14,7 @@ package vavi.gps;
  * @version 0.00 030318 nsano initial version <br>
  */
 public class Channel {
-    /** ‰q¯‚Ì PRN ”Ô† 1 - 32 */
+    /** è¡›æ˜Ÿã® PRN ç•ªå· 1 - 32 */
     private int prn;
 
     /** */
@@ -30,7 +30,7 @@ public class Channel {
     /** */
     public static final int INVALID_ELEVTION = 99;
 
-    /** ‰q¯‚Ì‚“x */
+    /** è¡›æ˜Ÿã®é«˜åº¦ */
     private int elevation;
 
     /** */
@@ -46,7 +46,7 @@ public class Channel {
     /** */
     public static final int INVALID_AZIMUTH = 999;
 
-    /** ‰q¯‚Ì•ûˆÊ */
+    /** è¡›æ˜Ÿã®æ–¹ä½ */
     private int azimuth;
 
     /** */
@@ -59,7 +59,7 @@ public class Channel {
         return azimuth;
     }
 
-    /** óM‹@‚Æ‰q¯‚Ìî•ñ 0 - 5 */
+    /** å—ä¿¡æ©Ÿã¨è¡›æ˜Ÿã®æƒ…å ± 0 - 5 */
     private int info;
 
     /** */
@@ -72,7 +72,7 @@ public class Channel {
         return info;
     }
 
-    /** ‰q¯‚©‚ç‚ÌM†‚Ì‹­‚³ 0 - 25 */
+    /** è¡›æ˜Ÿã‹ã‚‰ã®ä¿¡å·ã®å¼·ã• 0 - 25 */
     private int signalStrength;
 
     /** */
@@ -113,7 +113,7 @@ public class Channel {
             "S=" + signalStrength;
     }
 
-    /** óM‹@‚Æ‰q¯‚Ìî•ñ */
+    /** å—ä¿¡æ©Ÿã¨è¡›æ˜Ÿã®æƒ…å ± */
     private static final String[] infoStrings = {
         "SCAN", "LOCK", "READY", "HOLD", "ILL", "OK"
     };

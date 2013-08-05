@@ -13,9 +13,9 @@ import java.util.Map;
 
 /**
  * SharedFifo.
- *
- * @author	<a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
- * @version	0.00	030331	nsano	initial version <br>
+ * 
+ * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @version 0.00 030331 nsano initial version <br>
  */
 public class SharedFifo<E> extends LinkedList<E> {
 

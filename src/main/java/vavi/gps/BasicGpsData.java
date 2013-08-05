@@ -15,7 +15,7 @@ package vavi.gps;
  */
 public class BasicGpsData extends GpsData {
 
-    /** TODO ‘½•ª GpsData ƒNƒ‰ƒX‚ÉˆÚ‚·‚×‚« */
+    /** TODO å¤šåˆ† GpsData ã‚¯ãƒ©ã‚¹ã«ç§»ã™ã¹ã */
     private byte[] rawData;
 
     /** */

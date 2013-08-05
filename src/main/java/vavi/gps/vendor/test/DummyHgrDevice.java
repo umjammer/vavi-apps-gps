@@ -12,7 +12,7 @@ import vavi.util.Debug;
 
 
 /**
- * HGR ÇÃ
+ * HGR „ÅÆ
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030324 nsano initial version <br>

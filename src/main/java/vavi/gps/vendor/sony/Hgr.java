@@ -17,7 +17,7 @@ import vavi.util.Debug;
 /**
  * HGR device.
  *
- * Navin' You 5.5 ‚Æ‚ÌƒZƒbƒVƒ‡ƒ“
+ * Navin' You 5.5 ã¨ã®ã‚»ãƒƒã‚·ãƒ§ãƒ³
  * <code><pre>
  * < !PUON\r\n		0, 9, 0x100
  * > ROM    OK\r\n
@@ -57,15 +57,15 @@ import vavi.util.Debug;
  */
 public class Hgr extends BasicGpsDevice {
 
-    /** ƒpƒ[ƒIƒ“‚·‚éƒRƒ}ƒ“ƒh */
+    /** ãƒ‘ãƒ¯ãƒ¼ã‚ªãƒ³ã™ã‚‹ã‚³ãƒãƒ³ãƒ‰ */
     public static final String INTERFACE_POWER_ON = "!PUON";
-    /** ƒpƒ[ƒIƒt‚·‚éƒRƒ}ƒ“ƒh */
+    /** ãƒ‘ãƒ¯ãƒ¼ã‚ªãƒ•ã™ã‚‹ã‚³ãƒãƒ³ãƒ‰ */
     public static final String INTERFACE_POWER_OFF = "!PUOFF";
-    /** HGR ‚ğƒRƒ}ƒ“ƒh‚ğ‘—‚éƒ‚[ƒh‚É‚·‚éƒRƒ}ƒ“ƒh */
+    /** HGR ã‚’ã‚³ãƒãƒ³ãƒ‰ã‚’é€ã‚‹ãƒ¢ãƒ¼ãƒ‰ã«ã™ã‚‹ã‚³ãƒãƒ³ãƒ‰ */
     public static final String INTERFACE_MODE_PC = "!PC";
-    /** HGR ‚ğ‘ªˆÊƒ‚[ƒh‚É‚·‚éƒRƒ}ƒ“ƒh */
+    /** HGR ã‚’æ¸¬ä½ãƒ¢ãƒ¼ãƒ‰ã«ã™ã‚‹ã‚³ãƒãƒ³ãƒ‰ */
     public static final String INTERFACE_MODE_GP = "!GP";
-    /** ID ‚ğæ“¾‚·‚éƒRƒ}ƒ“ƒh */
+    /** ID ã‚’å–å¾—ã™ã‚‹ã‚³ãƒãƒ³ãƒ‰ */
     public static final String INTERFACE_ID_GET = "!ID";
     /** */
     public static final String INTERFACE_MEMORY_WRITE = "!MW";
@@ -76,7 +76,7 @@ public class Hgr extends BasicGpsDevice {
 
     /** */
     public static final String COMMAND_UNKNOWN1 = "@VF";
-    /** ‘ª’nŒn‚ğ•ÏX‚·‚éƒRƒ}ƒ“ƒh */
+    /** æ¸¬åœ°ç³»ã‚’å¤‰æ›´ã™ã‚‹ã‚³ãƒãƒ³ãƒ‰ */
     public static final String COMMAND_MAP_DATUM = "@SK";
 
     //-------------------------------------------------------------------------
@@ -106,7 +106,7 @@ public class Hgr extends BasicGpsDevice {
     }
 
     /** */
-    private String mapDatum = "B";	// ƒfƒtƒHƒ‹ƒg‚Í Tokyo
+    private String mapDatum = "B";	// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯ Tokyo
     /** */
     private String vfValue = "040";
 
@@ -171,7 +171,7 @@ Debug.printStackTrace(e);
             os.writeLine(COMMAND_UNKNOWN1 + vfValue);
             
             os.writeLine(COMMAND_MAP_DATUM + mapDatum);
-            // 2 ‰ñ‚µ‚È‚¢‚Æ”½‰f‚³‚ê‚È‚¢
+            // 2 å›ã—ãªã„ã¨åæ˜ ã•ã‚Œãªã„
             os.writeLine(COMMAND_MAP_DATUM + mapDatum);
 try { Thread.sleep(3000); } catch (Exception e) { Debug.println(e); }
     	    os.writeLine(COMMAND_UNKNOWN1 + vfValue);

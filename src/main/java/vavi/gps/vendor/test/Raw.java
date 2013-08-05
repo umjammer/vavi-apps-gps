@@ -15,9 +15,9 @@ import vavi.util.Debug;
 
 /**
  * Raw GPS device.
- * ‚È‚é‚×‚­ inputDevice ‚Æ‚µ‚Äİ’è‚µ‚È‚¢‚Å‚­‚¾‚³‚¢B
+ * ãªã‚‹ã¹ã inputDevice ã¨ã—ã¦è¨­å®šã—ãªã„ã§ãã ã•ã„ã€‚
  * 
- * @todo ”Ä—p‰»‚µ‚Ä vavi.gps ƒpƒbƒP[ƒW‚Ö‚Ì¸Ši
+ * @todo æ±ç”¨åŒ–ã—ã¦ vavi.gps ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã¸ã®æ˜‡æ ¼
  * @see RawGpsFormat#parse(byte[])
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030325 nsano initial version <br>

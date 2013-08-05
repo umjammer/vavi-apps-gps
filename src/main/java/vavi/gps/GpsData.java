@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public abstract class GpsData {
 
-    /** ƒxƒ“ƒ_[ƒo[ƒWƒ‡ƒ“ */
+    /** ãƒ™ãƒ³ãƒ€ãƒ¼ãƒãƒ¼ã‚¸ãƒ§ãƒ³ */
     private String versionString;
 
     /** */
@@ -34,7 +34,7 @@ public abstract class GpsData {
         return versionString;
     }
 
-    /** “ú•t‚Æ */
+    /** æ—¥ä»˜ã¨æ™‚åˆ» */
     private Date dateTime;
 
     /** */
@@ -47,7 +47,7 @@ public abstract class GpsData {
         return dateTime;
     }
 
-    /** ˆÜ“x, Œo“x */
+    /** ç·¯åº¦, çµŒåº¦ */
     private PointMap3D point;
 
     /** */
@@ -60,7 +60,7 @@ public abstract class GpsData {
         return point;
     }
 
-    /** ‘¬“x, •ûŠp */
+    /** é€Ÿåº¦, æ–¹è§’ */
     private MapVector vector;
 
     /** */
@@ -73,7 +73,7 @@ public abstract class GpsData {
         return vector;
     }
 
-    /** “ú•t‚Æ (Œv‘ª) */
+    /** æ—¥ä»˜ã¨æ™‚åˆ» (è¨ˆæ¸¬æ™‚) */
     private Date timeOfFix;
 
     /** */
@@ -135,7 +135,7 @@ public abstract class GpsData {
     /** */
     public static final int MODE_3D = 3;
 
-    /** ‘ª’èƒ‚[ƒh */
+    /** æ¸¬å®šãƒ¢ãƒ¼ãƒ‰ */
     private int measurementMode;
 
     /** */
@@ -148,7 +148,7 @@ public abstract class GpsData {
         return measurementMode;
     }
 
-    /** ‚“x•â³ƒf[ƒ^ 0 - 25 TODO depends IPS */
+    /** é«˜åº¦è£œæ­£ãƒ‡ãƒ¼ã‚¿ 0 - 25 TODO depends IPS */
     private int mapDatum;
 
     /** */
@@ -177,7 +177,7 @@ public abstract class GpsData {
         return mapDatum;
     }
 
-    /** ƒ`ƒƒƒlƒ‹ */
+    /** ãƒãƒ£ãƒãƒ« */
     protected Map<String,Channel> channels = new HashMap<String,Channel>();
 
     /** */
@@ -219,9 +219,9 @@ public abstract class GpsData {
         return mapDatumStrings[mapDatum];
     }
 
-    /** ‚“x•â³ƒf[ƒ^ */
+    /** é«˜åº¦è£œæ­£ãƒ‡ãƒ¼ã‚¿ */
     private static final String[] mapDatumStrings = {
-        "WGS-84",		// •â³‚Ì•K—v–³‚µ
+        "WGS-84",		// è£œæ­£ã®å¿…è¦ç„¡ã—
         "Tokyo",
         "ADINDAN",
         "ARC 1950",

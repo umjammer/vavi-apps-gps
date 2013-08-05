@@ -32,10 +32,10 @@ public class IpsGpsData extends BasicGpsData {
         this.ready = ready;
     }
 
-    /** Šî€”­MŠí‚ª UNLOCK */
+    /** åŸºæº–ç™ºä¿¡å™¨ãŒ UNLOCK */
     public static final int TCXO_UNLOCKED = -9999;
 
-    /** “à•”Šî€”­MŠí‚Ìó‘Ô */
+    /** å†…éƒ¨åŸºæº–ç™ºä¿¡å™¨ã®çŠ¶æ…‹ */
     private int differenceOfClock;
 
     /** */
@@ -48,7 +48,7 @@ public class IpsGpsData extends BasicGpsData {
         return differenceOfClock;
     }
 
-    /** •s–¾ */
+    /** ä¸æ˜ */
     byte[] unknown = new byte[2];
 
     public void setUnknown(byte[] unknown) {
@@ -61,7 +61,7 @@ public class IpsGpsData extends BasicGpsData {
     /** */
     public static final int UNIT_DMD = 1;
 
-    /** Œo“x‚ÆˆÜ“x‚Ì’PˆÊ */
+    /** çµŒåº¦ã¨ç·¯åº¦ã®å˜ä½ */
     private int unitType;
 
     /** */
@@ -80,7 +80,7 @@ public class IpsGpsData extends BasicGpsData {
     /** */
     public static final int PARITY_ODD = 1;
 
-    /** ƒpƒŠƒeƒB */
+    /** ãƒ‘ãƒªãƒ†ã‚£ */
     public int getParity(byte[] data) {
         int sum = 0;
         for (int i = 0; i < 147; i++) {

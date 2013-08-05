@@ -22,6 +22,7 @@ import vavi.util.Debug;
 public class HgrUtil {
 
     /**
+     * <pre>
      * power on
      * power off
      * gps off
@@ -31,6 +32,7 @@ public class HgrUtil {
      * set interval standalone
      * set interval pclinked
      * show memory usage
+     * </pre>
      */
     public HgrUtil() throws IOException {
 
@@ -43,8 +45,7 @@ public class HgrUtil {
                     try {
                         String line = is.readLine();
                         System.out.println(line);
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
 Debug.println(e);
                     }
                 }

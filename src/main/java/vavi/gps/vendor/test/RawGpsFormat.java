@@ -14,15 +14,15 @@ import vavi.util.Debug;
 
 /**
  * RAW GPS Format.
- *
- * @author	<a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
- * @version	0.00	030326	nsano	initial version <br>
+ * 
+ * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @version 0.00 030326 nsano initial version <br>
  */
 public class RawGpsFormat implements GpsFormat {
 
     /**
-     * GpsData ‚É setRawData ‚µ‚©İ’è‚µ‚Ä‚¢‚È‚¢‚Ì‚Å‚È‚é‚×‚­ Raw GpsDevce ‚ğ
-     * inputDevice ‚Æ‚µ‚Äİ’è‚µ‚È‚¢‚Å‚­‚¾‚³‚¢B
+     * GpsData ã« setRawData ã—ã‹è¨­å®šã—ã¦ã„ãªã„ã®ã§ãªã‚‹ã¹ã Raw GpsDevce ã‚’
+     * inputDevice ã¨ã—ã¦è¨­å®šã—ãªã„ã§ãã ã•ã„ã€‚
      */
     public GpsData parse(byte[] line) {
         BasicGpsData data = new BasicGpsData();
@@ -46,10 +46,9 @@ public class RawGpsFormat implements GpsFormat {
             System.arraycopy(line, 143, ips, 103, 5);
 
             return ips;
-        }
-        else {
+        } else {
 Debug.println("line: " + new String(line));
-	    throw new IllegalArgumentException(new String(line));
+	        throw new IllegalArgumentException(new String(line));
         }
     }
 }

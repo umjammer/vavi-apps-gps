@@ -40,7 +40,7 @@ public class SerialPortDevice implements IODevice {
     /**
      * TODO read from file, COM port properties (4800, 8, 1, none, ...)
      * 
-     * @param name ƒVƒŠƒAƒ‹ƒ|[ƒg”Ô†‚ğw’è‚µ‚Ü‚·
+     * @param name ã‚·ãƒªã‚¢ãƒ«ãƒãƒ¼ãƒˆç•ªå·ã‚’æŒ‡å®šã—ã¾ã™
      */
     public SerialPortDevice(String name) {
 

@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2003 by Naohide Sano, All rights reserved.
+ * Copyright (c) 2012 by Naohide Sano, All rights reserved.
  *
  * Programmed by Naohide Sano
  */
 
-package vavi.gps.vendor.nmea;
+package vavi.gps.vendor.ms;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -14,20 +14,18 @@ import vavi.util.Debug;
 
 
 /**
- * NMEA device.
+ * AutoRoute device.
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
- * @version 0.00 030320 nsano initial version <br>
- *          0.01 030326 nsano specification compliant <br>
- *          0.02 030326 nsano extends BasicGpsDevice <br>
+ * @version 0.00 120321 nsano initial version <br>
  */
-public class Nmea extends BasicGpsDevice {
+public class AutoRoute extends BasicGpsDevice {
 
     /** */
     private String ioDeviceClass = "vavi.gps.io.InetServerDevice";
 
     /** */
-    private String ioDeviceName = "5750";
+    private String ioDeviceName = "";
 
     /** */
     protected String getIODeviceClass() {
@@ -40,7 +38,7 @@ public class Nmea extends BasicGpsDevice {
     }
 
     /** */
-    private GpsFormat gpsFormat = new NmeaGpsFormat();
+    private GpsFormat gpsFormat = new AutoRouteGpsFormat();
 
     /** */
     protected GpsFormat getGpsFormat() {
@@ -48,13 +46,13 @@ public class Nmea extends BasicGpsDevice {
     }
 
     /** */
-    public Nmea(String name) {
+    public AutoRoute(String name) {
         super(name);
 
         try {
             Properties props = new Properties();
 
-            props.load(Nmea.class.getResourceAsStream("Nmea.properties"));
+            props.load(AutoRoute.class.getResourceAsStream("Nmea.properties"));
 
             String key = "ioDevice.class." + this.name;
             String value = props.getProperty(key);

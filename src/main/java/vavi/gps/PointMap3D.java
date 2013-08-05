@@ -15,7 +15,7 @@ package vavi.gps;
  */
 public class PointMap3D {
 
-    /** 緯度 */
+    /** 邱ｯ蠎ｦ */
     private PointSurface latitude;
 
     /** */
@@ -28,7 +28,7 @@ public class PointMap3D {
         return latitude;
     }
 
-    /** 経度 */
+    /** 邨悟ｺｦ */
     private PointSurface longitude;
 
     /** */
@@ -41,7 +41,7 @@ public class PointMap3D {
         return longitude;
     }
 
-    /** 高度 (against earth ellipsoid) in meters */
+    /** 鬮伜ｺｦ (against earth ellipsoid) in meters */
     private int altitude;
 
     /** */

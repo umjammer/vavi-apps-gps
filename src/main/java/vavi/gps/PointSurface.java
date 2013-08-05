@@ -31,7 +31,7 @@ public class PointSurface {
     /** */
     private static final String typeStrings = "NSEW";
 
-    /** éØï éq */
+    /** Ë≠òÂà•Â≠ê */
     private int type;
 
     /** */
@@ -44,7 +44,7 @@ public class PointSurface {
         return type;
     }
 
-    /** ìx */
+    /** Â∫¶ */
     private int degrees;
 
     /** */
@@ -56,7 +56,7 @@ public class PointSurface {
     public int getDegrees() {
         return degrees;
     }
-    /** ï™ */
+    /** ÂàÜ */
     private int minutes;
 
     /** */
@@ -69,7 +69,7 @@ public class PointSurface {
         return minutes;
     }
 
-    /** ïb */
+    /** Áßí */
     private float seconds;
 
     /** */
@@ -84,54 +84,74 @@ public class PointSurface {
 
     /** */
     public String toString() {
-
-        StringBuilder sb = new StringBuilder();
-
-        final DecimalFormat df2 = new DecimalFormat("00");
-        final DecimalFormat df3 = new DecimalFormat("000");
-        final DecimalFormat df2_4 = new DecimalFormat("00.00");
-
-        sb.append(typeStrings.charAt(type));
-        sb.append(" ");
-
-        if (type == EAST_LONGITUDE || type == WEST_LONGITUDE) {
-            sb.append(df3.format(degrees));
-        } else {
-            sb.append(df2.format(degrees));
-        }
-        sb.append("ﬂ");
-
-        sb.append(df2.format(minutes));
-        sb.append("'");
-
-        sb.append(df2_4.format(seconds));
-        sb.append("\"");
-
-        return sb.toString();
+        return formatter.toString();
     }
 
-    /**
-     * DMM
-     */
-    public String toNmeaString() {
+    /** */
+    private Formatter formatter = new Formatter2();
 
-        StringBuilder sb = new StringBuilder();
-
-        final DecimalFormat df2 = new DecimalFormat("00");
-        final DecimalFormat df3 = new DecimalFormat("000");
-        final DecimalFormat df2_4 = new DecimalFormat("00.0000");
-
-        if (type == EAST_LONGITUDE || type == WEST_LONGITUDE) {
-            sb.append(df3.format(degrees));
-        } else {
-            sb.append(df2.format(degrees));
+    /** */
+    private interface Formatter {
+        String toString();
+    }
+    
+    /** */
+    class Formatter1 implements Formatter {
+        public String toString() {
+    
+            StringBuilder sb = new StringBuilder();
+    
+            final DecimalFormat df2 = new DecimalFormat("00");
+            final DecimalFormat df3 = new DecimalFormat("000");
+            final DecimalFormat df2_4 = new DecimalFormat("00.00");
+    
+            sb.append(typeStrings.charAt(type));
+            sb.append(" ");
+    
+            if (type == EAST_LONGITUDE || type == WEST_LONGITUDE) {
+                sb.append(df3.format(degrees));
+            } else {
+                sb.append(df2.format(degrees));
+            }
+            sb.append("„Çú");
+    
+            sb.append(df2.format(minutes));
+            sb.append("'");
+    
+            sb.append(df2_4.format(seconds));
+            sb.append("\"");
+    
+            return sb.toString();
         }
+    }
 
-        sb.append(df2_4.format(minutes + seconds / 60f));
-        sb.append(",");
-        sb.append(typeStrings.charAt(type));
+    /** */
+    class Formatter2 implements Formatter {
+        public String toString() {
 
-        return sb.toString();
+            StringBuilder sb = new StringBuilder();
+    
+            final DecimalFormat df2 = new DecimalFormat("00");
+            final DecimalFormat df2_4 = new DecimalFormat("00.0000");
+    
+            sb.append(degrees);
+    
+            sb.append(df2.format(minutes));
+    
+            sb.append(df2_4.format(seconds));
+    
+            return sb.toString();
+        }
+    }
+
+    /** */
+    public float toFloat() {
+        return (degrees * 3600 + minutes * 60 + seconds) / 3600f;
+    }
+
+    /** */
+    public char getTypeString() {
+        return typeStrings.charAt(type);
     }
 }
 

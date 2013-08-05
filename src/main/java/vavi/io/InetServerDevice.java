@@ -40,7 +40,7 @@ public class InetServerDevice implements IODevice {
     private OutputStream os;
 
     /**
-     * @param name IP ‚Ìƒ|[ƒg”Ô†‚ğw’è‚µ‚Ü‚·
+     * @param name IP ã®ãƒãƒ¼ãƒˆç•ªå·ã‚’æŒ‡å®šã—ã¾ã™
      */
     public InetServerDevice(String name) throws IOException {
 
@@ -105,7 +105,7 @@ Debug.println(e);
     }
 
     /**
-     * ƒRƒlƒNƒVƒ‡ƒ“‚ªŠm—§‚µ‚Ä‚¢‚È‚¢“_‚Ì‘‚«‚İ‚Í”jŠü‚³‚ê‚Ü‚·B
+     * ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ãŒç¢ºç«‹ã—ã¦ã„ãªã„æ™‚ç‚¹ã®æ›¸ãè¾¼ã¿ã¯ç ´æ£„ã•ã‚Œã¾ã™ã€‚
      */
     public void write(int b) throws IOException {
         if (os != null) {
@@ -121,7 +121,7 @@ Debug.println(e);
     }
 
     /**
-     * ƒRƒlƒNƒVƒ‡ƒ“‚ªŠm—§‚µ‚Ä‚¢‚È‚¢“_‚Ìƒtƒ‰ƒbƒVƒ…‚Í”jŠü‚³‚ê‚Ü‚·B
+     * ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ãŒç¢ºç«‹ã—ã¦ã„ãªã„æ™‚ç‚¹ã®ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã¯ç ´æ£„ã•ã‚Œã¾ã™ã€‚
      */
     public void flush() throws IOException {
         if (os != null) {
@@ -146,8 +146,8 @@ Debug.println(e);
         } catch (SocketException e) {
             throw e;
         } finally {
-            os = null; // ƒRƒlƒNƒVƒ‡ƒ“Šm—§‚Ìƒtƒ‰ƒO‚Æ‚µ‚Äg—p
-            is = null; // ƒRƒlƒNƒVƒ‡ƒ“Šm—§‚Ìƒtƒ‰ƒO‚Æ‚µ‚Äg—p
+            os = null; // ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ç¢ºç«‹ã®ãƒ•ãƒ©ã‚°ã¨ã—ã¦ä½¿ç”¨
+            is = null; // ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ç¢ºç«‹ã®ãƒ•ãƒ©ã‚°ã¨ã—ã¦ä½¿ç”¨
         }
     }
 }

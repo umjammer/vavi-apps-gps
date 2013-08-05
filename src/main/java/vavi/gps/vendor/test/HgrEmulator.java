@@ -18,21 +18,21 @@ import vavi.util.Debug;
 
 
 /**
- * HGR ‚ÌƒGƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“‚ðs‚¤ƒNƒ‰ƒX‚Å‚·B
+ * HGR ã®ã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  * <pre>
- * <!PUON		“dŒ¹ ON
- * > ƒƒbƒZ[ƒW
- * < !PUOFF		“dŒ¹ OFF
- * > –³‚µ
+ * <!PUON		é›»æº ON
+ * > ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+ * < !PUOFF		é›»æº OFF
+ * > ç„¡ã—
  * < !PC		GPS OFF
  * > OK
  * < !GP		GPS ON
  * > OK
- * < !ID		ID Žæ“¾
- * > ID î•ñ
- * < !MRD6		ƒƒ‚ƒŠƒŒƒWƒXƒ^“Ç‚Ýž‚Ý D6 ƒŒƒWƒXƒ^
+ * < !ID		ID å–å¾—
+ * > ID æƒ…å ±
+ * < !MRD6		ãƒ¡ãƒ¢ãƒªãƒ¬ã‚¸ã‚¹ã‚¿èª­ã¿è¾¼ã¿ D6 ãƒ¬ã‚¸ã‚¹ã‚¿
  * > MRDT3e900	... 0x3e900
- * < !MWW1c,21c	ƒƒ‚ƒŠƒŒƒWƒXƒ^‘‚«ž‚Ý W1c ƒŒƒWƒXƒ^A’l 0x21c
+ * < !MWW1c,21c	ãƒ¡ãƒ¢ãƒªãƒ¬ã‚¸ã‚¹ã‚¿æ›¸ãè¾¼ã¿ W1c ãƒ¬ã‚¸ã‚¹ã‚¿ã€å€¤ 0x21c
  * > OK		or NG
  * < !MD100,4c		[W0],[Da]
  * > MDC#......
@@ -40,97 +40,97 @@ import vavi.util.Debug;
  * >  :
  * > MDF#...
  * </pre>
- * ƒŒƒWƒXƒ^‚Ìà–¾
+ * ãƒ¬ã‚¸ã‚¹ã‚¿ã®èª¬æ˜Ž
  * <pre>
- * W0	ƒƒ‚ƒŠƒXƒ^[ƒgƒIƒtƒZƒbƒgH(“Ç‚Ýž‚Ýê—p)
+ * W0	ãƒ¡ãƒ¢ãƒªã‚¹ã‚¿ãƒ¼ãƒˆã‚ªãƒ•ã‚»ãƒƒãƒˆï¼Ÿ(èª­ã¿è¾¼ã¿å°‚ç”¨)
  *
- *		‚¢‚Â‚à 0x100
+ *		ã„ã¤ã‚‚ 0x100
  *
- * D2	ƒƒ‚ƒŠƒXƒ^[ƒgƒIƒtƒZƒbƒgH(“Ç‚Ýž‚Ýê—p)
+ * D2	ãƒ¡ãƒ¢ãƒªã‚¹ã‚¿ãƒ¼ãƒˆã‚ªãƒ•ã‚»ãƒƒãƒˆï¼Ÿ(èª­ã¿è¾¼ã¿å°‚ç”¨)
  *
- *		‚¢‚Â‚à 0x100
+ *		ã„ã¤ã‚‚ 0x100
  *
- * D6	“‹Úƒƒ‚ƒŠ—Ê(“Ç‚Ýž‚Ýê—p)
+ * D6	æ­è¼‰ãƒ¡ãƒ¢ãƒªé‡(èª­ã¿è¾¼ã¿å°‚ç”¨)
  *
- *		HGR3 ‚Å‚Í 0x3e900
+ *		HGR3 ã§ã¯ 0x3e900
  *
- * Da	ƒƒ‚ƒŠŽg—p—Ê
+ * Da	ãƒ¡ãƒ¢ãƒªä½¿ç”¨é‡
  *
- *		‘ªˆÊ‹L˜^1’n“_‚ ‚½‚è 19 byte ƒƒ‚ƒŠ‚ðŽg—p‚·‚é‚Ì‚ÅA
- *		Da ‚Å“Ç‚ÝŽæ‚Á‚½’l‚ð 19 ‚ÅŠ„‚é‚Æ ‹L˜^‚³‚ê‚Ä‚¢‚é‘ªˆÊƒf[ƒ^‚Ì”
- *		‚ª‚í‚©‚éB
- *		ƒƒ‚ƒŠƒNƒŠƒA‚µ‚½‚¢Žž‚Í‚±‚ÌƒŒƒWƒXƒ^‚ð 0 ‚É set ‚·‚éB
- * —á:
+ *		æ¸¬ä½è¨˜éŒ²1åœ°ç‚¹ã‚ãŸã‚Š 19 byte ãƒ¡ãƒ¢ãƒªã‚’ä½¿ç”¨ã™ã‚‹ã®ã§ã€
+ *		Da ã§èª­ã¿å–ã£ãŸå€¤ã‚’ 19 ã§å‰²ã‚‹ã¨ è¨˜éŒ²ã•ã‚Œã¦ã„ã‚‹æ¸¬ä½ãƒ‡ãƒ¼ã‚¿ã®æ•°
+ *		ãŒã‚ã‹ã‚‹ã€‚
+ *		ãƒ¡ãƒ¢ãƒªã‚¯ãƒªã‚¢ã—ãŸã„æ™‚ã¯ã“ã®ãƒ¬ã‚¸ã‚¹ã‚¿ã‚’ 0 ã« set ã™ã‚‹ã€‚
+ * ä¾‹:
  * 	!MRDa
- *	 MRDTa3e      ¨ 0xa3e = 2622 = 138*19
- *	 !MWDa,0      ©ƒƒ‚ƒŠƒNƒŠƒA
+ *	 MRDTa3e      â†’ 0xa3e = 2622 = 138*19
+ *	 !MWDa,0      â†ãƒ¡ãƒ¢ãƒªã‚¯ãƒªã‚¢
  *	 OK
  *
- * De	•s–¾ (“Ç‚Ýž‚Ýê—p)
+ * De	ä¸æ˜Ž (èª­ã¿è¾¼ã¿å°‚ç”¨)
  *
- *		HGR3 ‚Å‚Í‚¢‚Â‚à 0x384e6
- *		(256 Kbyte ‚Ì“‹Úƒƒ‚ƒŠ‚©‚çƒAƒ‹ƒ}ƒiƒbƒNƒf[ƒ^‚È‚Ç‚Ì•Û‘¶‚ÉŽg‚¤
- *		 ƒƒ‚ƒŠ‚Ì•ª‚ðˆø‚¢‚½AŽÀÛ‚É—˜—p‚Å‚«‚éƒƒ‚ƒŠ—ÊH
+ *		HGR3 ã§ã¯ã„ã¤ã‚‚ 0x384e6
+ *		(256 Kbyte ã®æ­è¼‰ãƒ¡ãƒ¢ãƒªã‹ã‚‰ã‚¢ãƒ«ãƒžãƒŠãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ãªã©ã®ä¿å­˜ã«ä½¿ã†
+ *		 ãƒ¡ãƒ¢ãƒªã®åˆ†ã‚’å¼•ã„ãŸã€å®Ÿéš›ã«åˆ©ç”¨ã§ãã‚‹ãƒ¡ãƒ¢ãƒªé‡ï¼Ÿ
  *
- * D16	•s–¾ (“Ç‚Ýž‚Ýê—p)
+ * D16	ä¸æ˜Ž (èª­ã¿è¾¼ã¿å°‚ç”¨)
  *
- *		HGR3 ‚Å‚Í‚¢‚Â‚à 0
+ *		HGR3 ã§ã¯ã„ã¤ã‚‚ 0
  *
- * W12	’P‘Ì“®ìŽž ‘ªˆÊƒf[ƒ^‹L˜^ŠÔŠu
+ * W12	å˜ä½“å‹•ä½œæ™‚ æ¸¬ä½ãƒ‡ãƒ¼ã‚¿è¨˜éŒ²é–“éš”
  *
- *		0 ‚ÌŽžA‘ªˆÊƒf[ƒ^‚ÌŽ©“®‹L˜^‚ð‚µ‚È‚¢B
- *		(ƒ}[ƒNƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½Žž‚¾‚¯‹L˜^‚³‚ê‚é)
- * —á:
+ *		0 ã®æ™‚ã€æ¸¬ä½ãƒ‡ãƒ¼ã‚¿ã®è‡ªå‹•è¨˜éŒ²ã‚’ã—ãªã„ã€‚
+ *		(ãƒžãƒ¼ã‚¯ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸæ™‚ã ã‘è¨˜éŒ²ã•ã‚Œã‚‹)
+ * ä¾‹:
  *	 !MRW12
- *	 MRDT1	¨ 1•b
- *	 !MWW12,3c    ¨ 0x3c = 60(•b)‚ÉÝ’è
+ *	 MRDT1	â†’ 1ç§’
+ *	 !MWW12,3c    â†’ 0x3c = 60(ç§’)ã«è¨­å®š
  *	 OK
  *
- * W14	•s–¾ (“Ç‚Ýž‚Ýê—p)
+ * W14	ä¸æ˜Ž (èª­ã¿è¾¼ã¿å°‚ç”¨)
  *
- *		HGR3 ‚Å‚Í‚¢‚Â‚à 0
+ *		HGR3 ã§ã¯ã„ã¤ã‚‚ 0
  *
- * W1a	PCÚ‘±Žž ‘ªˆÊƒf[ƒ^‹L˜^ŠÔŠu
+ * W1a	PCæŽ¥ç¶šæ™‚ æ¸¬ä½ãƒ‡ãƒ¼ã‚¿è¨˜éŒ²é–“éš”
  *
- *		0 ‚ÌŽžA‘ªˆÊƒf[ƒ^‚ÌŽ©“®‹L˜^‚ð‚µ‚È‚¢B
- *		(ƒ}[ƒNƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½Žž‚¾‚¯‹L˜^‚³‚ê‚é)
- * —á:
+ *		0 ã®æ™‚ã€æ¸¬ä½ãƒ‡ãƒ¼ã‚¿ã®è‡ªå‹•è¨˜éŒ²ã‚’ã—ãªã„ã€‚
+ *		(ãƒžãƒ¼ã‚¯ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸæ™‚ã ã‘è¨˜éŒ²ã•ã‚Œã‚‹)
+ * ä¾‹:
  *	 !MRW1a
- *	 MRDT1	¨ 0 (Ž©“®‹L˜^‚È‚µ)
- *	 !MWW1a,1     ¨ 1•b‚ÉÝ’è
+ *	 MRDT1	â†’ 0 (è‡ªå‹•è¨˜éŒ²ãªã—)
+ *	 !MWW1a,1     â†’ 1ç§’ã«è¨­å®š
  *	 OK
  *
- * W1c	LCD ‚ÌŽž•\Ž¦ Timezone offset (HGR3 only?)
+ * W1c	LCD ã®æ™‚åˆ»è¡¨ç¤º Timezone offset (HGR3 only?)
  *
- *		HGR “à•”‚Å‚Í GMT(UTC) ‚Åˆµ‚í‚ê‚Ä‚¢‚ÄA‚±‚ÌƒŒƒWƒXƒ^‚Ì
- *		’l•ªƒIƒtƒZƒbƒg ‚³‚ê‚Ä‰t»‚ÉŽž•\Ž¦‚³‚ê‚éB’PˆÊ‚Íu•ªv
- *		’Êí“ú–{‚È‚ç‚Î 60*9 = 540 = 0x21c
+ *		HGR å†…éƒ¨ã§ã¯ GMT(UTC) ã§æ‰±ã‚ã‚Œã¦ã„ã¦ã€ã“ã®ãƒ¬ã‚¸ã‚¹ã‚¿ã®
+ *		å€¤åˆ†ã‚ªãƒ•ã‚»ãƒƒãƒˆ ã•ã‚Œã¦æ¶²æ™¶ã«æ™‚åˆ»è¡¨ç¤ºã•ã‚Œã‚‹ã€‚å˜ä½ã¯ã€Œåˆ†ã€
+ *		é€šå¸¸æ—¥æœ¬ãªã‚‰ã° 60*9 = 540 = 0x21c
  *
  *	 !MRW1c
- *	 MRDT21c      ¨ 0x21c = 540 = 60*9 (JST)
- *	 !MWW1c,0     ¨ 0 (GMT)
+ *	 MRDT21c      â†’ 0x21c = 540 = 60*9 (JST)
+ *	 !MWW1c,0     â†’ 0 (GMT)
  *	 OK
- *	 !MWW1c,fed4  ¨ 0xfed4 = -300 (short‚Å) = -5*60
+ *	 !MWW1c,fed4  â†’ 0xfed4 = -300 (shortã§) = -5*60
  *
- * B1e	•s–¾
+ * B1e	ä¸æ˜Ž
  *
- *		HGR3 ‚Å‚Í‚¢‚Â‚à 1 ‚ª“Ç‚Ý‘‚«‚³‚ê‚é
+ *		HGR3 ã§ã¯ã„ã¤ã‚‚ 1 ãŒèª­ã¿æ›¸ãã•ã‚Œã‚‹
  *
- * B1f	•s–¾
+ * B1f	ä¸æ˜Ž
  *
- *		HGR3 ‚Å‚Í‚¢‚Â‚à 5 ‚ª“Ç‚Ý‘‚«‚³‚ê‚é
+ *		HGR3 ã§ã¯ã„ã¤ã‚‚ 5 ãŒèª­ã¿æ›¸ãã•ã‚Œã‚‹
  *
- * B20	ƒoƒbƒNƒ‰ƒCƒg“_“”ŽžŠÔ (HGR3 only?)
+ * B20	ãƒãƒƒã‚¯ãƒ©ã‚¤ãƒˆç‚¹ç¯æ™‚é–“ (HGR3 only?)
  *
- *		0 ‚ÌŽžAƒoƒbƒNƒ‰ƒCƒgŽ©“® OFF ‚ª–³Œø‚Æ‚È‚éB
+ *		0 ã®æ™‚ã€ãƒãƒƒã‚¯ãƒ©ã‚¤ãƒˆè‡ªå‹• OFF ãŒç„¡åŠ¹ã¨ãªã‚‹ã€‚
  *
- *	—á:
+ *	ä¾‹:
  *		!MRB20
- *		MRDT0	¨  0 (ƒoƒbƒNƒ‰ƒCƒgŽ©“®OFF‚ª–³Œø)
- *		!MWB20,78    ¨  0x78 = 120 (•b)‚ÉÝ’è
+ *		MRDT0	â†’  0 (ãƒãƒƒã‚¯ãƒ©ã‚¤ãƒˆè‡ªå‹•OFFãŒç„¡åŠ¹)
+ *		!MWB20,78    â†’  0x78 = 120 (ç§’)ã«è¨­å®š
  *		OK
  *
- * ‚½‚Ô‚ñæ“ª‚ÌƒAƒ‹ƒtƒ@ƒxƒbƒg
+ * ãŸã¶ã‚“å…ˆé ­ã®ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆ
  *  B Byte, W Word, D DWord
  * </pre>
  *
@@ -234,7 +234,7 @@ Debug.println("power off");
     /** */
     protected IODeviceOutputStream os;
 
-    /** ƒVƒŠƒAƒ‹‰ñü‚©‚ç‚Ì“ü—Í */
+    /** ã‚·ãƒªã‚¢ãƒ«å›žç·šã‹ã‚‰ã®å…¥åŠ› */
     protected Runnable getInputThread() {
         return new Runnable() {
             public void run() {
@@ -259,7 +259,7 @@ Debug.println("input thread stopped");
         throw new IllegalStateException("This class cannot be output device.");
     }
 
-    /** ƒVƒŠƒAƒ‹‰ñü‚Ö‚Ì GPS ƒf[ƒ^‚Ìo—Í */
+    /** ã‚·ãƒªã‚¢ãƒ«å›žç·šã¸ã® GPS ãƒ‡ãƒ¼ã‚¿ã®å‡ºåŠ› */
     protected abstract TimerTask getOutputTimerTask();
 
     /** make sure not to duplicate input thread */

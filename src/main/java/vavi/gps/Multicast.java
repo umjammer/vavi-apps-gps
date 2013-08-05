@@ -85,7 +85,7 @@ Debug.println("here");
         };
     }
 
-    /** 汎用イベントリスナを追加します。 */
+    /** 豎守畑繧､繝吶Φ繝医Μ繧ｹ繝翫ｒ霑ｽ蜉縺励∪縺吶� */
     public void addGenericListener(GenericListener listener) {
         Iterator<GpsDevice> i = outputDevices.iterator();
         while (i.hasNext()) {

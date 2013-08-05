@@ -34,7 +34,7 @@ import vavi.util.event.GenericListener;
  */
 public class HgrViewer extends GpsDevice {
 
-    /** TODO name ‚ð‰½‚ÉŽg‚¤‚©H */
+    /** TODO name ã‚’ä½•ã«ä½¿ã†ã‹ï¼Ÿ */
     public HgrViewer(String name) {
 
         try {
@@ -130,7 +130,7 @@ Debug.printStackTrace(e);
             Point2D p = trueNorthToPoint2D(
                 gpsData.getVector().getBearingDirection(), r);
 
-    	    // Java À•W‚Ö‚Ì•ÏŠ·
+    	    // Java åº§æ¨™ã¸ã®å¤‰æ›
     	    double X = R + p.getX();
     	    double Y = R - p.getY();
 
@@ -149,7 +149,7 @@ Debug.printStackTrace(e);
 
             g2.setColor(Color.green);
             g2.drawString("Dir: " +
-                          gpsData.getVector().getBearingDirection() + "‹",
+                          gpsData.getVector().getBearingDirection() + "Â°",
                           60, 130);
             g2.drawString("Velocity: " +
                           gpsData.getVector().getVelocity() + " km/h",
@@ -162,19 +162,19 @@ Debug.printStackTrace(e);
 
     /**
      * @param trueNorth degrees
-     * @param r ”¼Œa
+     * @param r åŠå¾„
      */
     private Point2D trueNorthToPoint2D(double trueNorth, double r) {
 
-        // TODO theta ‚ÌÀ•W‚Í³‚µ‚­‚È‚¢
+        // TODO theta ã®åº§æ¨™ã¯æ­£ã—ããªã„
         double theta = trueNorth / 360d * (Math.PI * 2) - Math.PI / 2;
-        // X, Y ‚Í³‹KÀ•W
+        // X, Y ã¯æ­£è¦åº§æ¨™
         double X = Math.sqrt(
             (r * r * r * r) / (r * r + r * r * Math.pow(Math.tan(theta), 2)));
         double Y = Math.sqrt(
             (r * r * r * r) / (r * r / Math.pow(Math.tan(theta), 2) + r * r));
 
-        // TODO ³‚µ‚­‚È‚¢ theta ‚ÌÀ•W‚É‘Î‚µ‚Ä‚Ì•â³
+        // TODO æ­£ã—ããªã„ theta ã®åº§æ¨™ã«å¯¾ã—ã¦ã®è£œæ­£
         if (theta > Math.PI / 2 && theta < Math.PI * 1.5) X *= -1;
         if (theta < Math.PI     && theta > 0)             Y *= -1;
 

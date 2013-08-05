@@ -13,9 +13,10 @@ import vavi.io.IODevice;
 
 
 /**
+ * SharedMemoryDevice.
  * 
- * @author	<a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
- * @version	0.00	030331	nsano	initial version <br>
+ * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @version 0.00 030331 nsano initial version <br>
  */
 public class SharedMemoryDevice implements IODevice {
 

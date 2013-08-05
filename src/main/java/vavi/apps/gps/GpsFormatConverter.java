@@ -18,22 +18,22 @@ import vavi.util.Debug;
  * 
  * <pre>
  * <li>
- * GpsFormatConverter.properties ‚Éİ’è‚·‚é€–Ú
+ * GpsFormatConverter.properties ã«è¨­å®šã™ã‚‹é …ç›®
  * </li>
  * 
- *  “ü—ÍƒfƒoƒCƒXƒNƒ‰ƒX	inputDevice.class
- *  “ü—ÍƒfƒoƒCƒX–¼	inputDevice.name
- *  o—ÍƒfƒoƒCƒXƒNƒ‰ƒX	outputDevice.class
- *  o—ÍƒfƒoƒCƒX–¼	outputDevice.name
+ *  å…¥åŠ›ãƒ‡ãƒã‚¤ã‚¹ã‚¯ãƒ©ã‚¹	inputDevice.class
+ *  å…¥åŠ›ãƒ‡ãƒã‚¤ã‚¹å	inputDevice.name
+ *  å‡ºåŠ›ãƒ‡ãƒã‚¤ã‚¹ã‚¯ãƒ©ã‚¹	outputDevice.class
+ *  å‡ºåŠ›ãƒ‡ãƒã‚¤ã‚¹å	outputDevice.name
  * 
  * <li>
- * o—ÍƒfƒoƒCƒX‚Æ‚µ‚Ä {@link vavi.gps.Multicast} ‚ğw’è‚µ‚½ê‡
- *  ƒ}ƒ‹ƒ`ƒLƒƒƒXƒg‚·‚éo—ÍƒfƒoƒCƒX‚ÌƒŠƒXƒg‚ğİ’è‚·‚é
+ * å‡ºåŠ›ãƒ‡ãƒã‚¤ã‚¹ã¨ã—ã¦ {@link vavi.gps.Multicast} ã‚’æŒ‡å®šã—ãŸå ´åˆ
+ *  ãƒãƒ«ãƒã‚­ãƒ£ã‚¹ãƒˆã™ã‚‹å‡ºåŠ›ãƒ‡ãƒã‚¤ã‚¹ã®ãƒªã‚¹ãƒˆã‚’è¨­å®šã™ã‚‹
  * </li>
  * 
- *  o—ÍƒfƒoƒCƒXƒNƒ‰ƒX	multicast.outputDevice.class.#
- *  o—ÍƒfƒoƒCƒX–¼	multicast.outputDevice.name.#
- *  (# ‚Í 0 ‚©‚ç˜A”Ô)
+ *  å‡ºåŠ›ãƒ‡ãƒã‚¤ã‚¹ã‚¯ãƒ©ã‚¹	multicast.outputDevice.class.#
+ *  å‡ºåŠ›ãƒ‡ãƒã‚¤ã‚¹å	multicast.outputDevice.name.#
+ *  (# ã¯ 0 ã‹ã‚‰é€£ç•ª)
  * </pre>
  * 
  * @depends GpsFormatConverter.properties

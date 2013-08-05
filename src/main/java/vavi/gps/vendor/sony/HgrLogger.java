@@ -23,23 +23,23 @@ import vavi.util.event.GenericListener;
 /**
  * HGR Logger device.
  * 
- * @todo ”Ä—p‰»AHGR ‚©‚ç“Æ—§AFormatter ‚Å·‚ğ‹zû
+ * @todo æ±ç”¨åŒ–ã€HGR ã‹ã‚‰ç‹¬ç«‹ã€Formatter ã§å·®ã‚’å¸å
  * 
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030327 nsano initial version <br>
  */
 public class HgrLogger extends GpsDevice {
 
-    /** ƒƒO‚ğæ‚é‚©‚Ç‚¤‚© */
+    /** ãƒ­ã‚°ã‚’å–ã‚‹ã‹ã©ã†ã‹ */
     private boolean logging = false;
 
-    /** ‰½‰ñ‚Éˆê‰ñƒƒO‚ğæ‚é‚© */
+    /** ä½•å›ã«ä¸€å›ãƒ­ã‚°ã‚’å–ã‚‹ã‹ */
     private int interval = 10;
 
-    /** ƒƒK[ */
+    /** ãƒ­ã‚¬ãƒ¼ */
     private Logger logger;
 
-    /** TODO name ‚ğ‰½‚Ég‚¤‚©H Formatter ƒNƒ‰ƒXH */
+    /** TODO name ã‚’ä½•ã«ä½¿ã†ã‹ï¼Ÿ Formatter ã‚¯ãƒ©ã‚¹ï¼Ÿ */
     public HgrLogger(String name) {
 
         try {
@@ -85,7 +85,7 @@ Debug.printStackTrace(e);
 Debug.println("here");
     }
 
-    /** Œ»İ‚ÌƒJƒEƒ“ƒ^ */
+    /** ç¾åœ¨ã®ã‚«ã‚¦ãƒ³ã‚¿ */
     private int logCount = 0;
 
     /** @throws IllegalStateException always be thrown */

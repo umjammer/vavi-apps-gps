@@ -35,8 +35,7 @@ public class HgrInputStream extends IODeviceInputStream {
             String line = super.readLine();
             if (line.startsWith("SM00")) {
                 fifo.offer(line);
-            }
-            else {
+            } else {
                 return line;
             }
         }

@@ -22,8 +22,8 @@ import vavi.util.event.GenericListener;
 
 /**
  * BasicGpsDevice. 
- * �T�u�N���X�͕K�� (Ljava/lang/String;) �̃V�O�l�`��������
- * �R���X�g���N�^�� �����Ȃ���΂Ȃ�܂���B
+ * サブクラスは必ず (Ljava/lang/String;) のシグネチャを持つ
+ * コンストラクタを 持たなければなりません。
  * 
  * @see #newInstance(String,String)
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
@@ -56,11 +56,11 @@ public abstract class BasicGpsDevice extends GpsDevice {
         return c.newInstance(name);
     }
 
-    /** ���ʎq(�e�f�o�C�X�̃v���p�e�B�t�@�C���Ƀ��X�g���ꂽ���̂��w��) */
+    /** 識別子(各デバイスのプロパティファイルにリストされたものを指定) */
     protected String name;
 
     /**
-     * @param name �v���p�e�B�t�@�C���̂ǂ� IODevice ���g�p���邩���w��
+     * @param name プロパティファイルのどの IODevice を使用するかを指定
      */
     public BasicGpsDevice(String name) {
         this.name = name;
@@ -68,15 +68,15 @@ public abstract class BasicGpsDevice extends GpsDevice {
 
     //-------------------------------------------------------------------------
 
-    /** ���̃f�o�C�X�̃t�H�[�}�b�^���擾���܂��B */
+    /** このデバイスのフォーマッタを取得します。 */
     protected abstract GpsFormat getGpsFormat();
 
-    /** ���̃f�o�C�X�� IO �f�o�C�X�N���X���擾���܂��B */
+    /** このデバイスの IO デバイスクラスを取得します。 */
     protected abstract String getIODeviceClass();
 
     /**
-     * ���̃f�o�C�X�� IO �f�o�C�X�N���X�̎��ʎq���擾���܂��B
-     * (�V���A���|�[�g���� IP �̃|�[�g�ԍ����w�肳��d���I�[�v��������܂�)
+     * このデバイスの IO デバイスクラスの識別子を取得します。
+     * (シリアルポート名や IP のポート番号が指定され重複オープンを避けます)
      */
     protected abstract String getIODeviceName();
 
@@ -86,14 +86,14 @@ public abstract class BasicGpsDevice extends GpsDevice {
     /** */
     protected IODeviceOutputStream os;
 
-    /** IO �f�o�C�X�̎��ʎq�AIO �f�o�C�X�̃y�A */
+    /** IO デバイスの識別子、IO デバイスのペア */
     private Map<String,IODevice> ioDevices = new HashMap<String,IODevice>();
 
     /**
-     * IO �f�o�C�X���擾���܂��B
-     * �����ŃC���X�^���X������� {@link IODevice} �̎����N���X�͕K��
-     * (Ljava/lang/String;) �̃V�O�l�`�������R���X�g���N�^��
-     * �����Ȃ���΂Ȃ�܂���B
+     * IO デバイスを取得します。
+     * ここでインスタンス化される {@link IODevice} の実装クラスは必ず
+     * (Ljava/lang/String;) のシグネチャを持つコンストラクタを
+     * 持たなければなりません。
      */
     private IODevice getIODevice()
         throws ClassNotFoundException,
@@ -116,8 +116,8 @@ Debug.println("name: " + name + ": " + className);
     }
 
     /**
-     * ���̓X�g���[�����I�[�v�����Ă��Ȃ���΃I�[�v�����܂��B
-     * �R���X�g���N�^�ŃI�[�v�����Ȃ��͕̂Е��݂̂̃f�o�C�X���݂邽��
+     * 入力ストリームをオープンしていなければオープンします。
+     * コンストラクタでオープンしないのは片方のみのデバイスも在るため
      */
     protected void makeSureInputStreamOpened() {
         if (this.is != null) {
@@ -169,8 +169,8 @@ Debug.println("IN[" + getIODeviceName() + "]: thread stoped");
     }
 
     /**
-     * �o�̓X�g���[�����I�[�v�����Ă��Ȃ���΃I�[�v�����܂��B
-     * �R���X�g���N�^�ŃI�[�v�����Ȃ��͕̂Е��݂̂̃f�o�C�X���݂邽��
+     * 出力ストリームをオープンしていなければオープンします。
+     * コンストラクタでオープンしないのは片方のみのデバイスも在るため
      */
     protected void makeSureOutputStreamOpened() {
         if (this.os != null) {

@@ -19,6 +19,7 @@ import vavi.gps.BasicGpsData;
 import vavi.gps.Channel;
 import vavi.gps.GpsData;
 import vavi.gps.GpsFormat;
+import vavi.gps.PointSurface;
 import vavi.util.Debug;
 import vavi.util.StringUtil;
 
@@ -124,9 +125,9 @@ public class NmeaGpsFormat implements GpsFormat {
             sb.append(toNmeaTimeString(gpsData.getTimeOfFix(), false));
         }
         sb.append(",");
-        sb.append(gpsData.getPoint().getLatitude().toNmeaString());
+        sb.append(toNmeaString(gpsData.getPoint().getLatitude()));
         sb.append(",");
-        sb.append(gpsData.getPoint().getLongitude().toNmeaString());
+        sb.append(toNmeaString(gpsData.getPoint().getLongitude()));
         sb.append(",");
         sb.append(gpsData.ready() ? 1 : 0);
         sb.append(",");
@@ -184,9 +185,9 @@ public class NmeaGpsFormat implements GpsFormat {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(gpsData.getPoint().getLatitude().toNmeaString());
+        sb.append(toNmeaString(gpsData.getPoint().getLatitude()));
         sb.append(",");
-        sb.append(gpsData.getPoint().getLongitude().toNmeaString());
+        sb.append(toNmeaString(gpsData.getPoint().getLongitude()));
         sb.append(",");
         if (gpsData.getTimeOfFix() != null) {
             sb.append(toNmeaTimeString(gpsData.getTimeOfFix(), false));
@@ -375,9 +376,9 @@ public class NmeaGpsFormat implements GpsFormat {
         sb.append(",");
         sb.append(gpsData.ready() ? 'A' : 'V');
         sb.append(",");
-        sb.append(gpsData.getPoint().getLatitude().toNmeaString());
+        sb.append(toNmeaString(gpsData.getPoint().getLatitude()));
         sb.append(",");
-        sb.append(gpsData.getPoint().getLongitude().toNmeaString());
+        sb.append(toNmeaString(gpsData.getPoint().getLongitude()));
         sb.append(",");
         sb.append(df3_1.format(gpsData.getVector().getVelocity() * 0.5144));
         sb.append(",");
@@ -435,13 +436,13 @@ public class NmeaGpsFormat implements GpsFormat {
      * ZDA - Time & Date
      * <pre>
      *  ZDA,052608.22,06,05,2001,14,26*3D
-     *     052608.22	ë™à éûçèÅiUTCÅjÅ@05:26:08.22 
-     *     06	ì˙ÅiUTCÅjÅ@6ì˙ 
-     *     05	åéÅiUTCÅjÅ@5åé 
-     *     2001	êºóÔÅiUTCÅjÅ@2001îN 
-     *     14	éûÅiåªínéûä‘ÅjÅ@14éû 
-     *     26	ï™Åiåªínéûä‘ÅjÅ@26ï™ 
-     *     *3D	É`ÉFÉbÉNÉTÉÄ 
+     *     052608.22	Ê∏¨‰ΩçÊôÇÂàªÔºàUTCÔºâ„ÄÄ05:26:08.22 
+     *     06	Êó•ÔºàUTCÔºâ„ÄÄ6Êó• 
+     *     05	ÊúàÔºàUTCÔºâ„ÄÄ5Êúà 
+     *     2001	Ë•øÊö¶ÔºàUTCÔºâ„ÄÄ2001Âπ¥ 
+     *     14	ÊôÇÔºàÁèæÂú∞ÊôÇÈñìÔºâ„ÄÄ14ÊôÇ 
+     *     26	ÂàÜÔºàÁèæÂú∞ÊôÇÈñìÔºâ„ÄÄ26ÂàÜ 
+     *     *3D	„ÉÅ„Çß„ÉÉ„ÇØ„Çµ„É† 
      * </pre>
      */
     protected String toZDA(GpsData gpsData) {
@@ -782,6 +783,30 @@ public class NmeaGpsFormat implements GpsFormat {
         return sum;
     }
 
+    /**
+     * DMM
+     */
+    private static String toNmeaString(PointSurface pointSurface) {
+
+        StringBuilder sb = new StringBuilder();
+
+        final DecimalFormat df2 = new DecimalFormat("00");
+        final DecimalFormat df3 = new DecimalFormat("000");
+        final DecimalFormat df2_4 = new DecimalFormat("00.0000");
+
+        if (pointSurface.getType() == PointSurface.EAST_LONGITUDE || pointSurface.getType() == PointSurface.WEST_LONGITUDE) {
+            sb.append(df3.format(pointSurface.getDegrees()));
+        } else {
+            sb.append(df2.format(pointSurface.getDegrees()));
+        }
+
+        sb.append(df2_4.format(pointSurface.getMinutes() + pointSurface.getSeconds() / 60f));
+        sb.append(",");
+        sb.append(pointSurface.getTypeString());
+
+        return sb.toString();
+    }
+    
     /** */
     {
         try {
@@ -791,32 +816,32 @@ public class NmeaGpsFormat implements GpsFormat {
 
             String value = props.getProperty("nmea.gga");
             if (value != null) {
-                useGGA = new Boolean(value).booleanValue();
+                useGGA = Boolean.valueOf(value);
             }
 
             value = props.getProperty("nmea.gsa");
             if (value != null) {
-                useGSA = new Boolean(value).booleanValue();
+                useGSA = Boolean.valueOf(value);
             }
 
             value = props.getProperty("nmea.gsv");
             if (value != null) {
-                useGSV = new Boolean(value).booleanValue();
+                useGSV = Boolean.valueOf(value);
             }
 
             value = props.getProperty("nmea.gll");
             if (value != null) {
-                useGLL = new Boolean(value).booleanValue();
+                useGLL = Boolean.valueOf(value);
             }
 
             value = props.getProperty("nmea.rmc");
             if (value != null) {
-                useRMC = new Boolean(value).booleanValue();
+                useRMC = Boolean.valueOf(value);
             }
 
             value = props.getProperty("nmea.vtg");
             if (value != null) {
-                useVTG = new Boolean(value).booleanValue();
+                useVTG = Boolean.valueOf(value);
             }
 
 Debug.println("GGA: " + useGGA);
@@ -828,30 +853,6 @@ Debug.println("VTG: " + useVTG);
         } catch (IOException e) {
 Debug.printStackTrace(e);
             throw new InternalError(e.toString());
-        }
-    }
-
-    //-------------------------------------------------------------------------
-
-    /** */
-    public static void main(String[] args) throws Exception {
-        NmeaGpsFormat ngf = new NmeaGpsFormat();
-
-        // tests checksum
-        String[] testTypes = {
-            "GGA", "GLL", "VTG", "GGA"
-        };
-
-        String[] testData = {
-          "050945.00,3504.227794,N,13545.810149,E,1,06,1.4,151.00,M,34.53,M,,",
-          "3504.227794,N,13545.810149,E,050945.00,A,A",
-          "57.1,T,,,000.0,N,000.0,K,A",
-          "123519,4807.038,N,01131.324,E,1,08,0.9,545.4,M,46.9,M,,"
-        };
-
-        for (int i = 0; i < testTypes.length; i++) {
-            String sentence = ngf.toSentence(testTypes[i], testData[i]);
-            System.err.print(sentence);
         }
     }
 }
