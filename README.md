@@ -7,7 +7,7 @@
 ##Microsoft Autoroute
 ヨーロッパでの PC カーナビの定番は [Microsoft AutoRoute](http://www.microsoft.com/uk/homepc/autoroute/) みたいです(ホントか？あんまし調べてない．．．)． 
 
-GPS は[NMEA](http://www.nmea.org/) ~~ 2.0 or later とかいう規格 ~~ でないとダメらしい？ 
+GPS は[NMEA](http://www.nmea.org/) ~~2.0 or later とかいう規格~~ でないとダメらしい？ 
 
 → NMEA-0183 Version 2.0 以降という意味です． 
 
@@ -155,6 +155,7 @@ VID を 054c (ソニー) ，PID を 0040 （HGR3) にしてインストールす
   * [GM-38:マーキュリー取扱説明書](http://www.spa-japan.co.jp/DataBank/GM38m5.html) ... 
   * [NMEA-0183フォーマット](http://bg66.soc.i.kyoto-u.ac.jp/forestgps/nmea.html) ... 
   * [GARMIN GPS 12 XL](http://www.ne.jp/asahi/gps/nori/GARMIN/) ... 閉鎖
+
 ##開発状況
   * 03/15 やっと HGR3S パワーオンできた．こんなペースで大丈夫か？ 
   * 03/21 AutoRoute に[現在位置表示](http://picasaweb.google.co.jp/lh/photo/KjHB64wqxOBmLRBpzgL2UA?feat=directlink) できました！(プライバシー全開なんで自動車アイコンの位置はずらしてあります．それにしてもヨーロッパ用のソフトの地図に今住んでいる場所の地名が載っていることにちょっと感動) 
