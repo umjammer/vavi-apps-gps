@@ -2,7 +2,7 @@
 
 みなさんこんにちは，私来月(2003/3/15 執筆)から一ヶ月間ヨーロッパへ旅行に行きます．レンタカーを借りて旅しようと思っています．SONY のハンディ GPS を持っているので旅の軌跡をこいつに記録させようかと思い立ちました．ついでにカーナビとして使えないかと検討し始めたらハマリました．あと一ヶ月もないのに，レンタカーもまだ予約してないのに，ソフトもまだぜんぜん出来上がってないのに，大丈夫か？ 
 
-無事帰ってまいりました(2003/05/05)．結果だけなら[こちらへ](http://code.google.com/p/umjammer/wiki/DriveInEuropeWithCarNavigation#結果報告)．ソフトウェアは[こちらへ](http://code.google.com/p/umjammer/wiki/DriveInEuropeWithCarNavigation#ソフトウェア)． 
+無事帰ってまいりました(2003/05/05)．結果だけなら[こちらへ](http://code.google.com/p/umjammer/wiki/DriveInEuropeWithCarNavigation#結果報告)．ソフトウェアは[こちらへ](https://github.com/umjammer/vavi-apps-gps#%E7%B5%90%E6%9E%9C%E5%A0%B1%E5%91%8A)． 
 
 ##Microsoft Autoroute
 ヨーロッパでの PC カーナビの定番は [Microsoft AutoRoute](http://www.microsoft.com/uk/homepc/autoroute/) みたいです(ホントか？あんまし調べてない．．．)． 
