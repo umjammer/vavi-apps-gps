@@ -1,7 +1,5 @@
-#summary GPS program and travel log
 #ヨーロッパでカーナビドライブ
 
-----
 みなさんこんにちは，私来月(2003/3/15 執筆)から一ヶ月間ヨーロッパへ旅行に行きます．レンタカーを借りて旅しようと思っています．SONY のハンディ GPS を持っているので旅の軌跡をこいつに記録させようかと思い立ちました．ついでにカーナビとして使えないかと検討し始めたらハマリました．あと一ヶ月もないのに，レンタカーもまだ予約してないのに，ソフトもまだぜんぜん出来上がってないのに，大丈夫か？ 
 
 無事帰ってまいりました(2003/05/05)．結果だけなら[こちらへ](http://code.google.com/p/umjammer/wiki/DriveInEuropeWithCarNavigation#結果報告)．ソフトウェアは[こちらへ](http://code.google.com/p/umjammer/wiki/DriveInEuropeWithCarNavigation#ソフトウェア)． 
@@ -104,7 +102,7 @@ VID を 054c (ソニー) ，PID を 0040 （HGR3) にしてインストールす
 
 あと USB 用の Java API を組まなければいけません．[ここ](http://hccweb1.bai.ne.jp/~hcj64001/cgi-bin/fswiki/wiki.cgi?page=%C5%FD%B9%E7%A5%A2%A1%BC%A5%AB%A5%A4%A5%D0%A5%D7%A5%ED%A5%B8%A5%A7%A5%AF%A5%C8) で JNI やっといてよかった．とってもスムーズに JNI が組めるようになってる俺．暇があったら [JSR80](http://javax-usb.sourceforge.net/) の Win32 実装にしようと思ったのだが，API が煩雑すぎだし残り半月仕事しながらじゃ無理なので断念． 
 
-とりあえずその場しのぎの [Java USB API](http://code.google.com/p/umjammer/source/browse/trunk/vavi-apps-gps/src/main/java/vavi/uusbd/)
+とりあえずその場しのぎの [Java USB API](https://github.com/umjammer/vavi-apps-gps/tree/master/src/main/java/vavi/uusbd)
 
 ##HGR -> NMEA フォーマットコンバータ
 もちろん俺は Java しかできないので Java で組みます． 
@@ -114,42 +112,43 @@ VID を 054c (ソニー) ，PID を 0040 （HGR3) にしてインストールす
   * [IPS Format](http://www.asahi-net.or.jp/~KN6Y-GTU/ips/ipsformat.txt) ... IPS 解析 
   * [AnyGPS](http://www.vector.co.jp/soft/win95/home/se150051.html) ... いろんな GPS のコンバータみたい 
   * [PCQlib](http://www.ht.sfc.keio.ac.jp/~nandu/gps/gps.html) ... Linux 用の HGR コントロールライブラリ 
-  * [USB Sniffer]http://benoit.papillault.free.fr/usbsnoop/index.en.php) ... Navin'You とのセッションの解析に使用 
+  * [USB Sniffer](http://benoit.papillault.free.fr/usbsnoop/index.en.php) ... Navin'You とのセッションの解析に使用 
   * [HGR 解析](http://navi.org/aizu/gps/) ... ~~私のメールリクエストに答えて復活していただきました！感謝！~~
 
 ###Navin'You 5.5 と HGR3S の USB セッション
-|*コマンド*||*I/O*||*データ*||
-|パワーオン||←||`!POWON\r\n`||  
-| ||→||`ROM    OK\r\n`||
-| || ||`RS232C OK\r\n`||
-| || ||`CLOCK  NG\r\n`||
-| || ||`\r\n`||
-| || ||`        ----< SONY GLOBAL POSITIONING SYSTEM >-----\r\n`||
-| || ||`\r\n`||
-| || ||`                               (C)Copyright 1991,1997   Sony Corporation.\r\n`||
-| || ||`\r\n`||
-| || || ||
-|???||←||!PC\r\n  ||
-| ||→||OK\r\n  ||
-|ID 取得||←||!ID\r\n  ||
-| ||→||IDDTPCQ-HGR3,1.0.00.07281\r\n  ||
-|???||←||!GP  ||
-| ||→||OK\r\n  ||
-|???||→||@VF040\r\n  ||
-| ||←||\r\n||
-| || ||@VF040\r\n||
-| || ||\r\n||
-| || || ||
-|測地系の設定||→||@SKB\r\n  ||
-| ||← || ||
-| || || ||
-|測地系の設定 (2 回しないと効かない？)||→||@SKB\r\n  ||
-| ||←||\r\n||
-| || ||@SKB\r\n||
-| || ||\r\n||
-| || || ||
-|パワーオフ||←||!PUOFF\r\n||  
-| ||→|| ||
+|コマンド|I/O|データ|
+|--------|---|------|
+|パワーオン|←|`!POWON\r\n`|  
+| |→|`ROM    OK\r\n`|
+| | |`RS232C OK\r\n`|
+| | |`CLOCK  NG\r\n`|
+| | |`\r\n`|
+| | |`        ----< SONY GLOBAL POSITIONING SYSTEM >-----\r\n`|
+| | |`\r\n`|
+| | |`                               (C)Copyright 1991,1997   Sony Corporation.\r\n`|
+| | |`\r\n`|
+| | | |
+|???|←|`!PC\r\n`|
+| |→|`OK\r\n`|
+|ID 取得|←|`!ID\r\n`|
+| |→|`IDDTPCQ-HGR3,1.0.00.07281\r\n`|
+|???|←|`!GP`|
+| |→|`OK\r\n`|
+|???|→|`@VF040\r\n`|
+| |←|`\r\n`|
+| | |`@VF040\r\n`|
+| | |`\r\n`|
+| | | |
+|測地系の設定|→|`@SKB\r\n`|
+| |← | |
+| | | |
+|測地系の設定 (2 回しないと効かない？)|→|`@SKB\r\n`|
+| |←|`\r\n`|
+| | |`@SKB\r\n`|
+| | |`\r\n`|
+| | | |
+|パワーオフ|←|`!PUOFF\r\n`|  
+| |→| |
 
 ##NMEA
   * [Understanding NMEA 0183](http://pcptpp030.psychologie.uni-regensburg.de/trafficresearch/NMEA0183/index.html) ... 
@@ -161,6 +160,7 @@ VID を 054c (ソニー) ，PID を 0040 （HGR3) にしてインストールす
   * 03/21 AutoRoute に[現在位置表示](http://picasaweb.google.co.jp/lh/photo/KjHB64wqxOBmLRBpzgL2UA?feat=directlink) できました！(プライバシー全開なんで自動車アイコンの位置はずらしてあります．それにしてもヨーロッパ用のソフトの地図に今住んでいる場所の地名が載っていることにちょっと感動) 
   * 03/26 [マルチキャスト機能](http://picasaweb.google.co.jp/lh/photo/nABPQK905aRMiCXNcWqrbQ?feat=directlink) をつけてみた．クライアントは [NmMonitor](http://www.surveytec.com/groom/gsoft/nmmoni/index.html) (NMEA), Navin'You (IPS-5000), MS AutoRoute (NMEA) の 3 つ．ちなみに Navin'You と AutoRoute は別パソコン上 
   * 04/10 M$ AutoRoute の欠点として方向が出ません。私結構方向音痴なので困ってしまって、旅行中に[こんなの](http://picasaweb.google.co.jp/lh/photo/NKwNoK6dki95aEbGr8hP1g?feat=directlink) 作りました(made in France (笑))。Navin' You でいう天空図ですね。 
+
 ##TODO
   * まだ AutoRoute に Altitude と Time of fix が表示されていない ~~(NMEA センテンスが足りない？)~~
    * → Altitude は 3D 測定時のみ？Time of fix は非測定になったときの最後の時間を表示？？？ 
@@ -171,7 +171,7 @@ VID を 054c (ソニー) ，PID を 0040 （HGR3) にしてインストールす
   * Map Datum の変更
    * → @SKA コマンドで変更できました 
   * 対ヨーロッパ事前テスト用のダミー GPS 情報入力プラグイン 
-   * ~~MS AutoRoute でホントにいいの？ ~~
+   * ~~MS AutoRoute でホントにいいの？~~
   * HGR 生データのロガープラグイン(ナビソフトに任すのではなく自分で取っておく) 
 
 ##COM ポートをクロスケーブルでつないだように見せかけるドライバ
@@ -192,7 +192,7 @@ VID を 054c (ソニー) ，PID を 0040 （HGR3) にしてインストールす
 
 ##ソフトウェア
 
-http://umjammer.googlecode.com/svn/trunk/vavi-apps-gps/ 
+https://github.com/umjammer/vavi-apps-gps
 
 ----
 
