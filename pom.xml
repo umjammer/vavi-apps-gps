@@ -21,13 +21,21 @@
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
-          <encoding>Windows-31J</encoding>
+          <encoding>UTF-8</encoding>
           <compilerVersion>1.5</compilerVersion>
         </configuration>
       </plugin>
     </plugins>
   </build>
   <repositories>
+    <repository>
+      <id>vavi-commons-mvn-repo</id>
+      <url>https://raw.github.com/umjammer/vavi-commons/mvn-repo/</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </repository>
   </repositories>
   <dependencies>
   	<dependency>
@@ -52,8 +60,7 @@
     <dependency>
     	<groupId>vavi</groupId>
     	<artifactId>vavi-commons</artifactId>
-    	<version>1.0.0</version>
-    	<optional>false</optional>
+    	<version>1.0.4</version>
     </dependency>
     <dependency>
     	<groupId>org.rxtx</groupId>
