@@ -7,10 +7,12 @@
 package vavi.apps.gps;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Properties;
+
 import vavi.gps.BasicGpsDevice;
 import vavi.gps.GpsDevice;
 import vavi.util.Debug;
+import vavi.util.properties.annotation.Property;
+import vavi.util.properties.annotation.PropsEntity;
 
 
 /**
@@ -40,18 +42,23 @@ import vavi.util.Debug;
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030318 nsano initial version <br>
  */
+@PropsEntity(url = "/GpsFormatConverter.properties", resource = true)
 public class GpsFormatConverter {
 
     /** */
+    @Property(name = "inputDevice.class")
     private String inputClass = "vavi.gps.vendor.sony.Hgr";
 
     /** */
+    @Property(name = "inputDevice.name")
     private String inputName = "HGR3S";
 
     /** */
+    @Property(name = "outputDevice.class")
     private String outputClass = "vavi.gps.vendor.nmea.Nmea";
 
     /** */
+    @Property(name = "outputDevice.name")
     private String outputName = "COM3";
 
     /** */
@@ -63,36 +70,10 @@ public class GpsFormatConverter {
     /** */
     public GpsFormatConverter() {
 
-        final String filename = "GpsFormatConverter.properties";
-
         try {
-            Properties props = new Properties();
-
-            props.load(GpsFormatConverter.class.getResourceAsStream(filename));
-
-            String value = props.getProperty("inputDevice.class");
-            if (value != null) {
-                inputClass = value;
-                Debug.println("input: " + inputClass);
-            }
-            value = props.getProperty("inputDevice.name");
-            if (value != null) {
-                inputName = value;
-                Debug.println("input: " + inputName);
-            }
+            PropsEntity.Util.bind(this);
 
             inputDevice = BasicGpsDevice.newInstance(inputClass, inputName);
-
-            value = props.getProperty("outputDevice.class");
-            if (value != null) {
-                outputClass = value;
-                Debug.println("output: " + outputClass);
-            }
-            value = props.getProperty("outputDevice.name");
-            if (value != null) {
-                outputName = value;
-                Debug.println("output: " + outputName);
-            }
 
             outputDevice = BasicGpsDevice.newInstance(outputClass, outputName);
         } catch (Exception e) {
