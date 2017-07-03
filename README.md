@@ -164,15 +164,15 @@ VID を 054c (ソニー) ，PID を 0040 （HGR3) にしてインストールす
 
 ## TODO
   * まだ AutoRoute に Altitude と Time of fix が表示されていない ~~(NMEA センテンスが足りない？)~~
-   * → Altitude は 3D 測定時のみ？Time of fix は非測定になったときの最後の時間を表示？？？ 
+    * → Altitude は 3D 測定時のみ？Time of fix は非測定になったときの最後の時間を表示？？？ 
   * IPS と NMEA 間の衛星の信号強度の変換式が分かっていない
-   * → x 3 にしておいた(AnyGPS は x 2 していた) 
+    * → x 3 にしておいた(AnyGPS は x 2 していた) 
   * IPS dop = Q or not で測位の ON/OFF を判断していいのか？
-   * → 緯度が 'n' または 's' で非測位時，'N' または 'S' で測位中 (from AnyGPS) 
+    * → 緯度が 'n' または 's' で非測位時，'N' または 'S' で測位中 (from AnyGPS) 
   * Map Datum の変更
-   * → @SKA コマンドで変更できました 
+    * → @SKA コマンドで変更できました 
   * 対ヨーロッパ事前テスト用のダミー GPS 情報入力プラグイン 
-   * ~~MS AutoRoute でホントにいいの？~~
+    * ~~MS AutoRoute でホントにいいの？~~
   * HGR 生データのロガープラグイン(ナビソフトに任すのではなく自分で取っておく) 
 
 ## COM ポートをクロスケーブルでつないだように見せかけるドライバ
