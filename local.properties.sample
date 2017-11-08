@@ -1,15 +1,10 @@
-#
-# Copyright (c) 2010 by Naohide Sano, All rights reserved.
-#
-# Written by Naohide Sano
-#
-# ant properties for 
-#
-# @author	Naohide Sano
-# @version	0.00	100119	nsano	initial version
-#
-
-encoding=utf-8
+jvm=${env.JAVA_HOME}/bin/java
+javac.source=src/main/java
+javac.source.test=src/test/java
+javac.resource=src/main/resources
+javac.resource.test=src/test/resources
+javac.dest=target/classes
+javac.dest.test=target/test-classes
 
 windows.home=c:/WINNT/system32
 jdk.home=/usr/local/java
