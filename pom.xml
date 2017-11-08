@@ -11,12 +11,11 @@
   <organization>
     <name></name>
   </organization>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <url>https://github.com/umjammer/vavi-apps-gps</url>
-  <description>1.0.1
+  <description>1.0.2
 
-    maintenance version
-</description>
+    maintenance version</description>
   <build>
     <plugins>
       <plugin>
@@ -33,6 +32,14 @@
     <repository>
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
+    </repository>
+    <repository>
+      <id>umjammer-mvn-repo</id>
+      <url>https://raw.github.com/umjammer/umjammer/mvn-repo/</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
     </repository>
   </repositories>
   <dependencies>
