@@ -15,6 +15,7 @@
 <project name="vavi-apps-gps" default="run.dummy" basedir="."
   xmlns:ivy="antlib:org.apache.ivy.ant">
 
+  <property environment="env"/>
   <property file="local.properties" />
 
   <property name="dir.build" value="target/classes" />

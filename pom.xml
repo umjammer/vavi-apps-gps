@@ -12,67 +12,66 @@
     <name></name>
   </organization>
   <version>1.0.0</version>
-  <url>http://www.vavisoft.com/</url>
+  <url>https://github.com/umjammer/vavi-apps-gps</url>
   <description></description>
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
+          <source>8</source>
+          <target>8</target>
           <encoding>UTF-8</encoding>
-          <compilerVersion>1.5</compilerVersion>
         </configuration>
       </plugin>
     </plugins>
   </build>
   <repositories>
     <repository>
-      <id>vavi-commons-mvn-repo</id>
-      <url>https://raw.github.com/umjammer/vavi-commons/mvn-repo/</url>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </snapshots>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
     </repository>
   </repositories>
   <dependencies>
-  	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>4.5</version>
-  		<scope>test</scope>
-  		<optional>false</optional>
-  	</dependency>
     <dependency>
-        <groupId>javax.usb</groupId>
-        <artifactId>usb</artifactId>
-        <version>0.9.2</version>
-        <optional>false</optional>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.5</version>
+      <scope>test</scope>
+      <optional>false</optional>
     </dependency>
     <dependency>
-        <groupId>javax.usb</groupId>
-        <artifactId>usb-ri</artifactId>
-        <version>0.9.2</version>
-        <optional>false</optional>
+      <groupId>javax.usb</groupId>
+      <artifactId>usb</artifactId>
+      <version>0.9.2</version>
+      <optional>false</optional>
     </dependency>
     <dependency>
-    	<groupId>vavi</groupId>
-    	<artifactId>vavi-commons</artifactId>
-    	<version>1.0.4</version>
+      <groupId>javax.usb</groupId>
+      <artifactId>usb-ri</artifactId>
+      <version>0.9.2</version>
+      <optional>false</optional>
     </dependency>
     <dependency>
-    	<groupId>org.rxtx</groupId>
-    	<artifactId>rxtx</artifactId>
-    	<version>2.1.7</version>
-    	<optional>false</optional>
+      <groupId>com.github.umjammer</groupId>
+      <artifactId>vavi-commons</artifactId>
+      <version>1.0.6</version>
     </dependency>
     <dependency>
-    	<groupId>vavi</groupId>
-    	<artifactId>vavi-commons-net</artifactId>
-    	<version>1.0.0</version>
-    	<optional>false</optional>
+      <groupId>org.rxtx</groupId>
+      <artifactId>rxtx</artifactId>
+      <version>2.1.7</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.umjammer</groupId>
+      <artifactId>vavi-commons-net</artifactId>
+      <version>1.0.3</version>
     </dependency>
   </dependencies>
+  <scm>
+    <url>https://github.com/umjammer/vavi-apps-gps</url>
+  </scm>
+  <issueManagement>
+    <url>https://github.com/umjammer/vavi-apps-gps/issues</url>
+  </issueManagement>
 </project>
