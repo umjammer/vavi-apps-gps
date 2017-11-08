@@ -8,7 +8,7 @@ package vavi.gps;
 
 
 /**
- * Util. 
+ * Util.
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2013/06/02 umjammer initial version <br>
@@ -29,7 +29,7 @@ public class Util {
         double la = lat;
         double ln = lng;
         lat = la + la * 0.00010696 - ln * 0.000017467 - 0.0046020;
-        lng = ln + la * 0.000046047 + ln * 0.000083049 - 0.010041;    
+        lng = ln + la * 0.000046047 + ln * 0.000083049 - 0.010041;
         return new double[] { lat, lng };
     }
 }

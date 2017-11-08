@@ -14,7 +14,7 @@ import vavi.util.Debug;
 
 /**
  * RAW GPS Format.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030326 nsano initial version <br>
  */
@@ -48,7 +48,7 @@ public class RawGpsFormat implements GpsFormat {
             return ips;
         } else {
 Debug.println("line: " + new String(line));
-	        throw new IllegalArgumentException(new String(line));
+            throw new IllegalArgumentException(new String(line));
         }
     }
 }

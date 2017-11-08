@@ -11,7 +11,7 @@ import vavi.io.IODeviceOutputStream;
 
 /**
  * HgrOutputStream
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030327 nsano initial version <br>
  */

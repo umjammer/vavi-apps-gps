@@ -18,7 +18,7 @@ import vavi.util.event.GenericListener;
 
 /**
  * Multicast.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030326 nsano initial version <br>
  *          0.01 030328 nsano fix addGenericListener <br>
@@ -26,7 +26,7 @@ import vavi.util.event.GenericListener;
 public class Multicast extends GpsDevice {
 
     /** */
-    private List<GpsDevice> outputDevices = new ArrayList<GpsDevice>();
+    private List<GpsDevice> outputDevices = new ArrayList<>();
 
     /** */
     public Multicast(String file) {
@@ -52,7 +52,7 @@ Debug.println("device." + i + ": " + name + ": " + clazz);
                 i++;
             }
         } catch (Exception e) {
-            throw (RuntimeException) new IllegalStateException().initCause(e);
+            throw new IllegalStateException(e);
         }
     }
 

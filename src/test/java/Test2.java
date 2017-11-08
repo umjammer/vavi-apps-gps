@@ -16,10 +16,10 @@ import vavi.gps.Util;
 
 /**
  * Test2. Convert Tokyo Datum and WGS84
- * 
+ *
  * <pre>
  * nyp -> csv
- * $ nyp2txt 
+ * $ nyp2txt
  * csv -> tsv
  * $ c2t
  * </pre>
@@ -61,6 +61,7 @@ public class Test2 {
             double[] wgs84 = Util.japan2world(lat.toFloat(), lng.toFloat());
             System.out.printf("%s\t%.9f, %.9f\n", sdf2.format(date), wgs84[0], wgs84[1]);
         }
+        scanner.close();
     }
 }
 

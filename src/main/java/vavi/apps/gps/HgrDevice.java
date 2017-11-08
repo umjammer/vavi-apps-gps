@@ -14,7 +14,7 @@ import vavi.util.Debug;
 
 /**
  * HgrDevice
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030327 nsano initial version <br>
  *          0.01 030331 nsano be generic <br>
@@ -32,7 +32,7 @@ public class HgrDevice implements IODevice {
     public static final IODevice getInstance() {
         try {
             if (device == null) {
-//	            device = new vavi.gps.vendor.test.DummyHgrDevice("HGR3S");
+//                device = new vavi.gps.vendor.test.DummyHgrDevice("HGR3S");
                 device = new vavi.gps.vendor.sony.HgrUsbDevice("HGR3S");
             }
             return device;

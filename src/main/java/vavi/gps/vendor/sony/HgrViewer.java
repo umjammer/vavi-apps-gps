@@ -28,7 +28,7 @@ import vavi.util.event.GenericListener;
 
 /**
  * HGR Viewer.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030410 nsano initial version <br>
  */
@@ -69,7 +69,7 @@ Debug.printStackTrace(e);
             Graphics2D g2 = (Graphics2D) g;
 
             RenderingHints qualityHints =
-	        new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+            new RenderingHints(RenderingHints.KEY_ANTIALIASING,
                                    RenderingHints.VALUE_ANTIALIAS_ON);
 
             qualityHints.put(RenderingHints.KEY_RENDERING,
@@ -78,7 +78,7 @@ Debug.printStackTrace(e);
             g2.setRenderingHints(qualityHints);
 
             g2.setColor(Color.blue);
-            g2.fillRect(0, 0, (int) (R * 2), (int) (R * 2)); 
+            g2.fillRect(0, 0, (int) (R * 2), (int) (R * 2));
 
             g2.setColor(Color.black);
             g2.fillOval(0, 0, (int) (R * 2), (int) (R * 2));
@@ -130,9 +130,9 @@ Debug.printStackTrace(e);
             Point2D p = trueNorthToPoint2D(
                 gpsData.getVector().getBearingDirection(), r);
 
-    	    // Java 座標への変換
-    	    double X = R + p.getX();
-    	    double Y = R - p.getY();
+            // Java 座標への変換
+            double X = R + p.getX();
+            double Y = R - p.getY();
 
             if (gpsData.ready()) {
                 if (gpsData.getMeasurementMode() == GpsData.MODE_3D) {

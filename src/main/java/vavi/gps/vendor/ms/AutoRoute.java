@@ -15,7 +15,7 @@ import vavi.util.Debug;
 
 /**
  * AutoRoute device.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 120321 nsano initial version <br>
  */

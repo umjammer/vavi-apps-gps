@@ -16,7 +16,7 @@ import vavi.util.Debug;
 
 /**
  * HGR のエミュレーションを行うクラスです。
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030410 nsano initial version <br>
  */
@@ -75,13 +75,13 @@ Debug.println(e);
             String value = props.getProperty("emulator3.ff");
             if (value != null) {
 Debug.println("ff: " + value);
-		        ff = Integer.parseInt(value);
+                ff = Integer.parseInt(value);
             }
 
             value = props.getProperty("emulator3.file");
             if (value != null) {
 Debug.println("file: " + value);
-		        file = value;
+                file = value;
             }
 
             reader = new BufferedReader(new FileReader(file));

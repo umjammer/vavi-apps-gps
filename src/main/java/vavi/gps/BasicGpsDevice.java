@@ -21,10 +21,10 @@ import vavi.util.event.GenericListener;
 
 
 /**
- * BasicGpsDevice. 
+ * BasicGpsDevice.
  * サブクラスは必ず (Ljava/lang/String;) のシグネチャを持つ
  * コンストラクタを 持たなければなりません。
- * 
+ *
  * @see #newInstance(String,String)
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030326 nsano initial version <br>
@@ -87,7 +87,7 @@ public abstract class BasicGpsDevice extends GpsDevice {
     protected IODeviceOutputStream os;
 
     /** IO デバイスの識別子、IO デバイスのペア */
-    private Map<String,IODevice> ioDevices = new HashMap<String,IODevice>();
+    private Map<String,IODevice> ioDevices = new HashMap<>();
 
     /**
      * IO デバイスを取得します。
@@ -130,7 +130,7 @@ Debug.println("name: " + name + ": " + className);
         } catch (Exception e) {
 if (e instanceof InvocationTargetException)
  Debug.printStackTrace(((InvocationTargetException) e).getTargetException());
-else           
+else
  Debug.printStackTrace(e);
             throw new InternalError(e.toString());
         }
@@ -183,7 +183,7 @@ Debug.println("IN[" + getIODeviceName() + "]: thread stoped");
         } catch (Exception e) {
 if (e instanceof InvocationTargetException)
  Debug.printStackTrace(((InvocationTargetException) e).getTargetException());
-else           
+else
  Debug.printStackTrace(e);
             throw new InternalError(e.toString());
         }

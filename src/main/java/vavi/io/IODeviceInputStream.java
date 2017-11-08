@@ -14,7 +14,7 @@ import java.util.Queue;
 
 /**
  * IODeviceInputStream.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030323 nsano initial version <br>
  *          0.01 030325 nsano add readLine <br>
@@ -54,7 +54,7 @@ public class IODeviceInputStream extends InputStream {
     /** */
     public static String readLine(InputStream is) throws IOException {
 
-        Queue<Integer> fifo = new LinkedList<Integer>();
+        Queue<Integer> fifo = new LinkedList<>();
 
         int flag = 1;
 

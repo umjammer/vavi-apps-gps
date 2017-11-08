@@ -85,7 +85,7 @@ class JavaxUsb {
      * @param proxy A WindowsInterfaceIO object
      */
     static native void nativeDeviceProxy(WindowsDeviceProxy proxy);
-    
+
     // JavaxUsbError methods ----
 
     /**
@@ -285,7 +285,7 @@ Debug.println("end point type: " + ep.getType());
 
     // Class variables
     private static boolean libraryLoaded = false;
-    private static Hashtable<?, ?> msgLevelTable = new Hashtable<Object, Object>();
+    private static Hashtable<?, ?> msgLevelTable = new Hashtable<>();
 
     // Class constants
     public static final String LIBRARY_NAME = "JavaxUsb";

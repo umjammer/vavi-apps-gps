@@ -25,7 +25,7 @@ public class Test1 {
 
     /**
      * 「度のみを用いた場合、小数点以下3桁まで与えれば、度・分・秒によって表すのとほぼ同じ精度が得られる。」
-     * 
+     *
      * @param args hgr_log_file
      * @see "http://ja.wikipedia.org/wiki/%E5%88%86_(%E8%A7%92%E5%BA%A6)"
      */
@@ -41,6 +41,7 @@ public class Test1 {
             double[] wgs84 = Util.japan2world(gpsData.getPoint().getLatitude().toFloat(), gpsData.getPoint().getLongitude().toFloat());
             System.out.printf("%1$s\t%2$7.5f, %3$7.5f\n", sdf.format(gpsData.getDateTime()), wgs84[0], wgs84[1]);
         }
+        scanner.close();
     }
 }
 

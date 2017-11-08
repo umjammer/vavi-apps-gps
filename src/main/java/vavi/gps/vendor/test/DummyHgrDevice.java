@@ -13,7 +13,7 @@ import vavi.util.Debug;
 
 /**
  * HGR の
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030324 nsano initial version <br>
  *          0.01 030328 nsano add HGR emulation <br>

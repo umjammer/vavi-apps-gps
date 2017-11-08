@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * GpsData.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030318 nsano initial version <br>
  *          0.01 030325 nsano separate hdop, pdop, vdop <br>
@@ -178,7 +178,7 @@ public abstract class GpsData {
     }
 
     /** チャネル */
-    protected Map<String,Channel> channels = new HashMap<String,Channel>();
+    protected Map<String,Channel> channels = new HashMap<>();
 
     /** */
     public void addChannel(Channel channel) {
@@ -221,7 +221,7 @@ public abstract class GpsData {
 
     /** 高度補正データ */
     private static final String[] mapDatumStrings = {
-        "WGS-84",		// 補正の必要無し
+        "WGS-84",        // 補正の必要無し
         "Tokyo",
         "ADINDAN",
         "ARC 1950",

@@ -22,9 +22,9 @@ import vavi.util.event.GenericListener;
 
 /**
  * HGR Logger device.
- * 
+ *
  * @todo 汎用化、HGR から独立、Formatter で差を吸収
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030327 nsano initial version <br>
  */
@@ -57,7 +57,7 @@ Debug.println("logging: " + value);
                 value = props.getProperty("hgr.logging.formatter");
                 if (value != null) {
 Debug.println("configClass: " + value);
-		    Handler h = new FileHandler("%h/.hgr.log", true);
+            Handler h = new FileHandler("%h/.hgr.log", true);
                     Formatter f =
                         (Formatter) Class.forName(value).newInstance();
 
@@ -71,7 +71,7 @@ Debug.println("configClass: " + value);
                 value = props.getProperty("hgr.logging.interval");
                 if (value != null) {
 Debug.println("interval: " + value);
-		    interval = Integer.parseInt(value);
+            interval = Integer.parseInt(value);
                 }
             }
         } catch (Exception e) {

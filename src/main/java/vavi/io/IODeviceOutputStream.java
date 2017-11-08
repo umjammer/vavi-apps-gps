@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  * IODeviceOutputStream
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030323 nsano initial version <br>
  *          0.01 030325 nsano add writeLine(os, b) <br>

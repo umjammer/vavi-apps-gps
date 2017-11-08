@@ -14,7 +14,7 @@ import vavi.io.IODevice;
 
 /**
  * SharedMemoryDevice.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030331 nsano initial version <br>
  */
@@ -34,7 +34,7 @@ public class SharedMemoryDevice implements IODevice {
 
     /** */
     public int read() throws IOException {
-        while (inputFifo.peek() == null) {	// TODO
+        while (inputFifo.peek() == null) {    // TODO
             Thread.yield();
             try { Thread.sleep(20); } catch (Exception e) {}
 //Thread.currentThread().getThreadGroup().list();

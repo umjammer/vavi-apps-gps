@@ -12,7 +12,7 @@ import vavi.gps.PointSurface;
 
 /**
  * Test4.
- * 
+ *
  * <pre>
  * </pre>
  *
@@ -23,7 +23,7 @@ public class Test4 {
 
     /**
      * @in test333.tsv
-     * @out 
+     * @out
      */
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(new FileInputStream(args[0]));
@@ -48,6 +48,7 @@ public class Test4 {
 //System.err.println(lines[1] + " -> " + lat + ", " + lng);
             System.out.printf("%s\t%.9f, %.9f\n", lines[1], lat.toFloat(), lng.toFloat());
         }
+        scanner.close();
     }
 }
 

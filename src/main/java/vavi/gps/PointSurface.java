@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
 
 /**
  * Latitude, Longitude in DMS.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030318 nsano initial version <br>
  *          0.01 030318 nsano change seconds' resolution <br>
@@ -94,33 +94,33 @@ public class PointSurface {
     private interface Formatter {
         String toString();
     }
-    
+
     /** */
     class Formatter1 implements Formatter {
         public String toString() {
-    
+
             StringBuilder sb = new StringBuilder();
-    
+
             final DecimalFormat df2 = new DecimalFormat("00");
             final DecimalFormat df3 = new DecimalFormat("000");
             final DecimalFormat df2_4 = new DecimalFormat("00.00");
-    
+
             sb.append(typeStrings.charAt(type));
             sb.append(" ");
-    
+
             if (type == EAST_LONGITUDE || type == WEST_LONGITUDE) {
                 sb.append(df3.format(degrees));
             } else {
                 sb.append(df2.format(degrees));
             }
             sb.append("゜");
-    
+
             sb.append(df2.format(minutes));
             sb.append("'");
-    
+
             sb.append(df2_4.format(seconds));
             sb.append("\"");
-    
+
             return sb.toString();
         }
     }
@@ -130,16 +130,16 @@ public class PointSurface {
         public String toString() {
 
             StringBuilder sb = new StringBuilder();
-    
+
             final DecimalFormat df2 = new DecimalFormat("00");
             final DecimalFormat df2_4 = new DecimalFormat("00.0000");
-    
+
             sb.append(degrees);
-    
+
             sb.append(df2.format(minutes));
-    
+
             sb.append(df2_4.format(seconds));
-    
+
             return sb.toString();
         }
     }

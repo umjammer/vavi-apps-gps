@@ -15,7 +15,7 @@ import vavi.util.Debug;
 
 /**
  * NMEA device.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030320 nsano initial version <br>
  *          0.01 030326 nsano specification compliant <br>

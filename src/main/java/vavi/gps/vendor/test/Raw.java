@@ -16,7 +16,7 @@ import vavi.util.Debug;
 /**
  * Raw GPS device.
  * なるべく inputDevice として設定しないでください。
- * 
+ *
  * @todo 汎用化して vavi.gps パッケージへの昇格
  * @see RawGpsFormat#parse(byte[])
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)

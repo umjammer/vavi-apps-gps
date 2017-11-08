@@ -9,7 +9,7 @@ package vavi.uusbd;
 
 /**
  * Pipe.
- * 
+ *
  * @author <a href=mailto:vavivavi@yahoo.co.jp>nsano</a>
  * @version 0.00 030314 nsano initial version <br>
  */
@@ -28,7 +28,7 @@ public class Pipe {
      * USB デバイスのエンドポイントにアクセスするためのオブジェクトを作成する。
      * 現在のバージョンではインターラプト転送、
      * バルク転送のエンドポイントについて有効である。
-     * 
+     *
      * @param interfaceNo インターフェース番号
      * @param pipeNo パイプ番号
      * @throws UsbException USBデバイスに指定したパイプが無い
@@ -46,7 +46,7 @@ public class Pipe {
     /**
      * USB デバイスのエンドポイントにアクセスするためのオブジェクトを
      * オーバーラップモードで作成する。
-     * 
+     *
      * @param interfaceNo インターフェース番号
      * @param pipeNo パイプ番号
      * @param overlapped オーバーラップ
@@ -98,7 +98,7 @@ public class Pipe {
 
     /**
      * パイプを作成します。
-     * 
+     *
      * @param usbHandle USB のハンドル
      * @param interfaceNo インターフェース番号
      * @param pipeNo パイプ番号

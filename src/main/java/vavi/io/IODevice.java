@@ -12,8 +12,8 @@ import java.io.IOException;
 /**
  * IODevice.
  *
- * @author	<a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
- * @version	0.00	030323	nsano	initial version <br>
+ * @author    <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @version    0.00    030323    nsano    initial version <br>
  */
 public interface IODevice {
 

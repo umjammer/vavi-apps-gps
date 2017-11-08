@@ -93,6 +93,6 @@ abstract class WindowsRequestProxy {
 
     //**************************************************************************
     // Instance variables
-    private List<WindowsRequest> readyList = new LinkedList<WindowsRequest>();
-    private List<WindowsRequest> cancelList = new LinkedList<WindowsRequest>();
+    private List<WindowsRequest> readyList = new LinkedList<>();
+    private List<WindowsRequest> cancelList = new LinkedList<>();
 }

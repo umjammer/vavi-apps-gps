@@ -17,32 +17,32 @@ import vavi.util.properties.annotation.PropsEntity;
 
 /**
  * GPS Format conveter.
- * 
+ *
  * <pre>
  * <li>
  * GpsFormatConverter.properties に設定する項目
  * </li>
- * 
- *  入力デバイスクラス	inputDevice.class
- *  入力デバイス名	inputDevice.name
- *  出力デバイスクラス	outputDevice.class
- *  出力デバイス名	outputDevice.name
- * 
+ *
+ *  入力デバイスクラス    inputDevice.class
+ *  入力デバイス名    inputDevice.name
+ *  出力デバイスクラス    outputDevice.class
+ *  出力デバイス名    outputDevice.name
+ *
  * <li>
  * 出力デバイスとして {@link vavi.gps.Multicast} を指定した場合
  *  マルチキャストする出力デバイスのリストを設定する
  * </li>
- * 
- *  出力デバイスクラス	multicast.outputDevice.class.#
- *  出力デバイス名	multicast.outputDevice.name.#
+ *
+ *  出力デバイスクラス    multicast.outputDevice.class.#
+ *  出力デバイス名    multicast.outputDevice.name.#
  *  (# は 0 から連番)
  * </pre>
- * 
+ *
  * @depends GpsFormatConverter.properties
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030318 nsano initial version <br>
  */
-@PropsEntity(url = "/GpsFormatConverter.properties", resource = true)
+@PropsEntity(url = "classpath:GpsFormatConverter.properties")
 public class GpsFormatConverter {
 
     /** */

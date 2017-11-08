@@ -69,9 +69,9 @@ public class WindowsPipeOsImp extends DefaultUsbPipeOsImp
      */
     public void asyncSubmit(UsbIrpImp irp ) throws UsbException {
         WindowsPipeRequest request = usbIrpImpToWindowsPipeRequest(irp);
-        
+
         getWindowsInterfaceOsImp().submit(request);
-        
+
         synchronized(inProgressList) {
             inProgressList.add(request);
         }
@@ -151,7 +151,7 @@ public class WindowsPipeOsImp extends DefaultUsbPipeOsImp
     private WindowsInterfaceOsImp windowsInterfaceOsImp = null;
     protected byte pipeType = 0;
     protected byte endpointAddress = 0;
-    protected List<WindowsRequest> inProgressList = new LinkedList<WindowsRequest>();
+    protected List<WindowsRequest> inProgressList = new LinkedList<>();
 }
 
 /* */

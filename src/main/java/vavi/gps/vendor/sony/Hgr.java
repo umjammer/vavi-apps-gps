@@ -19,7 +19,7 @@ import vavi.util.Debug;
  *
  * Navin' You 5.5 とのセッション
  * <code><pre>
- * < !PUON\r\n		0, 9, 0x100
+ * < !PUON\r\n        0, 9, 0x100
  * > ROM    OK\r\n
  * > RS232C OK\r\n
  * > CLOCK  NG\r\n
@@ -106,39 +106,39 @@ public class Hgr extends BasicGpsDevice {
     }
 
     /** */
-    private String mapDatum = "B";	// デフォルトは Tokyo
+    private String mapDatum = "B";    // デフォルトは Tokyo
     /** */
     private String vfValue = "040";
 
     /** */
     public Hgr(String name) {
         super(name);
-        
+
         try {
             Properties props = new Properties();
-            
+
             props.load(Hgr.class.getResourceAsStream("Hgr.properties"));
-            
+
             String key = "ioDevice.class." + this.name;
             String value = props.getProperty(key);
             if (value != null) {
                 ioDeviceClass = value;
 Debug.println("ioDevice: " + ioDeviceClass);
             }
-            
+
             key = "ioDevice.name." + this.name;
             value = props.getProperty(key);
             if (value != null) {
                 ioDeviceName = value;
 Debug.println("name: " + ioDeviceName);
             }
-            
+
             value = props.getProperty("hgr.mapDatum");
             if (value != null) {
                 mapDatum = value;
 Debug.println("mapDatum: " + mapDatum);
             }
-            
+
             value = props.getProperty("hgr.vfValue");
             if (value != null) {
                 vfValue = value;
@@ -157,30 +157,30 @@ Debug.printStackTrace(e);
 
         try {
             makeSureOutputStreamOpened();
-            
+
             os.writeLine(INTERFACE_POWER_ON);
-            
+
             os.writeLine(INTERFACE_MODE_PC);
-            
+
             os.writeLine(INTERFACE_ID_GET);
-            
+
             os.writeLine(INTERFACE_MODE_GP);
-            
+
             os.writeLine(COMMAND_UNKNOWN1 + vfValue);
-            
+
             os.writeLine(COMMAND_UNKNOWN1 + vfValue);
-            
+
             os.writeLine(COMMAND_MAP_DATUM + mapDatum);
             // 2 回しないと反映されない
             os.writeLine(COMMAND_MAP_DATUM + mapDatum);
 try { Thread.sleep(3000); } catch (Exception e) { Debug.println(e); }
-    	    os.writeLine(COMMAND_UNKNOWN1 + vfValue);
-    
-    	    os.writeLine(COMMAND_UNKNOWN1 + vfValue);
-    
-    	    os.writeLine(COMMAND_MAP_DATUM + mapDatum);
-    
-    	    os.writeLine(COMMAND_MAP_DATUM + mapDatum);
+            os.writeLine(COMMAND_UNKNOWN1 + vfValue);
+
+            os.writeLine(COMMAND_UNKNOWN1 + vfValue);
+
+            os.writeLine(COMMAND_MAP_DATUM + mapDatum);
+
+            os.writeLine(COMMAND_MAP_DATUM + mapDatum);
         } catch (IOException e) {
 Debug.printStackTrace(e);
             throw new InternalError(e.toString());

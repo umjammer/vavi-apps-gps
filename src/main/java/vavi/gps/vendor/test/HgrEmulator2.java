@@ -39,7 +39,7 @@ import vavi.util.Debug;
 
 /**
  * HGR 入力のエミュレーションを行うクラスです。
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030319 nsano initial version <br>
  */

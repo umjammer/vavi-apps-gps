@@ -53,9 +53,9 @@ System.out.println("Using UsbHub.getUsbPorts() to show topology:");
         try {
             services = UsbHostManager.getUsbServices();
         } catch (UsbException e) {
-            throw (RuntimeException) new IllegalStateException().initCause(e);
+            throw new IllegalStateException(e);
         } catch (SecurityException e) {
-            throw (RuntimeException) new IllegalStateException().initCause(e);
+            throw new IllegalStateException(e);
         }
 
         /* Now we need to get the virtual root UsbHub,
@@ -73,9 +73,9 @@ System.out.println("Using UsbHub.getUsbPorts() to show topology:");
         try {
             virtualRootUsbHub = services.getRootUsbHub();
         } catch (UsbException e) {
-            throw (RuntimeException) new IllegalStateException().initCause(e);
+            throw new IllegalStateException(e);
         } catch (SecurityException e) {
-            throw (RuntimeException) new IllegalStateException().initCause(e);
+            throw new IllegalStateException(e);
         }
 
         return virtualRootUsbHub;

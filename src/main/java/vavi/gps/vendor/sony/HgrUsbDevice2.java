@@ -13,7 +13,7 @@ import vavi.gps.io.JUsbDevice;
 
 /**
  * HgrUsbDevice2
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 040628 nsano initial version <br>
  */

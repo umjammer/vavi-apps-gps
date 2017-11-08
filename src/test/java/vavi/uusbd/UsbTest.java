@@ -16,7 +16,7 @@ import static org.junit.Assert.fail;
 
 
 /**
- * UsbTest. 
+ * UsbTest.
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2011/11/03 umjammer initial version <br>

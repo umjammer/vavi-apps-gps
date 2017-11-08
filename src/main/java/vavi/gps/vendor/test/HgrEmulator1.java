@@ -16,7 +16,7 @@ import vavi.util.Debug;
 
 /**
  * HGR のエミュレーションを行うクラスです。
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030331 nsano initial version <br>
  */
@@ -53,8 +53,7 @@ Debug.println(e);
 
     /** */
     public HgrEmulator1() {
-        try {
-            BufferedReader r = new BufferedReader(new FileReader(file));
+        try (BufferedReader r = new BufferedReader(new FileReader(file))) {
 
             dummyString = r.readLine();
         } catch (Exception e) {

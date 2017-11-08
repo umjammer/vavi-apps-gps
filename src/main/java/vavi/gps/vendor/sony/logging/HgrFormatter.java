@@ -12,9 +12,9 @@ import java.util.logging.LogRecord;
 
 /**
  * The formatter for HGR.
- * 
+ *
  * TODO use GPSml, limit logging data
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030324 nsano initial version <br>
  */

@@ -15,7 +15,7 @@ import vavi.io.IODevice;
 
 /**
  * JUsbDevice.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 040628 nsano initial version <br>
  */
@@ -29,7 +29,7 @@ public abstract class JUsbDevice implements IODevice {
     protected abstract int getMaxPacketLength();
 
     /** */
-    protected Queue<Integer> inputFifo = new LinkedList<Integer>();
+    protected Queue<Integer> inputFifo = new LinkedList<>();
 
     /** */
     public int read() throws IOException {
@@ -47,7 +47,7 @@ public abstract class JUsbDevice implements IODevice {
 
 //      byte[] buf = new byte[packetLength];
 //      int l = pipe.read(buf, 0, packetLength);
-        
+
 //      for (int i = 0; i < l; i++) {
 //          inputFifo.push(buf[i]);
 //      }
@@ -59,7 +59,7 @@ public abstract class JUsbDevice implements IODevice {
     }
 
     /** */
-    protected Queue<Integer> outputFifo = new LinkedList<Integer>();
+    protected Queue<Integer> outputFifo = new LinkedList<>();
 
     /** */
     public void write(int c) throws IOException {
@@ -74,7 +74,7 @@ public abstract class JUsbDevice implements IODevice {
     protected void writeFromFifo() throws IOException {
 
 //      byte[] buf = new byte[packetLength];
-        
+
 //      for (int i = 0; i < packetLength; i++) {
 //          buf[i] = (byte) outputFifo.pop();
 //      }

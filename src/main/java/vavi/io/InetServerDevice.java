@@ -19,7 +19,7 @@ import vavi.util.Debug;
 
 /**
  * Output data to virtual com port via network.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030318 nsano initial version <br>
  *          0.01 030322 nsano repackage <br>

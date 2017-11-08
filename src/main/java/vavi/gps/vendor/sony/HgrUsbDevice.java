@@ -14,7 +14,7 @@ import vavi.uusbd.Usb;
 
 /**
  * HgrUsbDevice
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030322 nsano initial version <br>
  *          0.01 030323 nsano rename, extend UsbDevice <br>

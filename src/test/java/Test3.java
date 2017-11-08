@@ -24,7 +24,7 @@ public class Test3 {
 
     /**
      * 「度のみを用いた場合、小数点以下3桁まで与えれば、度・分・秒によって表すのとほぼ同じ精度が得られる。」
-     * 
+     *
      * @param args hgr_log_file
      * @see "http://ja.wikipedia.org/wiki/%E5%88%86_(%E8%A7%92%E5%BA%A6)"
      */
@@ -42,6 +42,7 @@ public class Test3 {
                               gpsData.getPoint().getLongitude(),
                               sdf.format(gpsData.getDateTime()));
         }
+        scanner.close();
     }
 }
 

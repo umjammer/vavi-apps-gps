@@ -13,7 +13,7 @@ import vavi.util.event.GenericSupport;
 
 /**
  * GPS Device.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030320 nsano initial version <br>
  *          0.01 030326 nsano add comment <br>
@@ -34,7 +34,7 @@ public abstract class GpsDevice {
      * <li>3. のイベントを引数にして <code>fireEventHappened()</code>
      * メソッドを発行する</li>
      * </ol>
-     * @return	java.lang.Runnable の実装クラス
+     * @return    java.lang.Runnable の実装クラス
      */
     protected abstract Runnable getInputThread();
 

@@ -13,14 +13,14 @@ import java.util.Map;
 
 /**
  * SharedFifo.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030331 nsano initial version <br>
  */
 public class SharedFifo<E> extends LinkedList<E> {
 
     /** */
-    private static Map<String, SharedFifo<?>> instances = new HashMap<String, SharedFifo<?>>();
+    private static Map<String, SharedFifo<?>> instances = new HashMap<>();
 
     /** */
     @SuppressWarnings("unchecked")
@@ -29,7 +29,7 @@ public class SharedFifo<E> extends LinkedList<E> {
             return (SharedFifo<E>) instances.get(name);
         } else {
             synchronized (instances) {
-                SharedFifo<E> instance = new SharedFifo<E>();
+                SharedFifo<E> instance = new SharedFifo<>();
                 instances.put(name, instance);
                 return instance;
             }

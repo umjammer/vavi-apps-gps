@@ -19,7 +19,7 @@ import vavi.util.Debug;
 
 /**
  * SerialPortDevice
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030322 nsano initial version <br>
  */
@@ -39,7 +39,7 @@ public class SerialPortDevice implements IODevice {
 
     /**
      * TODO read from file, COM port properties (4800, 8, 1, none, ...)
-     * 
+     *
      * @param name シリアルポート番号を指定します
      */
     public SerialPortDevice(String name) {

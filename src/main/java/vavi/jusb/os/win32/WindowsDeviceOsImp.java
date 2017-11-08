@@ -58,10 +58,10 @@ class WindowsDeviceOsImp extends DefaultUsbDeviceOsImp
                 windowsDeviceProxy.start();
             }
         }
-        
+
         return windowsDeviceProxy;
     }
-    
+
     /** AsyncSubmit a UsbControlIrpImp */
 /*
     public void asyncSubmit(UsbControlIrpImp usbControlIrpImp)
@@ -87,7 +87,7 @@ class WindowsDeviceOsImp extends DefaultUsbDeviceOsImp
     }
 
     private UsbDeviceImp usbDeviceImp = null;
-    
+
     private WindowsDeviceProxy windowsDeviceProxy = null;
 }
 

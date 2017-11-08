@@ -16,7 +16,7 @@ import vavi.uusbd.Usb;
 
 /**
  * UsbDevice.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030322 nsano initial version <br>
  */
@@ -43,7 +43,7 @@ public abstract class UsbDevice implements IODevice {
     protected abstract int getMaxPacketLength();
 
     /** */
-    protected Queue<Integer> inputFifo = new LinkedList<Integer>();
+    protected Queue<Integer> inputFifo = new LinkedList<>();
 
     /** */
     public int read() throws IOException {
@@ -73,7 +73,7 @@ public abstract class UsbDevice implements IODevice {
     }
 
     /** */
-    protected Queue<Integer> outputFifo = new LinkedList<Integer>();
+    protected Queue<Integer> outputFifo = new LinkedList<>();
 
     /** */
     public void write(int c) throws IOException {

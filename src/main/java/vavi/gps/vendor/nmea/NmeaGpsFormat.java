@@ -26,7 +26,7 @@ import vavi.util.StringUtil;
 
 /**
  * NMEA-0183 Version 2.0?
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030318 nsano initial version <br>
  *          0.01 030324 nsano add sentence selector <br>
@@ -118,7 +118,7 @@ public class NmeaGpsFormat implements GpsFormat {
         StringBuilder sb = new StringBuilder();
 
         final DecimalFormat df3_1 = new DecimalFormat("##0.0");
-//  	final DecimalFormat df2_1 = new DecimalFormat("00.0");
+//      final DecimalFormat df2_1 = new DecimalFormat("00.0");
         final DecimalFormat df1_1 = new DecimalFormat("0.0");
 
         if (gpsData.getTimeOfFix() != null) {
@@ -137,17 +137,17 @@ public class NmeaGpsFormat implements GpsFormat {
             sb.append(df1_1.format(gpsData.getHDop()));
         }
         sb.append(",");
-//	mean sea level
+//    mean sea level
         sb.append(",");
-//	sb.append("M");
+//    sb.append("M");
         sb.append(",");
         sb.append(df3_1.format(gpsData.getPoint().getAltitude()));
         sb.append(",");
         sb.append("M");
         sb.append(",");
-//	dgps
+//    dgps
         sb.append(",");
-//	dgps
+//    dgps
 
         return toSentence("GGA", sb.toString());
     }
@@ -218,7 +218,7 @@ public class NmeaGpsFormat implements GpsFormat {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("A");	// TODO or "M"
+        sb.append("A");    // TODO or "M"
         sb.append(",");
         sb.append(gpsData.getMeasurementMode());
         sb.append(",");
@@ -292,7 +292,7 @@ public class NmeaGpsFormat implements GpsFormat {
     }
 
     /**
-     * @param index	0 -
+     * @param index    0 -
      */
     private String toGSV(GpsData gpsData, int index, Iterator<Channel> channels) {
 
@@ -343,7 +343,7 @@ public class NmeaGpsFormat implements GpsFormat {
             }
         }
 
-        sb.setLength(sb.length() - 1);	// remove ',' at end
+        sb.setLength(sb.length() - 1);    // remove ',' at end
 
         return toSentence("GSV", sb.toString());
     }
@@ -388,9 +388,9 @@ public class NmeaGpsFormat implements GpsFormat {
             sb.append(toNmeaDateString(gpsData.getTimeOfFix()));
         }
         sb.append(",");
-//	magnetic variation
+//    magnetic variation
         sb.append(",");
-//	E
+//    E
 
         return toSentence("RMC", sb.toString());
     }
@@ -417,9 +417,9 @@ public class NmeaGpsFormat implements GpsFormat {
         sb.append(",");
         sb.append("T");
         sb.append(",");
-//	magnetic north
+//    magnetic north
         sb.append(",");
-//	sb.append("M");
+//    sb.append("M");
         sb.append(",");
         sb.append(df3_1.format(velocity * 0.5144));
         sb.append(",");
@@ -436,13 +436,13 @@ public class NmeaGpsFormat implements GpsFormat {
      * ZDA - Time & Date
      * <pre>
      *  ZDA,052608.22,06,05,2001,14,26*3D
-     *     052608.22	測位時刻（UTC）　05:26:08.22 
-     *     06	日（UTC）　6日 
-     *     05	月（UTC）　5月 
-     *     2001	西暦（UTC）　2001年 
-     *     14	時（現地時間）　14時 
-     *     26	分（現地時間）　26分 
-     *     *3D	チェックサム 
+     *     052608.22    測位時刻（UTC）　05:26:08.22
+     *     06    日（UTC）　6日
+     *     05    月（UTC）　5月
+     *     2001    西暦（UTC）　2001年
+     *     14    時（現地時間）　14時
+     *     26    分（現地時間）　26分
+     *     *3D    チェックサム
      * </pre>
      */
     protected String toZDA(GpsData gpsData) {
@@ -523,7 +523,7 @@ public class NmeaGpsFormat implements GpsFormat {
     }
 
     /**
-     * same as BWC 
+     * same as BWC
      *
      * TODO implement
      */
@@ -806,7 +806,7 @@ public class NmeaGpsFormat implements GpsFormat {
 
         return sb.toString();
     }
-    
+
     /** */
     {
         try {
@@ -847,7 +847,7 @@ public class NmeaGpsFormat implements GpsFormat {
 Debug.println("GGA: " + useGGA);
 Debug.println("GSA: " + useGSA);
 Debug.println("GSV: " + useGSV);
-Debug.println("GLL: " + useGLL); 
+Debug.println("GLL: " + useGLL);
 Debug.println("RMC: " + useRMC);
 Debug.println("VTG: " + useVTG);
         } catch (IOException e) {

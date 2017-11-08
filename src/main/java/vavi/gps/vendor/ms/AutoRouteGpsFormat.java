@@ -13,7 +13,7 @@ import vavi.gps.GpsFormat;
 
 /**
  * AutoRoute 2003
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 120321 nsano initial version <br>
  */

@@ -15,7 +15,7 @@ import vavi.io.IODeviceInputStream;
 
 /**
  * HgrInputStream.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030327 nsano initial version <br>
  */
@@ -27,7 +27,7 @@ public class HgrInputStream extends IODeviceInputStream {
     }
 
     /** */
-    private Queue<String> fifo = new LinkedList<String>();
+    private Queue<String> fifo = new LinkedList<>();
 
     /** */
     public String readLine() throws IOException {
