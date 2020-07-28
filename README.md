@@ -207,7 +207,7 @@ https://github.com/umjammer/vavi-apps-gps
 
 とった記録を再現してみた。パリ−ツールズの移動の一部です。再現ソフトは[こちら](http://gpsmap.sourceforge.net/)。下記「疑問」の補正はしてないのでちょっとずれている。右上のにぎやかそうなところがパリです。見ればわかるがパリ以外ホント田舎ばっか。 
 
-<img src="http://lh3.ggpht.com/_JchUHfE3WF4/SmmqJM5pBlI/AAAAAAAAAFc/YY_Uox3hbxo/s288/replay.png">
+<img src="https://lh3.googleusercontent.com/hMdSQPzKmf050OJtYXvf4hcl6ggC6QyJyLVplKj7FQTdovErDb1miD0E6nXuwVHfXKSf2uK1YNJS0iWhvQ=w528-h440-rw">
 
 ## 疑問
 
