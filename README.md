@@ -107,10 +107,10 @@ SONY 製の[ハンディ GPS レシーバ](http://www.sony.jp/products/Consumer/
 ## 汎用 USB ドライバ
 和製がありました。 
 
-  * [uusbd.sys](http://www.otto.to/~kasiwano/toppage12.htm) ... 結構有名みたい。 
+  * [uusbd.sys](https://web.archive.org/web/20071014023925/http://www.otto.to/~kasiwano/newpage17.htm) ... 結構有名みたい。 
 VID を 054c (ソニー) 、PID を 0040 （HGR3) にしてインストールすれば OK ！ 
 
-あと USB 用の Java API を組まなければいけません。[ここ](https://github.com/umjammer/vavi-util-archive/tree/master/vavi-util-archive) で JNI やっといてよかった。とってもスムーズに JNI が組めるようになってる俺。暇があったら [JSR80](http://javax-usb.sourceforge.net/) の Win32 実装にしようと思ったのだが、API が煩雑すぎだし残り半月仕事しながらじゃ無理なので断念。 
+あと USB 用の Java API を組まなければいけません。[ここ](https://github.com/umjammer/vavi-util-archive/tree/master/src/main/native) で JNI やっといてよかった。とってもスムーズに JNI が組めるようになってる俺。暇があったら [JSR80](http://javax-usb.sourceforge.net/) の Win32 実装にしようと思ったのだが、API が煩雑すぎだし残り半月仕事しながらじゃ無理なので断念。 
 
 とりあえずその場しのぎの [Java USB API](https://github.com/umjammer/vavi-apps-gps/tree/master/src/main/java/vavi/uusbd)
 
@@ -120,9 +120,9 @@ VID を 054c (ソニー) 、PID を 0040 （HGR3) にしてインストールす
 ### HGR 解析
   * [Sony IPS GPS Data Format](http://happy.emu.id.au/neilp/gps/ipsformat2.htm) ... IPS-2010 解析 
   * [IPS Format](https://web.archive.org/web/20011005004452/http://www.asahi-net.or.jp/~KN6Y-GTU/ips/ipsformat.txt) ... IPS 解析 
-  * [AnyGPS](http://www.vector.co.jp/soft/win95/home/se150051.html) ... いろんな GPS のコンバータみたい 
-  * [PCQlib](http://www.ht.sfc.keio.ac.jp/~nandu/gps/gps.html) ... Linux 用の HGR コントロールライブラリ 
-  * [USB Sniffer](http://benoit.papillault.free.fr/usbsnoop/index.en.php) ... Navin'You とのセッションの解析に使用 
+  * [AnyGPS](https://web.archive.org/web/20041206044226/http://www.vector.co.jp/soft/win95/home/se150051.html) ... いろんな GPS のコンバータみたい 
+  * [PCQlib](https://web.archive.org/web/20040613064534/http://www.ht.sfc.keio.ac.jp/~nandu/gps/gps.html) ... Linux 用の HGR コントロールライブラリ 
+  * [USB Sniffer](https://web.archive.org/web/20030803140026/http://benoit.papillault.free.fr/usbsnoop/index.en.php) ... Navin'You とのセッションの解析に使用 
   * [HGR 解析](https://web.archive.org/web/20040617090647/http://www.ne.jp/asahi/gps/nori/GARMIN/) ... ~~私のメールリクエストに答えて復活していただきました！感謝！~~
 
 ### Navin'You 5.5 と HGR3S の USB セッション
@@ -161,10 +161,10 @@ VID を 054c (ソニー) 、PID を 0040 （HGR3) にしてインストールす
 | |→| |
 
 ## NMEA
-  * [Understanding NMEA 0183](http://pcptpp030.psychologie.uni-regensburg.de/trafficresearch/NMEA0183/index.html) ... 
-  * [GM-38:マーキュリー取扱説明書](http://www.spa-japan.co.jp/DataBank/GM38m5.html) ... 
-  * [NMEA-0183フォーマット](http://bg66.soc.i.kyoto-u.ac.jp/forestgps/nmea.html) ... 
-  * [GARMIN GPS 12 XL](http://www.ne.jp/asahi/gps/nori/GARMIN/) ... 閉鎖
+  * [Understanding NMEA 0183](https://web.archive.org/web/20030203143634/http://pcptpp030.psychologie.uni-regensburg.de/trafficresearch/NMEA0183/index.html) ... 
+  * [GM-38:マーキュリー取扱説明書](https://web.archive.org/web/20030217215023/http://www.spa-japan.co.jp/DataBank/GM38m5.html) ... 
+  * [NMEA-0183フォーマット](https://web.archive.org/web/20030309004233/http://bg66.soc.i.kyoto-u.ac.jp/forestgps/nmea.html) ... 
+  * [GARMIN GPS 12 XL](https://web.archive.org/web/20040617090647/http://www.ne.jp/asahi/gps/nori/GARMIN/) ... 
 
 ## 開発状況
   * 03/15 やっと HGR3S パワーオンできた。こんなペースで大丈夫か？ 
@@ -189,17 +189,17 @@ VID を 054c (ソニー) 、PID を 0040 （HGR3) にしてインストールす
 
 シェアか製品しかないみたい、何でこんなものに１万円近く払わにゃならんのか？~~どうせ一ヶ月なんで試用モードで２回インストールすることに決定。開発時は本物の COM ポートをクロスケーブルでつないでやることにする。(持っていくノートにはもちろんCOM ポートなど無い)~~
 
-  * [VSPD XP3](http://www.mks.zp.ua/vspdxp.php) ... 試用期間 14 日、起動時にウザいダイアログあり 
-  * [VCP 300](http://www.ise-ics.co.jp/ics/system/virtualcomportcontents.html) ... 試用制限 5 分、和製 
-  * [NULL_COM 仮想シリアルポートドライバ](http://www.vector.co.jp/soft/win95/hardware/se150050.html) ... この開発者俺の欲しいものばっか作ってるがシェアだし 9x 用 
+  * [VSPD XP3](https://web.archive.org/web/20030207032133/http://www.mks.zp.ua/vspdxp.php) ... 試用期間 14 日、起動時にウザいダイアログあり 
+  * [VCP 300](https://web.archive.org/web/20030103211453/http://www.ise-ics.co.jp/ics/system/virtualcomportcontents.html) ... 試用制限 5 分、和製 
+  * [NULL_COM 仮想シリアルポートドライバ](https://web.archive.org/web/20030207170715/http://www.vector.co.jp/soft/win95/hardware/se150050.html) ... この開発者俺の欲しいものばっか作ってるがシェアだし 9x 用 
 
 ## ネットワークアクセス可能な仮想 COM ポートドライバ
 
 別に COM to COM じゃなくでも Network to COM でよかったことに気付いた。こちらはフリーがあります。つーか、はるかにこっちのほうがいろんな事できる(GPS データを違うマシンに飛ばしたり、GPS クライアントを複数にしたり)。なんで COM to COM だと有料で、これだと無料なんだろうね？ 
 
-  * [DeviceComm Manager](http://www.lantronix.com/support/utils/devicecomm/) ... 使い勝手いいです。フリー！ 
-  * [NPCOMM](http://www.yk.rim.or.jp/~kurohara/npcomm.html) ... 和製、シェア(今はフリー？)、なぜかインストールできなかったので断念 
-  * [Comfoolery!](http://www.brianpoe.com/comfoolery/) ... これもか？ 
+  * [DeviceComm Manager](https://web.archive.org/web/20030219235232/http://www.lantronix.com/support/utils/devicecomm/) ... 使い勝手いいです。フリー！ 
+  * [NPCOMM](https://web.archive.org/web/20030210132345/http://www.yk.rim.or.jp/~kurohara/npcomm.html) ... 和製、シェア(今はフリー？)、なぜかインストールできなかったので断念 
+  * [Comfoolery!](https://web.archive.org/web/20030207083745/http://www.brianpoe.com/comfoolery/) ... これもか？ 
 
 ## ソフトウェア
 
