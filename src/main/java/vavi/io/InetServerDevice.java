@@ -16,7 +16,6 @@ import java.net.SocketException;
 
 import vavi.net.inet.InetServer;
 import vavi.net.inet.SocketHandlerFactory;
-import vavi.util.Debug;
 
 import static java.lang.System.getLogger;
 

@@ -12,7 +12,6 @@ import java.lang.System.Logger.Level;
 import java.util.Properties;
 import vavi.gps.BasicGpsDevice;
 import vavi.gps.GpsFormat;
-import vavi.util.Debug;
 
 import static java.lang.System.getLogger;
 

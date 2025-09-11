@@ -16,8 +16,6 @@ import java.util.Enumeration;
 import javax.comm.CommPortIdentifier;
 import javax.comm.SerialPort;
 
-import vavi.util.Debug;
-
 import static java.lang.System.getLogger;
 
 

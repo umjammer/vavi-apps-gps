@@ -22,7 +22,6 @@ import javax.swing.JPanel;
 import vavi.gps.Channel;
 import vavi.gps.GpsData;
 import vavi.gps.GpsDevice;
-import vavi.util.Debug;
 import vavi.util.event.GenericListener;
 
 import static java.lang.System.getLogger;

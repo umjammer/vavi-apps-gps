@@ -16,7 +16,6 @@ import vavi.io.IODevice;
 import vavi.io.IODeviceInputStream;
 import vavi.io.IODeviceOutputStream;
 import vavi.util.event.GenericListener;
-import vavi.util.Debug;
 
 import static java.lang.System.getLogger;
 

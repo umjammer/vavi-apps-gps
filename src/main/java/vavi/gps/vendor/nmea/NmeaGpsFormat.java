@@ -22,7 +22,6 @@ import vavi.gps.Channel;
 import vavi.gps.GpsData;
 import vavi.gps.GpsFormat;
 import vavi.gps.PointSurface;
-import vavi.util.Debug;
 
 import static java.lang.System.getLogger;
 

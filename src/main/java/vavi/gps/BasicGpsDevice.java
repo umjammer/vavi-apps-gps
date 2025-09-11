@@ -17,7 +17,6 @@ import java.util.Map;
 import vavi.io.IODevice;
 import vavi.io.IODeviceInputStream;
 import vavi.io.IODeviceOutputStream;
-import vavi.util.Debug;
 import vavi.util.event.GenericEvent;
 import vavi.util.event.GenericListener;
 

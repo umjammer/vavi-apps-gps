@@ -9,12 +9,9 @@ package vavi.gps;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import vavi.util.Debug;
-import vavi.util.event.GenericEvent;
 import vavi.util.event.GenericListener;
 
 import static java.lang.System.getLogger;

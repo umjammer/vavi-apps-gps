@@ -36,7 +36,6 @@ import vavi.gps.PointMap3D;
 import vavi.gps.PointSurface;
 import vavi.gps.vendor.sony.IpsGpsData;
 import vavi.gps.vendor.sony.IpsGpsFormat;
-import vavi.util.Debug;
 
 import static java.lang.System.getLogger;
 

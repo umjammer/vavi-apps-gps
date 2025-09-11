@@ -10,8 +10,6 @@ import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.util.Properties;
 
-import vavi.util.Debug;
-
 import static java.lang.System.getLogger;
 
 

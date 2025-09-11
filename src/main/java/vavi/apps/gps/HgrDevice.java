@@ -11,7 +11,6 @@ import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 
 import vavi.io.IODevice;
-import vavi.util.Debug;
 
 import static java.lang.System.getLogger;
 
