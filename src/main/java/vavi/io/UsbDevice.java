@@ -43,15 +43,15 @@ public abstract class UsbDevice implements IODevice {
     protected abstract int getMaxPacketLength();
 
     /** */
-    protected Queue<Integer> inputFifo = new LinkedList<>();
+    protected final Queue<Integer> inputFifo = new LinkedList<>();
 
-    /** */
+    @Override
     public int read() throws IOException {
         if (inputFifo.peek() == null) {
             readToFifo();
         }
 
-        int c = inputFifo.poll().intValue();
+        int c = inputFifo.poll();
 // System.err.println(StringUtil.toHex2(c));
         return c;
     }
@@ -63,19 +63,19 @@ public abstract class UsbDevice implements IODevice {
         int l = pipe.read(buf, 0, packetLength);
 
         for (int i = 0; i < l; i++) {
-            inputFifo.offer(new Integer(buf[i]));
+            inputFifo.offer(buf[i] & 0xff);
         }
     }
 
-    /** */
+    @Override
     public int available() throws IOException {
         return inputFifo.size();
     }
 
     /** */
-    protected Queue<Integer> outputFifo = new LinkedList<>();
+    protected final Queue<Integer> outputFifo = new LinkedList<>();
 
-    /** */
+    @Override
     public void write(int c) throws IOException {
         outputFifo.offer(c);
 
@@ -96,9 +96,9 @@ public abstract class UsbDevice implements IODevice {
         pipe.write(buf, 0, packetLength);
     }
 
-    /** */
+    @Override
     public void flush() throws IOException {
-        if (outputFifo.size() > 0) {
+        if (!outputFifo.isEmpty()) {
             for (int i = outputFifo.size(); i < packetLength; i++) {
                 outputFifo.offer(0);
             }
@@ -106,11 +106,9 @@ public abstract class UsbDevice implements IODevice {
         }
     }
 
-    /** */
+    @Override
     public void close() throws IOException {
         pipe.close();
         usb.close();
     }
 }
-
-/* */

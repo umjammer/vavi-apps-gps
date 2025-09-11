@@ -7,6 +7,8 @@
 package vavi.gps.vendor.test;
 
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.Timer;
 import java.util.TimerTask;
 import vavi.gps.GpsDevice;
@@ -16,121 +18,124 @@ import vavi.io.IODeviceOutputStream;
 import vavi.util.event.GenericListener;
 import vavi.util.Debug;
 
+import static java.lang.System.getLogger;
+
 
 /**
- * HGR のエミュレーションを行うクラスです。
+ * This class emulates HGR.
  * <pre>
- * <!PUON        電源 ON
- * > メッセージ
- * < !PUOFF        電源 OFF
- * > 無し
- * < !PC        GPS OFF
+ * <!PUON           power ON
+ * > message
+ * < !PUOFF         power OFF
+ * > none
+ * < !PC            GPS OFF
  * > OK
- * < !GP        GPS ON
+ * < !GP            GPS ON
  * > OK
- * < !ID        ID 取得
- * > ID 情報
- * < !MRD6        メモリレジスタ読み込み D6 レジスタ
- * > MRDT3e900    ... 0x3e900
- * < !MWW1c,21c    メモリレジスタ書き込み W1c レジスタ、値 0x21c
- * > OK        or NG
- * < !MD100,4c        [W0],[Da]
+ * < !ID            ID acquisition
+ * > ID information
+ * < !MRD6          Memory register read D6 register
+ * > MRDT3e900      ... 0x3e900
+ * < !MWW1c,21c     Write Memory Register W1c register, value 0x21c
+ * > OK             or NG
+ * < !MD100,4c      [W0],[Da]
  * > MDC#......
  * > MDC#...
  * >  :
  * > MDF#...
  * </pre>
- * レジスタの説明
+ * Register Description
  * <pre>
- * W0    メモリスタートオフセット？(読み込み専用)
+ * W0    Memory start offset? (Read only)
  *
- *        いつも 0x100
+ *        Always 0x100
  *
- * D2    メモリスタートオフセット？(読み込み専用)
+ * D2    Memory start offset? (Read only)
  *
- *        いつも 0x100
+ *        Always 0x100
  *
- * D6    搭載メモリ量(読み込み専用)
+ * D6    Amount of installed memory (read-only)
  *
- *        HGR3 では 0x3e900
+ *        0x3e900 for HGR3
  *
- * Da    メモリ使用量
+ * Da   Memory usage
  *
- *        測位記録1地点あたり 19 byte メモリを使用するので、
- *        Da で読み取った値を 19 で割ると 記録されている測位データの数
- *        がわかる。
- *        メモリクリアしたい時はこのレジスタを 0 に set する。
- * 例:
+ *        Each recorded position uses 19 bytes of memory,
+ *        so if you divide the value read by Da by 19,
+ *        you can find the number of recorded position data.
+ *        To clear the memory, set this register to 0.
+ * example:
  *     !MRDa
  *     MRDTa3e      → 0xa3e = 2622 = 138*19
- *     !MWDa,0      ←メモリクリア
+ *     !MWDa,0      ← Memory Clear
  *     OK
  *
- * De    不明 (読み込み専用)
+ * De    Unknown (read-only)
  *
- *        HGR3 ではいつも 0x384e6
- *        (256 Kbyte の搭載メモリからアルマナックデータなどの保存に使う
- *         メモリの分を引いた、実際に利用できるメモリ量？
+ *        Always 0x384e6 on HGR3
+ *        (What is the actual available memory amount,
+ *         minus the memory used to store almanac data, etc.,
+ *         from the 256 Kbytes of installed memory?
  *
- * D16    不明 (読み込み専用)
+ * D16    Unknown (read-only)
  *
- *        HGR3 ではいつも 0
+ *        Always 0 in HGR3
  *
- * W12    単体動作時 測位データ記録間隔
+ * W12    Positioning data recording interval when operating alone
  *
- *        0 の時、測位データの自動記録をしない。
- *        (マークボタンを押した時だけ記録される)
- * 例:
+ *        When set to 0, positioning data is not automatically recorded.
+ *        (Recording only occurs when you press the mark button)
+ * example:
  *     !MRW12
- *     MRDT1    → 1秒
- *     !MWW12,3c    → 0x3c = 60(秒)に設定
+ *     MRDT1        → 1 second
+ *     !MWW12,3c    → 0x3c = Set to 60 (seconds)
  *     OK
  *
- * W14    不明 (読み込み専用)
+ * W14    Unknown (read-only)
  *
- *        HGR3 ではいつも 0
+ *        Always 0 in HGR3
  *
- * W1a    PC接続時 測位データ記録間隔
+ * W1a    When connected to a PC, positioning data recording interval
  *
- *        0 の時、測位データの自動記録をしない。
- *        (マークボタンを押した時だけ記録される)
- * 例:
+ *        When set to 0, positioning data is not automatically recorded.
+ *        (Recording only occurs when you press the mark button)
+ * example:
  *     !MRW1a
- *     MRDT1    → 0 (自動記録なし)
- *     !MWW1a,1     → 1秒に設定
+ *     MRDT1        → 0 (No automatic recording)
+ *     !MWW1a,1     → Set to 1 second
  *     OK
  *
- * W1c    LCD の時刻表示 Timezone offset (HGR3 only?)
+ * W1c    LCD time display Timezone offset (HGR3 only?)
  *
- *        HGR 内部では GMT(UTC) で扱われていて、このレジスタの
- *        値分オフセット されて液晶に時刻表示される。単位は「分」
- *        通常日本ならば 60*9 = 540 = 0x21c
+ *        The HGR uses GMT (UTC) internally, and the time is displayed
+ *        on the LCD screen with an offset of this register value. The unit is minutes.
+ *        In Japan, this is usually 60*9 = 540 = 0x21c.
  *
  *     !MRW1c
  *     MRDT21c      → 0x21c = 540 = 60*9 (JST)
  *     !MWW1c,0     → 0 (GMT)
  *     OK
- *     !MWW1c,fed4  → 0xfed4 = -300 (shortで) = -5*60
+ *     !MWW1c,fed4  → 0xfed4 = -300 (short) = -5*60
  *
- * B1e    不明
+ * B1e    Unknown
  *
- *        HGR3 ではいつも 1 が読み書きされる
+ *        HGR3 always reads and writes 1
  *
- * B1f    不明
+ * B1f    Unknown
  *
- *        HGR3 ではいつも 5 が読み書きされる
+ *        HGR3 always reads and writes 5
  *
- * B20    バックライト点灯時間 (HGR3 only?)
+ * B20    Backlight duration (HGR3 only?)
  *
- *        0 の時、バックライト自動 OFF が無効となる。
+ *        When set to 0, automatic backlight OFF is disabled.
  *
- *    例:
+ *    example:
  *        !MRB20
- *        MRDT0    →  0 (バックライト自動OFFが無効)
- *        !MWB20,78    →  0x78 = 120 (秒)に設定
+ *        MRDT0        →  0 (Backlight auto-off disabled)
+ *        !MWB20,78    →  0x78 = Set to 120 (seconds)
  *        OK
  *
- * たぶん先頭のアルファベット
+ * Maybe the first alphabet
  *  B Byte, W Word, D DWord
  * </pre>
  *
@@ -139,10 +144,12 @@ import vavi.util.Debug;
  */
 public abstract class HgrEmulator extends GpsDevice {
 
-    /** */
-//  private int register_W1a = 0;
+    private static final Logger logger = getLogger(HgrEmulator.class.getName());
 
-    //----
+//    /** */
+//    private int register_W1a = 0;
+
+    // ----
 
     /** */
     private boolean powerOn = false;
@@ -151,7 +158,7 @@ public abstract class HgrEmulator extends GpsDevice {
     private Timer outputTimer;
 
     /** */
-    private long interval = 1000;
+    private static final long interval = 1000;
 
     /** */
     private void doCommand(String command) throws IOException {
@@ -166,7 +173,7 @@ public abstract class HgrEmulator extends GpsDevice {
         } else if ("!ID".equals(command)) {
             doID();
         } else {
-Debug.println("unrecognized command: " + command);
+logger.log(Level.DEBUG, "unrecognized command: " + command);
         }
     }
 
@@ -193,7 +200,7 @@ Debug.println("unrecognized command: " + command);
             outputTimer.cancel();
         }
         powerOn = false;
-Debug.println("power off");
+logger.log(Level.DEBUG, "power off");
     }
 
     /** */
@@ -226,45 +233,43 @@ Debug.println("power off");
         os.writeLine("ID" + "DTPCQ-HGR3,1.0.00.07281");
     }
 
-    //----
+    // ----
 
     /** */
-    protected IODeviceInputStream is;
+    protected final IODeviceInputStream is;
 
     /** */
-    protected IODeviceOutputStream os;
+    protected final IODeviceOutputStream os;
 
-    /** シリアル回線からの入力 */
+    @Override
     protected Runnable getInputThread() {
-        return new Runnable() {
-            public void run() {
-Debug.println("input thread started");
-                while (loop) {
-                    try {
-                        String command = is.readLine();
-//Debug.println("command: " + command);
-                        doCommand(command);
-                    }
-                    catch (IOException e) {
-Debug.println(e);
-                    }
+        return () -> {
+logger.log(Level.DEBUG, "input thread started");
+            while (loop) {
+                try {
+                    String command = is.readLine();
+//logger.log(Level.DEBUG, "command: " + command);
+                    doCommand(command);
+                } catch (IOException e) {
+logger.log(Level.ERROR, e.getMessage(), e);
                 }
-Debug.println("input thread stopped");
             }
+logger.log(Level.DEBUG, "input thread stopped");
         };
     }
 
-    /** */
+    @Override
     protected GenericListener getOutputGenericListener() {
         throw new IllegalStateException("This class cannot be output device.");
     }
 
-    /** シリアル回線への GPS データの出力 */
+    /** Outputting GPS data to a serial line */
     protected abstract TimerTask getOutputTimerTask();
 
     /** make sure not to duplicate input thread */
+    @Override
     public void start() {
-Debug.println("here");
+logger.log(Level.DEBUG, "here");
     }
 
     /** */
@@ -278,5 +283,3 @@ Debug.println("here");
         super.start();
     }
 }
-
-/* */

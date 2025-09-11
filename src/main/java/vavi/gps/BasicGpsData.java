@@ -15,7 +15,7 @@ package vavi.gps;
  */
 public class BasicGpsData extends GpsData {
 
-    /** TODO 多分 GpsData クラスに移すべき */
+    /** TODO Maybe it should be moved to the GpsData class */
     private byte[] rawData;
 
     /** */
@@ -31,15 +31,13 @@ public class BasicGpsData extends GpsData {
 
     //----
 
-    /** */
+    @Override
     public boolean ready() {
         return false;
     }
 
-    /** */
+    @Override
     public int getMaxChannels() {
         return 0;
     }
 }
-
-/* */

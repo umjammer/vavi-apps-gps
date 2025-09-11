@@ -1,4 +1,8 @@
 [![Release](https://jitpack.io/v/umjammer/vavi-apps-gps.svg)](https://jitpack.io/#umjammer/vavi-spps-gps)
+[![Java CI](https://github.com/umjammer/vavi-spps-gps/actions/workflows/maven.yml/badge.svg)](https://github.com/umjammer/vavi-spps-gps/actions/workflows/maven.yml)
+[![CodeQL](https://github.com/umjammer/vavi-spps-gps/actions/workflows/codeql.yml/badge.svg)](https://github.com/umjammer/vavi-spps-gps/actions/workflows/codeql.yml)
+![Java](https://img.shields.io/badge/Java-17-b07219)
+[![Translate](https://img.shields.io/badge/Translation-🇺🇸-white)](https://translate.google.com/translate?sl=auto&tl=en&hl=en&u=https://github.com/umjammer/vavi-apps-gps/blob/master/README.md/)
 
 # ヨーロッパでカーナビドライブ
 

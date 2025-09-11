@@ -33,12 +33,12 @@ public class HgrUsbDevice extends UsbDevice {
     public HgrUsbDevice(String name) throws IOException {
     }
 
-    /** */
+    @Override
     protected int getMaxPacketLength() {
         return 8;
     }
 
-    /** */
+    @Override
     protected void writeFromFifo() throws IOException {
 
         byte[] buf = new byte[packetLength];
@@ -56,5 +56,3 @@ public class HgrUsbDevice extends UsbDevice {
                              buf);
     }
 }
-
-/* */

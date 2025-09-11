@@ -6,10 +6,15 @@
 
 package vavi.gps.vendor.test;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+
 import vavi.gps.BasicGpsData;
 import vavi.gps.GpsData;
 import vavi.gps.GpsFormat;
 import vavi.util.Debug;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -20,17 +25,20 @@ import vavi.util.Debug;
  */
 public class RawGpsFormat implements GpsFormat {
 
+    private static final Logger logger = getLogger(RawGpsFormat.class.getName());
+
     /**
-     * GpsData に setRawData しか設定していないのでなるべく Raw GpsDevce を
-     * inputDevice として設定しないでください。
+     * Since only setRawData is set in GpsData,
+     * please avoid setting Raw GpsDevice as inputDevice if possible.
      */
+    @Override
     public GpsData parse(byte[] line) {
         BasicGpsData data = new BasicGpsData();
         data.setRawData(line);
         return data;
     }
 
-    /** */
+    @Override
     public byte[] format(GpsData data) {
         byte[] line = ((BasicGpsData) data).getRawData();
 
@@ -47,10 +55,8 @@ public class RawGpsFormat implements GpsFormat {
 
             return ips;
         } else {
-Debug.println("line: " + new String(line));
+logger.log(Level.DEBUG, "line: " + new String(line));
             throw new IllegalArgumentException(new String(line));
         }
     }
 }
-
-/* */

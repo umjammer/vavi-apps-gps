@@ -4,7 +4,8 @@
  * Programmed by Naohide Sano
  */
 
-import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 import vavi.gps.PointSurface;
@@ -26,7 +27,7 @@ public class Test4 {
      * @out
      */
     public static void main(String[] args) throws Exception {
-        Scanner scanner = new Scanner(new FileInputStream(args[0]));
+        Scanner scanner = new Scanner(Files.newInputStream(Paths.get(args[0])));
         while (scanner.hasNextLine()) {
             String[] lines = scanner.nextLine().split("\t");
 
@@ -51,5 +52,3 @@ public class Test4 {
         scanner.close();
     }
 }
-
-/* */

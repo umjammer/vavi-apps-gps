@@ -23,24 +23,24 @@ import java.io.IOException;
 public class IODeviceOutputStream extends OutputStream {
 
     /** */
-    private IODevice device;
+    private final IODevice device;
 
     /** */
     public IODeviceOutputStream(IODevice device) {
         this.device = device;
     }
 
-    /** */
+    @Override
     public void write(int c) throws IOException {
         device.write(c);
     }
 
-    /** */
+    @Override
     public void flush() throws IOException {
         device.flush();
     }
 
-    /** */
+    @Override
     public void close() throws IOException {
         device.close();
     }
@@ -70,5 +70,3 @@ public class IODeviceOutputStream extends OutputStream {
         os.flush();
     }
 }
-
-/* */

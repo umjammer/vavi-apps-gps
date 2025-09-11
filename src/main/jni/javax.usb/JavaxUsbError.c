@@ -20,5 +20,3 @@ printf("Native get-error method!\n");
 
     return jstr;
 }
-
-/* */

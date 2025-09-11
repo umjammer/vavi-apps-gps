@@ -6,13 +6,17 @@
 
 package vavi.gps.vendor.test;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.Properties;
 
 import vavi.util.Debug;
 
+import static java.lang.System.getLogger;
+
 
 /**
- * HGR の
+ * dummy HGR.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030324 nsano initial version <br>
@@ -21,6 +25,8 @@ import vavi.util.Debug;
  *          0.03 030331 nsano separate IODevice <br>
  */
 public class DummyHgrDevice extends SharedMemoryDevice {
+
+    private static final Logger logger = getLogger(DummyHgrDevice.class.getName());
 
     /** */
     private static String emulatorClass = "vavi.gps.vendor.test.HgrEmulator1";
@@ -43,12 +49,10 @@ public class DummyHgrDevice extends SharedMemoryDevice {
             }
 
             @SuppressWarnings("unused")
-            HgrEmulator emulator = (HgrEmulator) Class.forName(emulatorClass).newInstance();
+            HgrEmulator emulator = (HgrEmulator) Class.forName(emulatorClass).getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-Debug.printStackTrace(e);
+logger.log(Level.ERROR, e.getMessage(), e);
             throw new InternalError(e.toString());
         }
     }
 }
-
-/* */

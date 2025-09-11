@@ -7,10 +7,14 @@
 package vavi.gps.vendor.ms;
 
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.Properties;
 import vavi.gps.BasicGpsDevice;
 import vavi.gps.GpsFormat;
 import vavi.util.Debug;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -21,26 +25,28 @@ import vavi.util.Debug;
  */
 public class AutoRoute extends BasicGpsDevice {
 
+    private static final Logger logger = getLogger(AutoRoute.class.getName());
+
     /** */
     private String ioDeviceClass = "vavi.gps.io.InetServerDevice";
 
     /** */
     private String ioDeviceName = "";
 
-    /** */
+    @Override
     protected String getIODeviceClass() {
         return ioDeviceClass;
     }
 
-    /** */
+    @Override
     protected String getIODeviceName() {
         return ioDeviceName;
     }
 
     /** */
-    private GpsFormat gpsFormat = new AutoRouteGpsFormat();
+    private final GpsFormat gpsFormat = new AutoRouteGpsFormat();
 
-    /** */
+    @Override
     protected GpsFormat getGpsFormat() {
         return gpsFormat;
     }
@@ -58,20 +64,18 @@ public class AutoRoute extends BasicGpsDevice {
             String value = props.getProperty(key);
             if (value != null) {
                 ioDeviceClass = value;
-Debug.println("ioDevice: " + ioDeviceClass);
+logger.log(Level.DEBUG, "ioDevice: " + ioDeviceClass);
             }
 
             key = "ioDevice.name." + this.name;
             value = props.getProperty(key);
             if (value != null) {
                 ioDeviceName = value;
-Debug.println("name: " + ioDeviceName);
+logger.log(Level.DEBUG, "name: " + ioDeviceName);
             }
         } catch (IOException e) {
-Debug.printStackTrace(e);
+logger.log(Level.ERROR, e.getMessage(), e);
             throw new InternalError(e.toString());
         }
     }
 }
-
-/* */

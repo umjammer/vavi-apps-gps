@@ -9,12 +9,16 @@ package vavi.io;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.net.Socket;
 import java.net.SocketException;
 
 import vavi.net.inet.InetServer;
 import vavi.net.inet.SocketHandlerFactory;
 import vavi.util.Debug;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -26,6 +30,8 @@ import vavi.util.Debug;
  *          0.02 030328 nsano remove input task <br>
  */
 public class InetServerDevice implements IODevice {
+
+    private static final Logger logger = getLogger(InetServerDevice.class.getName());
 
     /** */
     private int port = 5750;
@@ -40,7 +46,7 @@ public class InetServerDevice implements IODevice {
     private OutputStream os;
 
     /**
-     * @param name IP のポート番号を指定します
+     * @param name Specify the IP port number
      */
     public InetServerDevice(String name) throws IOException {
 
@@ -52,31 +58,30 @@ public class InetServerDevice implements IODevice {
     }
 
     /** */
-    private SocketHandlerFactory acceptanceListenerFactory = new SocketHandlerFactory() {
-        private Runnable socketHandler = new Runnable() {
-            public void run() {
-            }
+    private final SocketHandlerFactory acceptanceListenerFactory = new SocketHandlerFactory() {
+        private final Runnable socketHandler = () -> {
         };
         /** */
+        @Override
         public Runnable getSocketHandler(Socket socket) {
             InetServerDevice.this.socket = socket;
             try {
                 is = socket.getInputStream();
                 os = socket.getOutputStream();
             } catch (IOException e) {
-Debug.println(e);
+logger.log(Level.ERROR, e.getMessage(), e);
             }
             return socketHandler;
         }
     };
 
-    /** */
+    @Override
     public int read() throws IOException {
         while (is == null) { // TODO
             Thread.yield();
             try {
                 Thread.sleep(20);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
 
@@ -89,7 +94,7 @@ Debug.println(e);
         }
     }
 
-    /** */
+    @Override
     public int available() throws IOException {
         if (is != null) {
             try {
@@ -105,12 +110,13 @@ Debug.println(e);
     }
 
     /**
-     * コネクションが確立していない時点の書き込みは破棄されます。
+     * Any writes made while the connection is not established will be discarded.
      */
+    @Override
     public void write(int b) throws IOException {
         if (os != null) {
             try {
-// Debug.println(StringUtil.toHex2(b) + ": " + (char) b);
+//logger.log(Level.TRACE, "%02x".formatted(b) + ": " + (char) b);
                 os.write(b);
             } catch (SocketException e) {
                 is = null;
@@ -121,8 +127,9 @@ Debug.println(e);
     }
 
     /**
-     * コネクションが確立していない時点のフラッシュは破棄されます。
+     * If a connection is not established, the flush is discarded.
      */
+    @Override
     public void flush() throws IOException {
         if (os != null) {
             try {
@@ -135,7 +142,7 @@ Debug.println(e);
         }
     }
 
-    /** */
+    @Override
     public void close() throws IOException {
 
         try {
@@ -143,13 +150,9 @@ Debug.println(e);
             is.close();
 
             socket.close();
-        } catch (SocketException e) {
-            throw e;
         } finally {
-            os = null; // コネクション確立のフラグとして使用
-            is = null; // コネクション確立のフラグとして使用
+            os = null; // Used as a flag for establishing a connection
+            is = null; // Used as a flag for establishing a connection
         }
     }
 }
-
-/* */

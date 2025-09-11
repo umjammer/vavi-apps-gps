@@ -9,25 +9,33 @@ package vavi.gps.vendor.test;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.nio.file.FileSystems;
 import java.util.Properties;
 import java.util.TimerTask;
 import vavi.util.Debug;
 
+import static java.lang.System.getLogger;
+
 
 /**
- * HGR のエミュレーションを行うクラスです。
+ * This class emulates HGR.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030410 nsano initial version <br>
  */
 public class HgrEmulator3 extends HgrEmulator {
 
-    /** 早送りの倍速度 */
+    private static final Logger logger = getLogger(HgrEmulator3.class.getName());
+
+    /** Double fast forward speed */
     int ff = 10;
 
-    /** シリアル回線への GPS データの出力 */
+    @Override
     protected TimerTask getOutputTimerTask() {
         return new TimerTask() {
+            @Override
             public void run() {
                 try {
                     for (int i = 0; i < ff - 1; i++) {
@@ -37,16 +45,16 @@ public class HgrEmulator3 extends HgrEmulator {
                     os.writeLine(line);
                 }
                 catch (IOException e) {
-Debug.println(e);
+logger.log(Level.ERROR, e.getMessage(), e);
                 }
             }
         };
     }
 
-    //----
+    // ----
 
     /** */
-    private String ioDeviceName = "dummy3";
+    private final String ioDeviceName = "dummy3";
 
     /** */
     protected String getIODeviceName() {
@@ -56,11 +64,11 @@ Debug.println(e);
     /** */
     private static String file =
         System.getProperty("user.home") +
-        System.getProperty("file.separator") +
+                FileSystems.getDefault().getSeparator() +
         ".hgr.log";
 
     /** */
-    private BufferedReader reader;
+    private final BufferedReader reader;
 
     /** */
     public HgrEmulator3() {
@@ -74,22 +82,20 @@ Debug.println(e);
 
             String value = props.getProperty("emulator3.ff");
             if (value != null) {
-Debug.println("ff: " + value);
+logger.log(Level.DEBUG, "ff: " + value);
                 ff = Integer.parseInt(value);
             }
 
             value = props.getProperty("emulator3.file");
             if (value != null) {
-Debug.println("file: " + value);
+logger.log(Level.DEBUG, "file: " + value);
                 file = value;
             }
 
             reader = new BufferedReader(new FileReader(file));
         } catch (Exception e) {
-Debug.println(e);
+logger.log(Level.ERROR, e.getMessage(), e);
             throw new IllegalStateException(e);
         }
     }
 }
-
-/* */

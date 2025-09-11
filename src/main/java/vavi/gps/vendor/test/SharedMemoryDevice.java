@@ -21,22 +21,22 @@ import vavi.io.IODevice;
 public class SharedMemoryDevice implements IODevice {
 
     /** */
-    private Queue<Integer> inputFifo;
+    private final Queue<Integer> inputFifo;
 
     /** */
-    private Queue<Integer> outputFifo;
+    private final Queue<Integer> outputFifo;
 
     /** */
     public SharedMemoryDevice(String reader, String writer) {
-        inputFifo = SharedFifo.<Integer>newInstance(reader);
-        outputFifo = SharedFifo.<Integer>newInstance(writer);
+        inputFifo = SharedFifo.newInstance(reader);
+        outputFifo = SharedFifo.newInstance(writer);
     }
 
-    /** */
+    @Override
     public int read() throws IOException {
         while (inputFifo.peek() == null) {    // TODO
             Thread.yield();
-            try { Thread.sleep(20); } catch (Exception e) {}
+            try { Thread.sleep(20); } catch (Exception ignored) {}
 //Thread.currentThread().getThreadGroup().list();
         }
 
@@ -45,25 +45,23 @@ public class SharedMemoryDevice implements IODevice {
         return c;
     }
 
-    /** */
+    @Override
     public int available() throws IOException {
         return inputFifo.size();
     }
 
-    /** */
+    @Override
     public void write(int b) throws IOException {
-//Debug.println(String.valueOf((char) b));
+//logger.log(Level.DEBUG, String.valueOf((char) b));
         outputFifo.offer(b);
     }
 
-    /** */
+    @Override
     public void flush() throws IOException {
-//Debug.println("<< " + outputFifo.size() + ", >> " + inputFifo.size());
+//logger.log(Level.DEBUG, "<< " + outputFifo.size() + ", >> " + inputFifo.size());
     }
 
-    /** */
+    @Override
     public void close() throws IOException {
     }
 }
-
-/* */

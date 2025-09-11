@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public abstract class GpsData {
 
-    /** ベンダーバージョン */
+    /** Vendor Version */
     private String versionString;
 
     /** */
@@ -34,7 +34,7 @@ public abstract class GpsData {
         return versionString;
     }
 
-    /** 日付と時刻 */
+    /** Date and Time */
     private Date dateTime;
 
     /** */
@@ -47,7 +47,7 @@ public abstract class GpsData {
         return dateTime;
     }
 
-    /** 緯度, 経度 */
+    /** Latitude, Longitude */
     private PointMap3D point;
 
     /** */
@@ -60,7 +60,7 @@ public abstract class GpsData {
         return point;
     }
 
-    /** 速度, 方角 */
+    /** Speed, direction */
     private MapVector vector;
 
     /** */
@@ -73,18 +73,18 @@ public abstract class GpsData {
         return vector;
     }
 
-    /** 日付と時刻 (計測時) */
+    /** Date and time (at the time of measurement) */
     private Date timeOfFix;
 
     /** */
     public void setTimeOfFix(Date timeOfFix) {
-//Debug.println(timeOfFix);
+//logger.log(Level.DEBUG, timeOfFix);
         this.timeOfFix = timeOfFix;
     }
 
     /** */
     public Date getTimeOfFix() {
-//Debug.println(timeOfFix);
+//logger.log(Level.DEBUG, timeOfFix);
         return timeOfFix;
     }
 
@@ -135,7 +135,7 @@ public abstract class GpsData {
     /** */
     public static final int MODE_3D = 3;
 
-    /** 測定モード */
+    /** Measurement Mode */
     private int measurementMode;
 
     /** */
@@ -148,7 +148,7 @@ public abstract class GpsData {
         return measurementMode;
     }
 
-    /** 高度補正データ 0 - 25 TODO depends IPS */
+    /** Altitude correction data 0 - 25 TODO depends IPS */
     private int mapDatum;
 
     /** */
@@ -177,8 +177,8 @@ public abstract class GpsData {
         return mapDatum;
     }
 
-    /** チャネル */
-    protected Map<String,Channel> channels = new HashMap<>();
+    /** channel */
+    protected final Map<String,Channel> channels = new HashMap<>();
 
     /** */
     public void addChannel(Channel channel) {
@@ -195,7 +195,7 @@ public abstract class GpsData {
         return channels.values();
     }
 
-    //----
+    // ----
 
     /** */
     public abstract int getMaxChannels();
@@ -219,9 +219,9 @@ public abstract class GpsData {
         return mapDatumStrings[mapDatum];
     }
 
-    /** 高度補正データ */
+    /** Altitude correction data */
     private static final String[] mapDatumStrings = {
-        "WGS-84",        // 補正の必要無し
+        "WGS-84",        // No correction required
         "Tokyo",
         "ADINDAN",
         "ARC 1950",
@@ -249,5 +249,3 @@ public abstract class GpsData {
         "CORREGO ALEGRE"
     };
 }
-
-/* */

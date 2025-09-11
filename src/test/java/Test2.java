@@ -4,7 +4,8 @@
  * Programmed by Naohide Sano
  */
 
-import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
@@ -34,7 +35,7 @@ public class Test2 {
      * @out MyPackage2.tsv
      */
     public static void main(String[] args) throws Exception {
-        Scanner scanner = new Scanner(new FileInputStream(args[0]));
+        Scanner scanner = new Scanner(Files.newInputStream(Paths.get(args[0])));
         String h = scanner.nextLine();
         System.out.println(h);
         while (scanner.hasNextLine()) {
@@ -64,5 +65,3 @@ public class Test2 {
         scanner.close();
     }
 }
-
-/* */

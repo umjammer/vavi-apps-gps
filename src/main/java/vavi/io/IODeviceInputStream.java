@@ -24,24 +24,24 @@ import java.util.Queue;
 public class IODeviceInputStream extends InputStream {
 
     /** */
-    private IODevice device;
+    private final IODevice device;
 
     /** */
     public IODeviceInputStream(IODevice device) {
         this.device = device;
     }
 
-    /** */
+    @Override
     public int read() throws IOException {
         return device.read();
     }
 
-    /** */
+    @Override
     public int available() throws IOException {
         return device.available();
     }
 
-    /** */
+    @Override
     public void close() throws IOException {
         device.close();
     }
@@ -71,25 +71,23 @@ public class IODeviceInputStream extends InputStream {
                     break;
                 } else {
                     flag = 1;
-                    fifo.offer(new Integer(c));
+                    fifo.offer(c);
                 }
             } else {
                 if (flag == 2) {
-                    fifo.offer(new Integer(0x0d));
+                    fifo.offer(0x0d);
                 }
                 flag = 1;
-                fifo.offer(new Integer(c));
+                fifo.offer(c);
             }
         }
 
         int size = fifo.size();
         byte[] buf = new byte[size];
         for (int i = 0; i < size; i++) {
-            buf[i] = (byte) fifo.poll().intValue();
+            buf[i] = (byte) (int) fifo.poll();
         }
 
         return new String(buf);
     }
 }
-
-/* */

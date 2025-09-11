@@ -32,5 +32,3 @@ public interface IODevice {
     /** */
     void close() throws IOException;
 }
-
-/* */

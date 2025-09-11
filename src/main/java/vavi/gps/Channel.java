@@ -14,7 +14,7 @@ package vavi.gps;
  * @version 0.00 030318 nsano initial version <br>
  */
 public class Channel {
-    /** 衛星の PRN 番号 1 - 32 */
+    /** Satellite PRN number 1 - 32 */
     private int prn;
 
     /** */
@@ -30,7 +30,7 @@ public class Channel {
     /** */
     public static final int INVALID_ELEVTION = 99;
 
-    /** 衛星の高度 */
+    /** Satellite altitude */
     private int elevation;
 
     /** */
@@ -46,7 +46,7 @@ public class Channel {
     /** */
     public static final int INVALID_AZIMUTH = 999;
 
-    /** 衛星の方位 */
+    /** Satellite orientation */
     private int azimuth;
 
     /** */
@@ -59,7 +59,7 @@ public class Channel {
         return azimuth;
     }
 
-    /** 受信機と衛星の情報 0 - 5 */
+    /** Receiver and satellite information 0 - 5 */
     private int info;
 
     /** */
@@ -72,7 +72,7 @@ public class Channel {
         return info;
     }
 
-    /** 衛星からの信号の強さ 0 - 25 */
+    /** Satellite signal strength 0 - 25 */
     private int signalStrength;
 
     /** */
@@ -92,7 +92,7 @@ public class Channel {
     public static final int INFO_ILL = 4;
     public static final int INFO_OK = 5;
 
-    //----
+    // ----
 
     /** */
     public boolean available() {
@@ -113,10 +113,8 @@ public class Channel {
             "S=" + signalStrength;
     }
 
-    /** 受信機と衛星の情報 */
+    /** Receiver and satellite information */
     private static final String[] infoStrings = {
         "SCAN", "LOCK", "READY", "HOLD", "ILL", "OK"
     };
 }
-
-/* */

@@ -27,9 +27,9 @@ public class HgrInputStream extends IODeviceInputStream {
     }
 
     /** */
-    private Queue<String> fifo = new LinkedList<>();
+    private final Queue<String> fifo = new LinkedList<>();
 
-    /** */
+    @Override
     public String readLine() throws IOException {
         while (true) {
             String line = super.readLine();
@@ -45,12 +45,10 @@ public class HgrInputStream extends IODeviceInputStream {
     public String readGPSLine() throws IOException {
         while (fifo.peek() == null) {
             Thread.yield();
-            try { Thread.sleep(20); } catch (Exception e) {}
+            try { Thread.sleep(20); } catch (Exception ignored) {}
         }
 
         String line = fifo.poll();
         return line;
     }
 }
-
-/* */

@@ -7,17 +7,21 @@
 package vavi.gps.vendor.test;
 
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.Properties;
 import vavi.gps.BasicGpsDevice;
 import vavi.gps.GpsFormat;
 import vavi.util.Debug;
 
+import static java.lang.System.getLogger;
+
 
 /**
  * Raw GPS device.
- * なるべく inputDevice として設定しないでください。
+ * Please avoid setting it as an inputDevice if possible.
  *
- * @todo 汎用化して vavi.gps パッケージへの昇格
+ * TODO Generalized and promoted to vavi.gps package
  * @see RawGpsFormat#parse(byte[])
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030325 nsano initial version <br>
@@ -25,28 +29,30 @@ import vavi.util.Debug;
  */
 public class Raw extends BasicGpsDevice {
 
+    private static final Logger logger = getLogger(Raw.class.getName());
+
     /** */
     private String ioDeviceClass = "vavi.gps.io.InetServerDevice";
 
     /** */
     private String ioDeviceName = "5750";
 
-    /** */
+    @Override
     protected String getIODeviceClass() {
         return ioDeviceClass;
     }
 
-    /** */
+    @Override
     protected String getIODeviceName() {
         return ioDeviceName;
     }
 
     /** */
-    private GpsFormat gpsFormat = new RawGpsFormat();
+    private final GpsFormat gpsFormat = new RawGpsFormat();
 
-    /** */
+    @Override
     protected GpsFormat getGpsFormat() {
-        // Debug.println("gpsFormat: " + gpsFormat);
+        // logger.log(Level.DEBUG, "gpsFormat: " + gpsFormat);
         return gpsFormat;
     }
 
@@ -63,25 +69,24 @@ public class Raw extends BasicGpsDevice {
             String value = props.getProperty(key);
             if (value != null) {
                 ioDeviceClass = value;
-                Debug.println("ioDevice: " + ioDeviceClass);
+                logger.log(Level.DEBUG, "ioDevice: " + ioDeviceClass);
             }
 
             key = "ioDevice.name." + this.name;
             value = props.getProperty(key);
             if (value != null) {
                 ioDeviceName = value;
-                Debug.println("name: " + ioDeviceName);
+                logger.log(Level.DEBUG, "name: " + ioDeviceName);
             }
         } catch (IOException e) {
-            Debug.printStackTrace(e);
+            logger.log(Level.ERROR, e.getMessage(), e);
             throw new InternalError(e.toString());
         }
     }
 
     /** Does nothing. */
+    @Override
     public void start() {
-        Debug.println("here");
+        logger.log(Level.DEBUG, "here");
     }
 }
-
-/* */

@@ -22,7 +22,7 @@ public class IpsGpsData extends BasicGpsData {
     /** */
     protected boolean ready;
 
-    /** */
+    @Override
     public boolean ready() {
         return ready;
     }
@@ -32,10 +32,10 @@ public class IpsGpsData extends BasicGpsData {
         this.ready = ready;
     }
 
-    /** 基準発信器が UNLOCK */
+    /** Reference clock is unlocked */
     public static final int TCXO_UNLOCKED = -9999;
 
-    /** 内部基準発信器の状態 */
+    /** Internal reference clock status */
     private int differenceOfClock;
 
     /** */
@@ -48,8 +48,8 @@ public class IpsGpsData extends BasicGpsData {
         return differenceOfClock;
     }
 
-    /** 不明 */
-    byte[] unknown = new byte[2];
+    /** unknown */
+    final byte[] unknown = new byte[2];
 
     public void setUnknown(byte[] unknown) {
         System.arraycopy(unknown, 0, this.unknown, 0, 2);
@@ -61,7 +61,7 @@ public class IpsGpsData extends BasicGpsData {
     /** */
     public static final int UNIT_DMD = 1;
 
-    /** 経度と緯度の単位 */
+    /** Longitude and latitude units */
     private int unitType;
 
     /** */
@@ -80,7 +80,7 @@ public class IpsGpsData extends BasicGpsData {
     /** */
     public static final int PARITY_ODD = 1;
 
-    /** パリティ */
+    /** parity */
     public int getParity(byte[] data) {
         int sum = 0;
         for (int i = 0; i < 147; i++) {
@@ -89,14 +89,14 @@ public class IpsGpsData extends BasicGpsData {
         return (sum & 0x0001) != 0 ? PARITY_ODD : PARITY_EVEN;
     }
 
-    //----
+    // ----
 
-    /** */
+    @Override
     public int getMaxChannels() {
         return 16;
     }
 
-    /** */
+    @Override
     public void addChannel(Channel channel) {
         String key = channel.getKeyString();
         if (!channels.containsKey(key)) {
@@ -110,5 +110,3 @@ public class IpsGpsData extends BasicGpsData {
         }
     }
 }
-
-/* */

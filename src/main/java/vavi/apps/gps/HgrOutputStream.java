@@ -22,5 +22,3 @@ public class HgrOutputStream extends IODeviceOutputStream {
         super(HgrDevice.getInstance());
     }
 }
-
-/* */

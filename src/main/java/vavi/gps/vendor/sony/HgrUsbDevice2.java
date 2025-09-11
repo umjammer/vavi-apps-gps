@@ -29,10 +29,8 @@ public class HgrUsbDevice2 extends JUsbDevice {
     public HgrUsbDevice2(String name) throws IOException {
     }
 
-    /** */
+    @Override
     protected int getMaxPacketLength() {
         return 8;
     }
 }
-
-/* */

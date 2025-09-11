@@ -23,150 +23,151 @@ import vavi.util.StringUtil;
 
 
 /**
- * SONY IPS 系 GPS データフォーマットを表すクラスです。
+ * This class represents the SONY IPS GPS data format.
  *
  * <code><pre>
- * 1. 生データ
+ * 1. Raw Data
  *
  * SM00200312163182241n3753525E14006172+02530001809812163181058Q3BREFABXGdABSCKABPCGACDHIABJEiABGCrBGMGrCEdDCEO
  *
- * 2. データ文字列の意味
+ * 2. Data String Meaning
  *
  * ofs len      data            description
  * ---+---+--------------------+-----------------------------------------------
- *   0   6    SM0020        ベンダーバージョン
- *   6  13    0312163182241    日付と時刻
- *                 03 (年)
- *                 12 (月)
- *                 16 (日)
- *                  3 (曜日: 0(Sunday) - 6(Saturday))
- *                 18 (時)
- *                 22 (分)
- *                 41 (秒)
- *  19   1    N        北緯 (N)あるいは南緯(S) n,s は非測位中
- *  20   2    37        緯度 37 (度)
- *  22   2    53        緯度 53 (分)
- *  24   3    525        緯度 52.5 (秒)
- *  27   1    E        東経 (E)あるいは西経(W)
- *  28   3    140        経度 140 (度)
- *  31   2    06        経度 06 (分)
- *  33   3    172        経度 17.2 (秒)
- *  36   5    +0253        高度 (海抜？) m
- *  41   3    000        速度 km/h
- *  44   3    180        方角 (北から時計回り) degrees (True North)
- *  47  13    9812163181058    日付と時刻 (計測時)
+ *   0   6    SM0020            Vendor Version
+ *   6  13    0312163182241     Date and Time
+ *                              03 (year)
+ *                              12 (month)
+ *                              16 (day)
+ *                              3 (weekday: 0(Sunday) - 6(Saturday))
+ *                              18 (hour)
+ *                              22 (minute)
+ *                              41 (second)
+ *  19   1    N                 North latitude (N) or South latitude (S) n,s is not currently positioning
+ *  20   2    37                Latitude 37 (degrees)
+ *  22   2    53                Latitude 53 (minutes)
+ *  24   3    525               Latitude 52.5 (seconds)
+ *  27   1    E                 East longitude (E) or West longitude (W)
+ *  28   3    140               Longitude 140 (degrees)
+ *  31   2    06                Longitude 06 (minutes)
+ *  33   3    172               Longitude 17.2 (seconds)
+ *  36   5    +0253             Altitude (above sea level?) m
+ *  41   3    000               speed km/h
+ *  44   3    180               Direction (clockwise from North) degrees (True North)
+ *  47  13    9812163181058     Date and time (at the time of measurement)
  *
- *  60   1    Q        dilution of precision (DOP)
- *                  データ    値    データ    値
- *                  A    1    J    10
- *                  B    2    K    11 - 12
- *                  C    3    L    13 - 15
- *                  D    4    M    16 - 20
- *                  E    5    N    21 - 30
- *                  F    6    O    31 - 50
- *                  G    7    P    51 - 99
- *                  H    8    Q    100+
- *                  I    9
+ *  60   1    Q                 dilution of precision (DOP)
+ *                              data  value  data  value
+ *                              A     1      J     10
+ *                              B     2      K     11 - 12
+ *                              C     3      L     13 - 15
+ *                              D     4      M     16 - 20
+ *                              E     5      N     21 - 30
+ *                              F     6      O     31 - 50
+ *                              G     7      P     51 - 99
+ *                              H     8      Q     100+
+ *                              I     9
  *
- *  61   1    3        測定モード
- *                    データ    モード
- *                    3    衛星3つ使用の2次元モード
- *                    4    衛星4つ使用の3次元モード
+ *  61   1    3                 Measurement Mode
+ *                              data  mode
+ *                              3     2D mode using three satellites
+ *                              4     3D mode using four satellites
  *
- *  62   1    B        高度補正データ
+ *  62   1    B                 Altitude correction data
  *
- *  63   5    REFAB        チャネル[1]
- *  68   5    XGdAB        チャネル[2]
- *  73   5    SCKAB        チャネル[3]
- *  78   5    PCGAC        チャネル[4]
- *  83   5    DHIAB        チャネル[5]
- *  88   5    JEiAB        チャネル[6]
- *  93   5    GCrBG        チャネル[7]
- *  98   5    MGrCE        チャネル[8]
- * 103   5    REFAB        チャネル[9]
- * 108   5    XGdAB        チャネル[10]
- * 113   5    SCKAB        チャネル[11]
- * 118   5    PCGAC        チャネル[12]
- * 123   5    DHIAB        チャネル[13]
- * 128   5    JEiAB        チャネル[14]
- * 133   5    GCrBG        チャネル[15]
- * 138   5    MGrCE        チャネル[16]
+ *  63   5    REFAB             channel[1]
+ *  68   5    XGdAB             channel[2]
+ *  73   5    SCKAB             channel[3]
+ *  78   5    PCGAC             channel[4]
+ *  83   5    DHIAB             channel[5]
+ *  88   5    JEiAB             channel[6]
+ *  93   5    GCrBG             channel[7]
+ *  98   5    MGrCE             channel[8]
+ * 103   5    REFAB             channel[9]
+ * 108   5    XGdAB             channel[10]
+ * 113   5    SCKAB             channel[11]
+ * 118   5    PCGAC             channel[12]
+ * 123   5    DHIAB             channel[13]
+ * 128   5    JEiAB             channel[14]
+ * 133   5    GCrBG             channel[15]
+ * 138   5    MGrCE             channel[16]
  *
- *                  1 番目の文字    衛星の PRN 番号
- *                  2 番目の文字    衛星の高度
- *                  3 番目の文字    衛星の方位
- *                  4 番目の文字    受信機と衛星の情報
- *                  5 番目の文字    衛星からの信号の強さ
+ *                              1st character Satellite PRN number
+ *                              2nd character Satellite altitude
+ *                              3rd character Satellite orientation
+ *                              4th character Receiver and satellite information
+ *                              5th character Satellite signal strength
  *
- *                  1. 衛星の PRN (Pseudo-Range Navigation) 番号
- *                  データ    PRN#    データ    PRN#    データ PRN#
- *                  A    1    L    12    W    23
- *                  B    2    M    13    X    24
- *                  C    3    N    14    a    25
- *                  D    4    O    15    b    26
- *                  E    5    P    16    c    27
- *                  F    6    Q    17    d    28
- *                  G    7    R    18    e    29
- *                  H    8    S    19    f    30
- *                  I    9    T    20    g    31
- *                  J    10    U    21    h    32
- *                  K    11    V    22
+ *                              1. Satellite PRN (Pseudo-Range Navigation) number
+ *                              data  PRN#  data  PRN#  data  PRN#
+ *                              A     1     L     12     W    23
+ *                              B     2     M     13     X    24
+ *                              C     3     N     14     a    25
+ *                              D     4     O     15     b    26
+ *                              E     5     P     16     c    27
+ *                              F     6     Q     17     d    28
+ *                              G     7     R     18     e    29
+ *                              H     8     S     19     f    30
+ *                              I     9     T     20     g    31
+ *                              J     10    U     21     h    32
+ *                              K     11    V     22
  *
- *                  2. 衛星の高度
- *                  データ      高度        データ      高度
- *                  A      0 >  +5    a      0 >  -5
- *                  B     +6 > +15    b     -6 > -15
- *                  C    +16 > +25    c    -16 > -25
- *                  D    +26 > +35    d    -26 > -35
- *                  E    +36 > +45    e    -36 > -45
- *                  F    +46 > +55    f    -46 > -55
- *                  G    +56 > +65    g    -56 > -65
- *                  H    +66 > +75    h    -66 > -75
- *                  I    +76 > +85    i    -76 > -85
- *                  J    +86 > +90    j    -86 > -90
+ *                              2. Satellite altitude
+ *                              data  altitude   data  altitude
+ *                              A       0 >  +5  a       0 >  -5
+ *                              B      +6 > +15  b      -6 > -15
+ *                              C     +16 > +25  c     -16 > -25
+ *                              D     +26 > +35  d     -26 > -35
+ *                              E     +36 > +45  e     -36 > -45
+ *                              F     +46 > +55  f     -46 > -55
+ *                              G     +56 > +65  g     -56 > -65
+ *                              H     +66 > +75  h     -66 > -75
+ *                              I     +76 > +85  i     -76 > -85
+ *                              J     +86 > +90  j     -86 > -90
  *
- *                  3. 衛星の方位
- *                  データ       方位        データ       方位
- *                  A       0 >   +5    a       0 >   -5
- *                  B      +6 >  +15    b      -6 >  -15
- *                  C     +16 >  +25    c     -16 >  -25
- *                  D     +26 >  +35    d     -26 >  -35
- *                  E     +36 >  +45    e     -36 >  -45
- *                  F     +46 >  +55    f     -46 >  -55
- *                  G     +56 >  +65    g     -56 >  -65
- *                  H     +66 >  +75    h     -66 >  -75
- *                  I     +76 >  +85    i     -76 >  -85
- *                  J     +86 >  +95    j     -86 >  -95
- *                  K     +96 > +105    k     -96 > -105
- *                  L    +106 > +115    l    -106 > -115
- *                  M    +116 > +125    m    -116 > -125
- *                  N    +126 > +135    n    -126 > -135
- *                  O    +136 > +145    o    -136 > -145
- *                  P    +146 > +155    p    -146 > -155
- *                  Q    +156 > +165    q    -156 > -165
- *                  R    +166 > +175    r    -166 > -175
- *                  S    +176 > +180    s    -176 > -180
+ *                              3. Satellite orientation
+ *                              data  orientation  data  orientation
+ *                              A       0 >   +5   a       0 >   -5
+ *                              B      +6 >  +15   b      -6 >  -15
+ *                              C     +16 >  +25   c     -16 >  -25
+ *                              D     +26 >  +35   d     -26 >  -35
+ *                              E     +36 >  +45   e     -36 >  -45
+ *                              F     +46 >  +55   f     -46 >  -55
+ *                              G     +56 >  +65   g     -56 >  -65
+ *                              H     +66 >  +75   h     -66 >  -75
+ *                              I     +76 >  +85   i     -76 >  -85
+ *                              J     +86 >  +95   j     -86 >  -95
+ *                              K     +96 > +105   k     -96 > -105
+ *                              L    +106 > +115   l    -106 > -115
+ *                              M    +116 > +125   m    -116 > -125
+ *                              N    +126 > +135   n    -126 > -135
+ *                              O    +136 > +145   o    -136 > -145
+ *                              P    +146 > +155   p    -146 > -155
+ *                              Q    +156 > +165   q    -156 > -165
+ *                              R    +166 > +175   r    -166 > -175
+ *                              S    +176 > +180   s    -176 > -180
  *
- *                  4. 受信機と衛星の情報
- *                  データ    状態
- *                  A 衛星を探している (SCAN)
- *                  B 受信機は衛星の信号に同調中 (LOCK)
- *                  C 位置情報の計算準備完了 (READY)
- *                  D 衛星からの信号に割り込みがかかった (HOLD)
- *                  E 衛星が不調かもしくは計算不能 (ILL)
- *                  F 衛星は位置情報計算可能 (OK)
+ *                              4. Receiver and satellite information
+ *                              data  information
+ *                              A     Searching for satellites (SCAN)
+ *                              B     The receiver is tuned to the satellite signal (LOCK)
+ *                              C     Ready to calculate location information (READY)
+ *                              D     Satellite signal interrupted (HOLD)
+ *                              E     Satellite malfunction or incomputation failure (ILL)
+ *                              F     Satellite can calculate position information (OK)
  *
- *                  5. 衛星からの信号の強さ
- *                  [A-Z] のデータ
- *                  A:    低レベル    Z: 高レベル
+ *                              5. Satellite signal strength
+ *                              [A-Z]  data
+ *                              A:     Low level
+ *                              Z:     High Level
  *
- * 143   1    d        内部基準発信器の状態 (Hz)
- *                 TCXO のずれ (1.57542Ghz 換算)
- * 144   2    DC        不明
- * 146   1    E        Lat and Lon are shown as DMS if in Alphabet
- *                 Lat and Lon are shown as DMD if in Numeric
+ * 143   1    d                 Internal reference oscillator status (Hz)
+ *                              TCXO deviation (1.57542Ghz equivalent)
+ * 144   2    DC                unknown
+ * 146   1    E                 Lat and Lon are shown as DMS if in Alphabet
+ *                              Lat and Lon are shown as DMD if in Numeric
  *
- * 147   1    O        パリティ(either E or O)
+ * 147   1    O                 parity (either E or O)
  * </pre></code>
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
@@ -184,10 +185,10 @@ public class IpsGpsFormat implements GpsFormat {
     public static final String HEADER_HGR1 = "SM01??";
     public static final String HEADER_HGR3 = "SM0020";
 
-    // 衛星の PRN 番号
+    /** Satellite PRN number */
     static final String prnData = "ABCDEFGHIJKLMNOPQRSTUVWXabcdefgh";
 
-    // dilution of precision (DOP)
+    /** dilution of precision (DOP) */
     static final String dopData = "ABCDEFGHIJKLMNOPQ_";
 
     static final int[] dopValues = {
@@ -195,7 +196,7 @@ public class IpsGpsFormat implements GpsFormat {
         12, 14, 18, 25, 40, 75, 100, GpsData.INVALID_DOP
     };
 
-    // 衛星の高度
+    /** Satellite altitude */
     static final String elevationData = "ABCDEFGHIJabcdefghij_";
 
     static final int[] elevationValues = {
@@ -204,9 +205,8 @@ public class IpsGpsFormat implements GpsFormat {
         Channel.INVALID_ELEVTION
     };
 
-    // 衛星の方位
-    static final String azimuthData =
-        "ABCDEFGHIJKLMNOPQRSabcdefghijklmnopqrs_";
+    /** Satellite orientation */
+    static final String azimuthData = "ABCDEFGHIJKLMNOPQRSabcdefghijklmnopqrs_";
 
     static final int[] azimuthValues = {
         0, 10, 20, 30, 40, 50, 60, 70, 80, 90,
@@ -216,9 +216,8 @@ public class IpsGpsFormat implements GpsFormat {
         Channel.INVALID_AZIMUTH
     };
 
-    // 内部基準発信器の状態
-    static final String differenceOfClockData =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-";
+    /** Internal reference oscillator status */
+    static final String differenceOfClockData = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-";
 
     static final int[] differenceOfClockValues = {
         100, 300, 500, 700, 900, 1100, 1300,
@@ -232,11 +231,11 @@ public class IpsGpsFormat implements GpsFormat {
         IpsGpsData.TCXO_UNLOCKED
     };
 
-    //-------------------------------------------------------------------------
+    // ----
 
     /** */
     private static Date toDate(String time) {
-        final DateFormat sdf = new SimpleDateFormat("yyMMdd HHmmss z");
+        DateFormat sdf = new SimpleDateFormat("yyMMdd HHmmss z");
         try {
             @SuppressWarnings("unused")
             int wday = Integer.parseInt(time.substring(6, 7));
@@ -244,7 +243,7 @@ public class IpsGpsFormat implements GpsFormat {
             return sdf.parse(time);
         }
         catch (Exception e) {
-//Debug.println(e);
+//logger.log(Level.ERROR, e.getMessage(), e);
             return null;
         }
     }
@@ -252,6 +251,7 @@ public class IpsGpsFormat implements GpsFormat {
     /**
      * @throws IllegalArgumentException
      */
+    @Override
     public GpsData parse(byte[] line) {
 
         if (! new String(line).startsWith("SM0020")) { // TODO only HGR3S
@@ -266,13 +266,13 @@ public class IpsGpsFormat implements GpsFormat {
 
         String dateTime = new String(line, 6, 13);
         data.setDateTime(toDate(dateTime));
-//Debug.println("dateTime: " + dateTime + ": " + data.getDateTime());
+//logger.log(Level.DEBUG, "dateTime: " + dateTime + ": " + data.getDateTime());
 
         PointMap3D map = new PointMap3D();
 
         PointSurface point = new PointSurface();
         String type = new String(line, 19, 1);
-//Debug.println("n/s: " + type);
+//logger.log(Level.DEBUG, "n/s: " + type);
         point.setType("N".equalsIgnoreCase(type) ?
                       PointSurface.NORTH_LATITUDE :
                       PointSurface.SOUTH_LATITUDE);
@@ -289,20 +289,20 @@ public class IpsGpsFormat implements GpsFormat {
         String seconds =
             new String(line, 24, 2) + "." + new String(line, 26, 1);
         point.setSeconds(Float.parseFloat(seconds));
-//Debug.println("point: " + new String(line, 19, 8) + ": " + point);
+//logger.log(Level.DEBUG, "point: " + new String(line, 19, 8) + ": " + point);
 
         map.setLatitude(point);
 
         point = new PointSurface();
         type = new String(line, 27, 1);
-//Debug.println("E/W: " + type);
+//logger.log(Level.DEBUG, "E/W: " + type);
         point.setType("E".equals(type) ? PointSurface.EAST_LONGITUDE :
                                          PointSurface.WEST_LONGITUDE);
         point.setDegrees(Integer.parseInt(new String(line, 28, 3)));
         point.setMinutes(Integer.parseInt(new String(line, 31, 2)));
         seconds = new String(line, 33, 2) + "." + new String(line, 35, 1);
         point.setSeconds(Float.parseFloat(seconds));
-//Debug.println("point: " + new String(line, 27, 9) + ": " + point);
+//logger.log(Level.DEBUG, "point: " + new String(line, 27, 9) + ": " + point);
 
         map.setLongitude(point);
 
@@ -311,14 +311,14 @@ public class IpsGpsFormat implements GpsFormat {
         if ("-".equals(sign)) {
             map.setAltitude(map.getAltitude() * -1);
         }
-//Debug.println(map);
+//logger.log(Level.DEBUG, map);
 
         data.setPoint(map);
 
         MapVector vector = new MapVector();
         vector.setVelocity(Integer.parseInt(new String(line, 41, 3)));
         vector.setBearingDirection(Integer.parseInt(new String(line, 44, 3)));
-//Debug.println(vector);
+//logger.log(Level.DEBUG, vector);
 
         data.setVector(vector);
 
@@ -330,29 +330,29 @@ public class IpsGpsFormat implements GpsFormat {
             data.setReady(true);
         }
         data.setTimeOfFix(timeOfFix);
-//Debug.println("timeOfFix: " + data.getTimeOfFix());
+//logger.log(Level.DEBUG, "timeOfFix: " + data.getTimeOfFix());
 
         String mode = new String(line, 61, 1);
         data.setMeasurementMode("3".equals(mode) ? GpsData.MODE_2D :
                                                    GpsData.MODE_3D);
-//Debug.println("3/4: " + mode + ": " + data.getMeasurementMode() + "D");
+//logger.log(Level.DEBUG, "3/4: " + mode + ": " + data.getMeasurementMode() + "D");
 
         String dop = new String(line, 60, 1);
         int p = dopData.indexOf(dop);
         if (data.getMeasurementMode() == GpsData.MODE_3D) {
             data.setPDop(dopValues[p]);
             data.setHDop(GpsData.INVALID_DOP);
-//Debug.println("pdop: " + dop + ": " + data.getPDop());
+//logger.log(Level.DEBUG, "pdop: " + dop + ": " + data.getPDop());
         } else {
             data.setPDop(GpsData.INVALID_DOP);
             data.setHDop(dopValues[p]);
-//Debug.println("hdop: " + dop + ": " + data.getHDop());
+//logger.log(Level.DEBUG, "hdop: " + dop + ": " + data.getHDop());
         }
         data.setVDop(GpsData.INVALID_DOP);
 
         String mapDatum = new String(line, 62, 1);
         data.setMapDatum(mapDatum.charAt(0) - 'A');
-//Debug.println("mapDatum: " + data.getMapDatumString());
+//logger.log(Level.DEBUG, "mapDatum: " + data.getMapDatumString());
 
         for (int i = 0; i < data.getMaxChannels(); i++) {
             Channel channel = new Channel();
@@ -377,16 +377,16 @@ public class IpsGpsFormat implements GpsFormat {
             channel.setSignalStrength((signalStrength.charAt(0) - 'A') * 3);
 
             data.addChannel(channel);
-//Debug.println(channel);
+//logger.log(Level.DEBUG, channel);
         }
 
         String differenceOfClock = new String(line, 143, 1);
         p = differenceOfClockData.indexOf(differenceOfClock);
         data.setDifferenceOfClock(differenceOfClockValues[p]);
-//Debug.println("diffrenceOfClock: " + differenceOfClock + ": " + differenceOfClockValues[p]);
+//logger.log(Level.DEBUG, "diffrenceOfClock: " + differenceOfClock + ": " + differenceOfClockValues[p]);
 
         System.arraycopy(line, 144, data.unknown, 0, 2);
-//Debug.println("unknown: "+(char) data.unknown[0]+", "+(char) data.unknown[1]);
+//logger.log(Level.DEBUG, "unknown: "+(char) data.unknown[0]+", "+(char) data.unknown[1]);
 
         String unitType = new String(line, 146, 1);
         char c = unitType.charAt(0);
@@ -395,16 +395,16 @@ public class IpsGpsFormat implements GpsFormat {
         } else if (('A' >= c && 'Z' <= c) || ('a' >= c && 'z' <= c)) {
             data.setUnitType(IpsGpsData.UNIT_DMS);
         }
-//Debug.println("unitType: " + unitType + ": " + (data.getUnitType() == IpsGpsData.UNIT_DMD ? "DMD" : "DMS"));
+//logger.log(Level.DEBUG, "unitType: " + unitType + ": " + (data.getUnitType() == IpsGpsData.UNIT_DMD ? "DMD" : "DMS"));
 
         @SuppressWarnings("unused")
         String parity = new String(line, 147, 1);
-//Debug.println("parity: " + parity + ": " + (data.getParity(line) == IpsGpsData.PARITY_EVEN ? "E" : "O"));
+//logger.log(Level.DEBUG, "parity: " + parity + ": " + (data.getParity(line) == IpsGpsData.PARITY_EVEN ? "E" : "O"));
 
         return data;
     }
 
-    /** */
+    @Override
     public byte[] format(GpsData data) {
 
         byte[] line = new byte[148];
@@ -555,5 +555,3 @@ System.err.println(StringUtil.paramString(data));
         return line;
     }
 }
-
-/* */

@@ -7,6 +7,8 @@
 package vavi.gps.vendor.nmea;
 
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -21,7 +23,8 @@ import vavi.gps.GpsData;
 import vavi.gps.GpsFormat;
 import vavi.gps.PointSurface;
 import vavi.util.Debug;
-import vavi.util.StringUtil;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -33,7 +36,10 @@ import vavi.util.StringUtil;
  */
 public class NmeaGpsFormat implements GpsFormat {
 
+    private static final Logger logger = getLogger(NmeaGpsFormat.class.getName());
+
     /** TODO not implemented */
+    @Override
     public GpsData parse(byte[] line) {
         BasicGpsData data = new BasicGpsData();
         data.setRawData(line);
@@ -57,6 +63,7 @@ public class NmeaGpsFormat implements GpsFormat {
     private boolean useVTG = false;
 
     /** without cr,lf */
+    @Override
     public byte[] format(GpsData gpsData) {
 
         StringBuilder sb = new StringBuilder();
@@ -88,7 +95,7 @@ public class NmeaGpsFormat implements GpsFormat {
     /** */
     protected String toSentence(String type, String data) {
         String sentence = "GP" + type + "," + data;
-        String checksum = "*" + StringUtil.toHex2(getChecksum(sentence));
+        String checksum = "*%02x".formatted(getChecksum(sentence));
         String line = "$" + sentence + checksum + crlf;
 //System.err.print(line);
         return line;
@@ -117,9 +124,9 @@ public class NmeaGpsFormat implements GpsFormat {
 
         StringBuilder sb = new StringBuilder();
 
-        final DecimalFormat df3_1 = new DecimalFormat("##0.0");
+        DecimalFormat df3_1 = new DecimalFormat("##0.0");
 //      final DecimalFormat df2_1 = new DecimalFormat("00.0");
-        final DecimalFormat df1_1 = new DecimalFormat("0.0");
+        DecimalFormat df1_1 = new DecimalFormat("0.0");
 
         if (gpsData.getTimeOfFix() != null) {
             sb.append(toNmeaTimeString(gpsData.getTimeOfFix(), false));
@@ -154,7 +161,7 @@ public class NmeaGpsFormat implements GpsFormat {
 
     /** */
     protected String toNmeaTimeString(Date date, boolean withMillis) {
-//Debug.println(date);
+//logger.log(Level.DEBUG, date);
         String format = withMillis ? "HHmmss.SS" : "HHmmss";
         DateFormat sdf = new SimpleDateFormat(format);
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -223,7 +230,7 @@ public class NmeaGpsFormat implements GpsFormat {
         sb.append(gpsData.getMeasurementMode());
         sb.append(",");
 
-        final DecimalFormat df2 = new DecimalFormat("00");
+        DecimalFormat df2 = new DecimalFormat("00");
 //      final DecimalFormat df1_1 = new DecimalFormat("0.0");
 
         int count = 0;
@@ -242,9 +249,7 @@ public class NmeaGpsFormat implements GpsFormat {
             }
         }
 
-        for (int i = count; i < 12; i++) {
-            sb.append(",");
-        }
+        sb.append(",".repeat(Math.max(0, 12 - count)));
 
         if (gpsData.getPDop() != GpsData.INVALID_DOP) {
             sb.append(gpsData.getPDop());
@@ -305,8 +310,8 @@ public class NmeaGpsFormat implements GpsFormat {
         sb.append(gpsData.getAvailableChannelsCount());
         sb.append(",");
 
-        final DecimalFormat df2 = new DecimalFormat("00");
-        final DecimalFormat df3 = new DecimalFormat("000");
+        DecimalFormat df2 = new DecimalFormat("00");
+        DecimalFormat df3 = new DecimalFormat("000");
 
         for (int i = 0; i < 4; i++) {
             if (channels.hasNext()) {
@@ -367,7 +372,7 @@ public class NmeaGpsFormat implements GpsFormat {
 
         StringBuilder sb = new StringBuilder();
 
-        final DecimalFormat df3_1 = new DecimalFormat("##0.0");
+        DecimalFormat df3_1 = new DecimalFormat("##0.0");
 //      final DecimalFormat df2_1 = new DecimalFormat("#0.0");
 
         if (gpsData.getTimeOfFix() != null) {
@@ -408,7 +413,7 @@ public class NmeaGpsFormat implements GpsFormat {
     protected String toVTG(GpsData gpsData) {
         StringBuilder sb = new StringBuilder();
 
-        final DecimalFormat df3_1 = new DecimalFormat("000.0");
+        DecimalFormat df3_1 = new DecimalFormat("000.0");
 
         float direction = gpsData.getVector().getBearingDirection();
         float velocity = gpsData.getVector().getVelocity();
@@ -436,26 +441,23 @@ public class NmeaGpsFormat implements GpsFormat {
      * ZDA - Time & Date
      * <pre>
      *  ZDA,052608.22,06,05,2001,14,26*3D
-     *     052608.22    測位時刻（UTC）　05:26:08.22
-     *     06    日（UTC）　6日
-     *     05    月（UTC）　5月
-     *     2001    西暦（UTC）　2001年
-     *     14    時（現地時間）　14時
-     *     26    分（現地時間）　26分
-     *     *3D    チェックサム
+     *     052608.22    Positioning time（UTC）　05:26:08.22
+     *     06           day（UTC）　6
+     *     05           month（UTC）　May
+     *     2001         Gregorian calendar (UTC) 2001
+     *     14           Time (local time): 2:00 PM
+     *     26           26 minutes (local time)
+     *     *3D          checksum
      * </pre>
      */
     protected String toZDA(GpsData gpsData) {
 
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(toNmeaTimeString(gpsData.getTimeOfFix(), true));
-        sb.append(",");
-
         DateFormat sdf = new SimpleDateFormat("dd,MM,yyyy,HH,mm");
-        sb.append(sdf.format(gpsData.getDateTime()));
+        String sb = toNmeaTimeString(gpsData.getTimeOfFix(), true) +
+                "," +
+                sdf.format(gpsData.getDateTime());
 
-        return toSentence("ZDA", sb.toString());
+        return toSentence("ZDA", sb);
     }
 
     /**
@@ -483,8 +485,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toAPB(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("APB", sb.toString());
+        return toSentence("APB", "");
     }
 
     /**
@@ -499,8 +500,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toBOD(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("BOD", sb.toString());
+        return toSentence("BOD", "");
     }
 
     /**
@@ -518,8 +518,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toBWC(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("BWC", sb.toString());
+        return toSentence("BWC", "");
     }
 
     /**
@@ -528,8 +527,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toBWR(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("BWR", sb.toString());
+        return toSentence("BWR", "");
     }
 
     /**
@@ -542,8 +540,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toDBT(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("DBT", sb.toString());
+        return toSentence("DBT", "");
     }
 
     /**
@@ -558,8 +555,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toHDM(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("HDM", sb.toString());
+        return toSentence("HDM", "");
     }
 
     /**
@@ -572,8 +568,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toHSC(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("HSC", sb.toString());
+        return toSentence("HSC", "");
     }
 
     /**
@@ -585,8 +580,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toMTW(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("MTW", sb.toString());
+        return toSentence("MTW", "");
     }
 
     /**
@@ -600,8 +594,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toR00(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("R00", sb.toString());
+        return toSentence("R00", "");
     }
 
     /**
@@ -625,8 +618,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toRMB(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("RMB", sb.toString());
+        return toSentence("RMB", "");
     }
 
     /**
@@ -643,8 +635,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toRTE(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("RTE", sb.toString());
+        return toSentence("RTE", "");
     }
 
     /**
@@ -659,8 +650,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toVHW(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("VHW", sb.toString());
+        return toSentence("VHW", "");
     }
 
     /**
@@ -675,8 +665,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toVMW(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("VMW", sb.toString());
+        return toSentence("VMW", "");
     }
 
     /**
@@ -685,8 +674,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toWCV(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("WCV", sb.toString());
+        return toSentence("WCV", "");
     }
 
     /**
@@ -695,8 +683,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toWDC(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("WDC", sb.toString());
+        return toSentence("WDC", "");
     }
 
     /**
@@ -705,8 +692,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toWDR(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("WDR", sb.toString());
+        return toSentence("WDR", "");
     }
 
     /**
@@ -725,8 +711,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toWPL(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("WPL", sb.toString());
+        return toSentence("WPL", "");
     }
 
     /**
@@ -743,8 +728,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toXTE(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("XTE", sb.toString());
+        return toSentence("XTE", "");
     }
 
     /**
@@ -758,8 +742,7 @@ public class NmeaGpsFormat implements GpsFormat {
      * TODO implement
      */
     protected String toXTR(GpsData gpsData) {
-        StringBuilder sb = new StringBuilder();
-        return toSentence("XTR", sb.toString());
+        return toSentence("XTR", "");
     }
 
     /**
@@ -790,9 +773,9 @@ public class NmeaGpsFormat implements GpsFormat {
 
         StringBuilder sb = new StringBuilder();
 
-        final DecimalFormat df2 = new DecimalFormat("00");
-        final DecimalFormat df3 = new DecimalFormat("000");
-        final DecimalFormat df2_4 = new DecimalFormat("00.0000");
+        DecimalFormat df2 = new DecimalFormat("00");
+        DecimalFormat df3 = new DecimalFormat("000");
+        DecimalFormat df2_4 = new DecimalFormat("00.0000");
 
         if (pointSurface.getType() == PointSurface.EAST_LONGITUDE || pointSurface.getType() == PointSurface.WEST_LONGITUDE) {
             sb.append(df3.format(pointSurface.getDegrees()));
@@ -807,7 +790,7 @@ public class NmeaGpsFormat implements GpsFormat {
         return sb.toString();
     }
 
-    /** */
+    /* */
     {
         try {
             Properties props = new Properties();
@@ -816,45 +799,43 @@ public class NmeaGpsFormat implements GpsFormat {
 
             String value = props.getProperty("nmea.gga");
             if (value != null) {
-                useGGA = Boolean.valueOf(value);
+                useGGA = Boolean.parseBoolean(value);
             }
 
             value = props.getProperty("nmea.gsa");
             if (value != null) {
-                useGSA = Boolean.valueOf(value);
+                useGSA = Boolean.parseBoolean(value);
             }
 
             value = props.getProperty("nmea.gsv");
             if (value != null) {
-                useGSV = Boolean.valueOf(value);
+                useGSV = Boolean.parseBoolean(value);
             }
 
             value = props.getProperty("nmea.gll");
             if (value != null) {
-                useGLL = Boolean.valueOf(value);
+                useGLL = Boolean.parseBoolean(value);
             }
 
             value = props.getProperty("nmea.rmc");
             if (value != null) {
-                useRMC = Boolean.valueOf(value);
+                useRMC = Boolean.parseBoolean(value);
             }
 
             value = props.getProperty("nmea.vtg");
             if (value != null) {
-                useVTG = Boolean.valueOf(value);
+                useVTG = Boolean.parseBoolean(value);
             }
 
-Debug.println("GGA: " + useGGA);
-Debug.println("GSA: " + useGSA);
-Debug.println("GSV: " + useGSV);
-Debug.println("GLL: " + useGLL);
-Debug.println("RMC: " + useRMC);
-Debug.println("VTG: " + useVTG);
+logger.log(Level.DEBUG, "GGA: " + useGGA);
+logger.log(Level.DEBUG, "GSA: " + useGSA);
+logger.log(Level.DEBUG, "GSV: " + useGSV);
+logger.log(Level.DEBUG, "GLL: " + useGLL);
+logger.log(Level.DEBUG, "RMC: " + useRMC);
+logger.log(Level.DEBUG, "VTG: " + useVTG);
         } catch (IOException e) {
-Debug.printStackTrace(e);
+logger.log(Level.ERROR, e.getMessage(), e);
             throw new InternalError(e.toString());
         }
     }
 }
-
-/* */

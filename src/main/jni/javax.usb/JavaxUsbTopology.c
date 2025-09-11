@@ -804,5 +804,3 @@ fprintf(stderr, "End get_next_desc with desc %p and %d bytes remaining.\n", desc
 
     return desc;
 }
-
-/* */

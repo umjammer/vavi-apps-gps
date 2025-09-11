@@ -7,10 +7,14 @@
 package vavi.gps.vendor.nmea;
 
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.Properties;
 import vavi.gps.BasicGpsDevice;
 import vavi.gps.GpsFormat;
 import vavi.util.Debug;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -23,26 +27,28 @@ import vavi.util.Debug;
  */
 public class Nmea extends BasicGpsDevice {
 
+    private static final Logger logger = getLogger(Nmea.class.getName());
+
     /** */
     private String ioDeviceClass = "vavi.gps.io.InetServerDevice";
 
     /** */
     private String ioDeviceName = "5750";
 
-    /** */
+    @Override
     protected String getIODeviceClass() {
         return ioDeviceClass;
     }
 
-    /** */
+    @Override
     protected String getIODeviceName() {
         return ioDeviceName;
     }
 
     /** */
-    private GpsFormat gpsFormat = new NmeaGpsFormat();
+    private final GpsFormat gpsFormat = new NmeaGpsFormat();
 
-    /** */
+    @Override
     protected GpsFormat getGpsFormat() {
         return gpsFormat;
     }
@@ -60,20 +66,18 @@ public class Nmea extends BasicGpsDevice {
             String value = props.getProperty(key);
             if (value != null) {
                 ioDeviceClass = value;
-Debug.println("ioDevice: " + ioDeviceClass);
+logger.log(Level.DEBUG, "ioDevice: " + ioDeviceClass);
             }
 
             key = "ioDevice.name." + this.name;
             value = props.getProperty(key);
             if (value != null) {
                 ioDeviceName = value;
-Debug.println("name: " + ioDeviceName);
+logger.log(Level.DEBUG, "name: " + ioDeviceName);
             }
         } catch (IOException e) {
-Debug.printStackTrace(e);
+logger.log(Level.ERROR, e.getMessage(), e);
             throw new InternalError(e.toString());
         }
     }
 }
-
-/* */

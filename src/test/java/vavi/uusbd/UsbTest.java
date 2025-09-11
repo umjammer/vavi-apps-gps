@@ -8,11 +8,11 @@ package vavi.uusbd;
 
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import vavi.util.StringUtil;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 /**
@@ -53,9 +53,7 @@ public class UsbTest {
             int l = pipe.read(buf, 0, 8);
 System.err.println("got: " + l);
 System.err.println(StringUtil.getDump(buf));
-try{ Thread.sleep(1000); } catch (Exception e) {}
+try{ Thread.sleep(1000); } catch (Exception ignored) {}
         }
     }
 }
-
-/* */

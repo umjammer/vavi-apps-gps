@@ -26,5 +26,3 @@ public class UsbException extends IOException {
         super(message);
     }
 }
-
-/* */

@@ -7,17 +7,21 @@
 package vavi.gps.vendor.sony;
 
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.Properties;
 
 import vavi.gps.BasicGpsDevice;
 import vavi.gps.GpsFormat;
 import vavi.util.Debug;
 
+import static java.lang.System.getLogger;
+
 
 /**
  * HGR device.
  *
- * Navin' You 5.5 とのセッション
+ * Session with Navin' You 5.5
  * <code><pre>
  * < !PUON\r\n        0, 9, 0x100
  * > ROM    OK\r\n
@@ -57,15 +61,17 @@ import vavi.util.Debug;
  */
 public class Hgr extends BasicGpsDevice {
 
-    /** パワーオンするコマンド */
+    private static final Logger logger = getLogger(Hgr.class.getName());
+
+    /** Power on command */
     public static final String INTERFACE_POWER_ON = "!PUON";
-    /** パワーオフするコマンド */
+    /** Power off command */
     public static final String INTERFACE_POWER_OFF = "!PUOFF";
-    /** HGR をコマンドを送るモードにするコマンド */
+    /** Command to put HGR into command sending mode */
     public static final String INTERFACE_MODE_PC = "!PC";
-    /** HGR を測位モードにするコマンド */
+    /** Command to put HGR into positioning mode */
     public static final String INTERFACE_MODE_GP = "!GP";
-    /** ID を取得するコマンド */
+    /** Command to get ID */
     public static final String INTERFACE_ID_GET = "!ID";
     /** */
     public static final String INTERFACE_MEMORY_WRITE = "!MW";
@@ -76,7 +82,7 @@ public class Hgr extends BasicGpsDevice {
 
     /** */
     public static final String COMMAND_UNKNOWN1 = "@VF";
-    /** 測地系を変更するコマンド */
+    /** Commands to change the datum */
     public static final String COMMAND_MAP_DATUM = "@SK";
 
     //-------------------------------------------------------------------------
@@ -87,26 +93,26 @@ public class Hgr extends BasicGpsDevice {
     /** */
     private String ioDeviceName = "HGR3S";
 
-    /** */
+    @Override
     protected String getIODeviceClass() {
         return ioDeviceClass;
     }
 
-    /** */
+    @Override
     protected String getIODeviceName() {
         return ioDeviceName;
     }
 
     /** */
-    private GpsFormat gpsFormat = new IpsGpsFormat();
+    private final GpsFormat gpsFormat = new IpsGpsFormat();
 
-    /** */
+    @Override
     protected GpsFormat getGpsFormat() {
         return gpsFormat;
     }
 
     /** */
-    private String mapDatum = "B";    // デフォルトは Tokyo
+    private String mapDatum = "B"; // Default is Tokyo
     /** */
     private String vfValue = "040";
 
@@ -123,34 +129,34 @@ public class Hgr extends BasicGpsDevice {
             String value = props.getProperty(key);
             if (value != null) {
                 ioDeviceClass = value;
-Debug.println("ioDevice: " + ioDeviceClass);
+logger.log(Level.DEBUG, "ioDevice: " + ioDeviceClass);
             }
 
             key = "ioDevice.name." + this.name;
             value = props.getProperty(key);
             if (value != null) {
                 ioDeviceName = value;
-Debug.println("name: " + ioDeviceName);
+logger.log(Level.DEBUG, "name: " + ioDeviceName);
             }
 
             value = props.getProperty("hgr.mapDatum");
             if (value != null) {
                 mapDatum = value;
-Debug.println("mapDatum: " + mapDatum);
+logger.log(Level.DEBUG, "mapDatum: " + mapDatum);
             }
 
             value = props.getProperty("hgr.vfValue");
             if (value != null) {
                 vfValue = value;
-Debug.println("vfValue: " + vfValue);
+logger.log(Level.DEBUG, "vfValue: " + vfValue);
             }
         } catch (Exception e) {
-Debug.printStackTrace(e);
+logger.log(Level.ERROR, e.getMessage(), e);
             throw new InternalError(e.toString());
         }
     }
 
-    /** */
+    @Override
     public void start() {
 
         super.start();
@@ -171,9 +177,9 @@ Debug.printStackTrace(e);
             os.writeLine(COMMAND_UNKNOWN1 + vfValue);
 
             os.writeLine(COMMAND_MAP_DATUM + mapDatum);
-            // 2 回しないと反映されない
+            // It won't be reflected unless you do it twice.
             os.writeLine(COMMAND_MAP_DATUM + mapDatum);
-try { Thread.sleep(3000); } catch (Exception e) { Debug.println(e); }
+try { Thread.sleep(3000); } catch (Exception e) { logger.log(Level.ERROR, e.getMessage(), e); }
             os.writeLine(COMMAND_UNKNOWN1 + vfValue);
 
             os.writeLine(COMMAND_UNKNOWN1 + vfValue);
@@ -182,10 +188,8 @@ try { Thread.sleep(3000); } catch (Exception e) { Debug.println(e); }
 
             os.writeLine(COMMAND_MAP_DATUM + mapDatum);
         } catch (IOException e) {
-Debug.printStackTrace(e);
+logger.log(Level.ERROR, e.getMessage(), e);
             throw new InternalError(e.toString());
         }
     }
 }
-
-/* */

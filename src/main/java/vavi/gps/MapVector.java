@@ -14,7 +14,7 @@ package vavi.gps;
  */
 public class MapVector {
 
-    /** 速度 km/hour */
+    /** speed km/hour */
     private int velocity;
 
     /** */
@@ -27,7 +27,7 @@ public class MapVector {
         return velocity;
     }
 
-    /** 方位 (True North) in degrees (北から時計回り) */
+    /** True North in degrees (clockwise from North) */
     private int bearingDirection;
 
     /** */
@@ -46,5 +46,3 @@ public class MapVector {
             bearingDirection + "゜";
     }
 }
-
-/* */

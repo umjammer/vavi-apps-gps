@@ -4,7 +4,8 @@
  * Programmed by Naohide Sano
  */
 
-import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.TimeZone;
@@ -24,7 +25,7 @@ import vavi.gps.vendor.sony.IpsGpsFormat;
 public class Test1 {
 
     /**
-     * 「度のみを用いた場合、小数点以下3桁まで与えれば、度・分・秒によって表すのとほぼ同じ精度が得られる。」
+     * "When using degrees alone, three decimal places give almost the same accuracy as using degrees, minutes, and seconds."
      *
      * @param args hgr_log_file
      * @see "http://ja.wikipedia.org/wiki/%E5%88%86_(%E8%A7%92%E5%BA%A6)"
@@ -32,7 +33,7 @@ public class Test1 {
     public static void main(String[] args) throws Exception {
         GpsFormat gpsFormat = new IpsGpsFormat();
 
-        Scanner scanner = new Scanner(new FileInputStream(args[0]));
+        Scanner scanner = new Scanner(Files.newInputStream(Paths.get(args[0])));
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             GpsData gpsData = gpsFormat.parse(line.getBytes());
@@ -44,5 +45,3 @@ public class Test1 {
         scanner.close();
     }
 }
-
-/* */

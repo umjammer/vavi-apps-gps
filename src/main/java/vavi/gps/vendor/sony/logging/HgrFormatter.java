@@ -20,13 +20,10 @@ import java.util.logging.LogRecord;
  */
 public class HgrFormatter extends Formatter {
 
-    /** */
+    @Override
     public String format(LogRecord record) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(record.getMessage());
-        sb.append(System.getProperty("line.separator"));
-        return sb.toString();
+        String sb = record.getMessage() +
+                System.lineSeparator();
+        return sb;
     }
 }
-
-/* */

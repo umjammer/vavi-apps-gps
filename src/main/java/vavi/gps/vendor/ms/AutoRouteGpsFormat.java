@@ -20,6 +20,7 @@ import vavi.gps.GpsFormat;
 public class AutoRouteGpsFormat implements GpsFormat {
 
     /** TODO not implemented */
+    @Override
     public GpsData parse(byte[] line) {
         BasicGpsData data = new BasicGpsData();
         data.setRawData(line);
@@ -27,9 +28,8 @@ public class AutoRouteGpsFormat implements GpsFormat {
     }
 
     /** without cr,lf */
+    @Override
     public byte[] format(GpsData gpsData) {
         return null;
     }
 }
-
-/* */

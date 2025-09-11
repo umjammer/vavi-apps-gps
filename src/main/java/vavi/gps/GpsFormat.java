@@ -14,14 +14,13 @@ package vavi.gps;
  * @version 0.00 030318 nsano initial version <br>
  */
 public interface GpsFormat {
+
     /**
-     * Raw データを出力させる可能性がある場合は戻り値の {@link GpsData} へ
-     * {@link BasicGpsData#setRawData(byte[])} メソッドで line を設定しておいてください。
+     * If there is a possibility that raw data will be output,
+     * set line to the return value {@link GpsData} using the {@link BasicGpsData#setRawData(byte[])} method.
      */
     GpsData parse(byte[] line);
 
     /** */
     byte[] format(GpsData gpsData);
 }
-
-/* */

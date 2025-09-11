@@ -9,7 +9,7 @@
 #include "vavi_uusbd_Pipe.h"
 
 /**
- * uusbd.dll ラッパ
+ * uusbd.dll wrapper
  *
  * @author	<a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version	0.00	030314	nsano	initial version <br>
@@ -36,7 +36,7 @@
 #define getOverlap(env,obj) (isOverlapped((env),(obj))==JNI_TRUE?NULL:NULL)
 
 /**
- * ハンドルを取得します。
+ * Get the handle.
  */
 static jlong getHandle(JNIEnv *env, jobject obj, char *name) {
     jclass class = (*env)->GetObjectClass(env, obj);
@@ -45,7 +45,7 @@ static jlong getHandle(JNIEnv *env, jobject obj, char *name) {
 }
 
 /**
- * int 型のフィールド値を取得します。
+ * Gets the int field value.
  */
 static jint getIntField(JNIEnv *env, jobject obj, char *name) {
     jclass class = (*env)->GetObjectClass(env, obj);
@@ -54,7 +54,7 @@ static jint getIntField(JNIEnv *env, jobject obj, char *name) {
 }
 
 /**
- * を取得します。
+ * Get the overwrap.
  */
 static jboolean isOverlapped(JNIEnv *env, jobject obj) {
     jclass class = (*env)->GetObjectClass(env, obj);
@@ -63,7 +63,7 @@ static jboolean isOverlapped(JNIEnv *env, jobject obj) {
 }
 
 /**
- * 例外を投げます。
+ * Throws an exception.
  */
 static void throwException(JNIEnv *env, char *exception, char *_message) {
 
@@ -72,7 +72,7 @@ static void throwException(JNIEnv *env, char *exception, char *_message) {
 }
 
 /**
- * 例外を投げます。
+ * Throws an exception.
  */
 static void throwExceptionWithIntMessage(JNIEnv *env,
                                          char *exception,
@@ -84,8 +84,8 @@ static void throwExceptionWithIntMessage(JNIEnv *env,
 }
 
 /**
- * メッセージを出力します。
- * @param _message UTF-8 を保障してください
+ * Outputs a message.
+ * @param _message Ensure UTF-8
  */
 static void debug(JNIEnv *env, const char *_message) {
 
@@ -99,8 +99,8 @@ static void debug(JNIEnv *env, const char *_message) {
 }
 
 /**
- * メッセージを出力します。
- * @param _message UTF-8 を保障してください
+ * Outputs a message.
+ * @param _message Ensure UTF-8
  * @param _arg
  */
 static void debug_I(JNIEnv *env, const char *_message, int _arg) {
@@ -110,7 +110,7 @@ static void debug_I(JNIEnv *env, const char *_message, int _arg) {
     debug(env, buf);
 }
 
-//-----------------------------------------------------------------------------
+// ----
 
 /**
  *
@@ -122,14 +122,14 @@ USHORT getMaxPacketLength(HUSB husb, DWORD if_num, DWORD pipe_num) {
     BOOL ok;
     USB_CONFIGURATION_DESCRIPTOR conf;
     PUSB_ENDPOINT_DESCRIPTOR endp_descriptor;
-    // まずコンフィグレーションディスクリプターのみ得て全体の大きさを知る
+    // First, get the configuration descriptor and find the overall size.
     ok = Uusbd_GetConfigurationDescriptor(husb, (char*) &conf, sizeof(conf));
     if (!ok) {
         return 0;
     }
     DWORD len = conf.wTotalLength;
     char *buf = (char*) malloc(len);
-    // 全体を得る
+    // Get the whole
     ok = Uusbd_GetConfigurationDescriptor(husb, buf, len);
     if (!ok) {
         return 0;
@@ -165,7 +165,7 @@ USHORT getMaxPacketLength(HUSB husb, DWORD if_num, DWORD pipe_num) {
     return max_len;
 }
 
-//-----------------------------------------------------------------------------
+// ----
 
 /**
  *

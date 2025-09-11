@@ -12,7 +12,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
-import java.util.Iterator;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.Properties;
 
 import javax.swing.JFrame;
@@ -22,8 +23,9 @@ import vavi.gps.Channel;
 import vavi.gps.GpsData;
 import vavi.gps.GpsDevice;
 import vavi.util.Debug;
-import vavi.util.event.GenericEvent;
 import vavi.util.event.GenericListener;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -34,7 +36,9 @@ import vavi.util.event.GenericListener;
  */
 public class HgrViewer extends GpsDevice {
 
-    /** TODO name を何に使うか？ */
+    private static final Logger logger = getLogger(HgrViewer.class.getName());
+
+    /** TODO What is the name used for? */
     public HgrViewer(String name) {
 
         try {
@@ -45,19 +49,20 @@ public class HgrViewer extends GpsDevice {
             String value = props.getProperty("hgr.viewer.interval");
             if (value != null) {
                 int dummy = Integer.parseInt(value);
-Debug.println("interval: " + dummy);
+logger.log(Level.DEBUG, "interval: " + dummy);
             }
         } catch (Exception e) {
-Debug.printStackTrace(e);
+logger.log(Level.ERROR, e.getMessage(), e);
             throw new InternalError(e.toString());
         }
     }
 
     /** */
-    private JPanel panel = new JPanel() {
+    private final JPanel panel = new JPanel() {
         {
             setPreferredSize(new Dimension(200, 200));
         }
+        @Override
         public void paint(Graphics g) {
 
             final double R = 100;
@@ -85,41 +90,39 @@ Debug.printStackTrace(e);
 
             //----
 
-            Iterator<Channel> i = gpsData.getChannels().iterator();
-            while (i.hasNext()) {
-                Channel channel = i.next();
+            for (Channel channel : gpsData.getChannels()) {
                 double r = 2 * R * Math.sin((90 - channel.getElevation()) / 180d);
                 Point2D p = trueNorthToPoint2D(channel.getAzimuth(), r);
                 double X = R + p.getX();
                 double Y = R - p.getY();
                 switch (channel.getInfo()) {
-                case Channel.INFO_OK:
-                    g2.setColor(Color.cyan);
-                    g2.fillOval((int) (X - 2), (int) (Y - 2), 4, 4);
-                    g2.setColor(Color.white);
-                    g2.fillOval((int) (X - 1), (int) (Y - 1), 2, 2);
-                    break;
-                case Channel.INFO_READY:
-                    g2.setColor(Color.green);
-                    g2.fillOval((int) (X - 2), (int) (Y - 2), 4, 4);
-                    break;
-                case Channel.INFO_HOLD:
-                    g2.setColor(Color.yellow);
-                    g2.fillOval((int) (X - 2), (int) (Y - 2), 4, 4);
-                    break;
-                case Channel.INFO_LOCK:
-                    g2.setColor(Color.magenta);
-                    g2.fillOval((int) (X - 2), (int) (Y - 2), 4, 4);
-                    break;
-                case Channel.INFO_ILL:
-                    g2.setColor(Color.red);
-                    g2.fillOval((int) (X - 2), (int) (Y - 2), 4, 4);
-                    break;
-                case Channel.INFO_SCAN:
-                default:
-                    g2.setColor(Color.gray);
-                    g2.fillOval((int) (X - 2), (int) (Y - 2), 4, 4);
-                    break;
+                    case Channel.INFO_OK:
+                        g2.setColor(Color.cyan);
+                        g2.fillOval((int) (X - 2), (int) (Y - 2), 4, 4);
+                        g2.setColor(Color.white);
+                        g2.fillOval((int) (X - 1), (int) (Y - 1), 2, 2);
+                        break;
+                    case Channel.INFO_READY:
+                        g2.setColor(Color.green);
+                        g2.fillOval((int) (X - 2), (int) (Y - 2), 4, 4);
+                        break;
+                    case Channel.INFO_HOLD:
+                        g2.setColor(Color.yellow);
+                        g2.fillOval((int) (X - 2), (int) (Y - 2), 4, 4);
+                        break;
+                    case Channel.INFO_LOCK:
+                        g2.setColor(Color.magenta);
+                        g2.fillOval((int) (X - 2), (int) (Y - 2), 4, 4);
+                        break;
+                    case Channel.INFO_ILL:
+                        g2.setColor(Color.red);
+                        g2.fillOval((int) (X - 2), (int) (Y - 2), 4, 4);
+                        break;
+                    case Channel.INFO_SCAN:
+                    default:
+                        g2.setColor(Color.gray);
+                        g2.fillOval((int) (X - 2), (int) (Y - 2), 4, 4);
+                        break;
                 }
             }
 
@@ -130,7 +133,7 @@ Debug.printStackTrace(e);
             Point2D p = trueNorthToPoint2D(
                 gpsData.getVector().getBearingDirection(), r);
 
-            // Java 座標への変換
+            // Converting to Java coordinates
             double X = R + p.getX();
             double Y = R - p.getY();
 
@@ -162,19 +165,19 @@ Debug.printStackTrace(e);
 
     /**
      * @param trueNorth degrees
-     * @param r 半径
+     * @param r radius
      */
-    private Point2D trueNorthToPoint2D(double trueNorth, double r) {
+    private static Point2D trueNorthToPoint2D(double trueNorth, double r) {
 
-        // TODO theta の座標は正しくない
+        // TODO Theta coordinates are incorrect
         double theta = trueNorth / 360d * (Math.PI * 2) - Math.PI / 2;
-        // X, Y は正規座標
+        // X, Y are normal coordinates
         double X = Math.sqrt(
             (r * r * r * r) / (r * r + r * r * Math.pow(Math.tan(theta), 2)));
         double Y = Math.sqrt(
             (r * r * r * r) / (r * r / Math.pow(Math.tan(theta), 2) + r * r));
 
-        // TODO 正しくない theta の座標に対しての補正
+        // TODO Correcting for incorrect theta coordinates
         if (theta > Math.PI / 2 && theta < Math.PI * 1.5) X *= -1;
         if (theta < Math.PI     && theta > 0)             Y *= -1;
 
@@ -182,6 +185,7 @@ Debug.printStackTrace(e);
     }
 
     /** Does nothing. */
+    @Override
     public void start() {
         JFrame frame = new JFrame();
         frame.getContentPane().add(panel);
@@ -191,6 +195,7 @@ Debug.printStackTrace(e);
     }
 
     /** @throws IllegalStateException always be thrown */
+    @Override
     protected Runnable getInputThread() {
         throw new IllegalStateException("This class cannot be input device.");
     }
@@ -198,20 +203,16 @@ Debug.printStackTrace(e);
     /** */
     private GpsData gpsData;
 
-    /** */
+    @Override
     protected GenericListener getOutputGenericListener() {
 
-        return new GenericListener() {
-            public void eventHappened(GenericEvent ev) {
-                try {
-                    gpsData = (GpsData) ev.getArguments()[0];
-                    panel.repaint();
-                } catch (Exception e) {
-Debug.printStackTrace(e);
-                }
+        return ev -> {
+            try {
+                gpsData = (GpsData) ev.getArguments()[0];
+                panel.repaint();
+            } catch (Exception e) {
+logger.log(Level.ERROR, e.getMessage(), e);
             }
         };
     }
 }
-
-/* */

@@ -31,7 +31,7 @@ public class PointSurface {
     /** */
     private static final String typeStrings = "NSEW";
 
-    /** 識別子 */
+    /** identifier */
     private int type;
 
     /** */
@@ -44,7 +44,7 @@ public class PointSurface {
         return type;
     }
 
-    /** 度 */
+    /** degrees */
     private int degrees;
 
     /** */
@@ -56,7 +56,7 @@ public class PointSurface {
     public int getDegrees() {
         return degrees;
     }
-    /** 分 */
+    /** minutes */
     private int minutes;
 
     /** */
@@ -69,7 +69,7 @@ public class PointSurface {
         return minutes;
     }
 
-    /** 秒 */
+    /** seconds */
     private float seconds;
 
     /** */
@@ -88,7 +88,7 @@ public class PointSurface {
     }
 
     /** */
-    private Formatter formatter = new Formatter2();
+    private final Formatter formatter = new Formatter2();
 
     /** */
     private interface Formatter {
@@ -101,9 +101,9 @@ public class PointSurface {
 
             StringBuilder sb = new StringBuilder();
 
-            final DecimalFormat df2 = new DecimalFormat("00");
-            final DecimalFormat df3 = new DecimalFormat("000");
-            final DecimalFormat df2_4 = new DecimalFormat("00.00");
+            DecimalFormat df2 = new DecimalFormat("00");
+            DecimalFormat df3 = new DecimalFormat("000");
+            DecimalFormat df2_4 = new DecimalFormat("00.00");
 
             sb.append(typeStrings.charAt(type));
             sb.append(" ");
@@ -129,18 +129,14 @@ public class PointSurface {
     class Formatter2 implements Formatter {
         public String toString() {
 
-            StringBuilder sb = new StringBuilder();
+            DecimalFormat df2 = new DecimalFormat("00");
+            DecimalFormat df2_4 = new DecimalFormat("00.0000");
 
-            final DecimalFormat df2 = new DecimalFormat("00");
-            final DecimalFormat df2_4 = new DecimalFormat("00.0000");
+            String sb = String.valueOf(degrees) +
+                    df2.format(minutes) +
+                    df2_4.format(seconds);
 
-            sb.append(degrees);
-
-            sb.append(df2.format(minutes));
-
-            sb.append(df2_4.format(seconds));
-
-            return sb.toString();
+            return sb;
         }
     }
 
@@ -154,5 +150,3 @@ public class PointSurface {
         return typeStrings.charAt(type);
     }
 }
-
-/* */

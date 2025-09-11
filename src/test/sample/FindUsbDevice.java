@@ -49,7 +49,7 @@ public class FindUsbDevice {
         usbDevices = getAllUsbDevices(virtualRootUsbHub);
 //System.err.println(StringUtil.paramString(usbDevices));
 //for (UsbDevice device : usbDevices) {
-//    Debug.println(StringUtil.paramString(device));
+//    logger.log(Level.DEBUG, StringUtil.paramString(device));
 //}
         System.err.println("Found " + usbDevices.size() + " devices total.");
 
@@ -191,7 +191,7 @@ public class FindUsbDevice {
          * which could fail.
          */
 try {
-Debug.println(usbDevice.getUsbDeviceDescriptor());
+logger.log(Level.DEBUG, usbDevice.getUsbDeviceDescriptor());
 } catch (Exception e) {
 e.printStackTrace(System.err);
 }

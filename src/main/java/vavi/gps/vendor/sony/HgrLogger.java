@@ -6,40 +6,43 @@
 
 package vavi.gps.vendor.sony;
 
+import java.lang.System.Logger.Level;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.Formatter;
 import java.util.logging.FileHandler;
+import java.util.logging.Formatter;
 import java.util.logging.Handler;
+import java.util.logging.Logger;
+
 import vavi.gps.BasicGpsData;
 import vavi.gps.GpsDevice;
 import vavi.gps.GpsData;
-import vavi.util.Debug;
-import vavi.util.event.GenericEvent;
 import vavi.util.event.GenericListener;
+
+import static java.lang.System.getLogger;
 
 
 /**
  * HGR Logger device.
  *
- * @todo 汎用化、HGR から独立、Formatter で差を吸収
+ * TODO Generalized, independent from HGR, absorb differences with Formatter
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030327 nsano initial version <br>
  */
 public class HgrLogger extends GpsDevice {
 
-    /** ログを取るかどうか */
+    private static final System.Logger logger = getLogger(HgrLogger.class.getName());
+
+    /** Whether to log */
     private boolean logging = false;
 
-    /** 何回に一回ログを取るか */
+    /** How often to log */
     private int interval = 10;
 
-    /** ロガー */
-    private Logger logger;
+    /** Logger */
+    private Logger log;
 
-    /** TODO name を何に使うか？ Formatter クラス？ */
+    /** What to use TODO name for? Formatter class? */
     public HgrLogger(String name) {
 
         try {
@@ -49,73 +52,71 @@ public class HgrLogger extends GpsDevice {
 
             String value = props.getProperty("hgr.logging");
             if (value != null) {
-Debug.println("logging: " + value);
-                logging = new Boolean(value).booleanValue();
+logger.log(Level.DEBUG, "logging: " + value);
+                logging = Boolean.parseBoolean(value);
             }
 
             if (logging) {
                 value = props.getProperty("hgr.logging.formatter");
                 if (value != null) {
-Debug.println("configClass: " + value);
-            Handler h = new FileHandler("%h/.hgr.log", true);
+logger.log(Level.DEBUG, "configClass: " + value);
+                    Handler h = new FileHandler("%h/.hgr.log", true);
                     Formatter f =
-                        (Formatter) Class.forName(value).newInstance();
+                        (Formatter) Class.forName(value).getDeclaredConstructor().newInstance();
 
                     h.setFormatter(f);
 
-                    logger = Logger.getLogger(Hgr.class.getName());
-                    logger.setUseParentHandlers(false);
-                    logger.addHandler(h);
+                    log = Logger.getLogger(Hgr.class.getName());
+                    log.setUseParentHandlers(false);
+                    log.addHandler(h);
                 }
 
                 value = props.getProperty("hgr.logging.interval");
                 if (value != null) {
-Debug.println("interval: " + value);
+logger.log(Level.DEBUG, "interval: " + value);
             interval = Integer.parseInt(value);
                 }
             }
         } catch (Exception e) {
-Debug.printStackTrace(e);
+logger.log(Level.ERROR, e.getMessage(), e);
             throw new InternalError(e.toString());
         }
     }
 
     /** Does nothing. */
+    @Override
     public void start() {
-Debug.println("here");
+logger.log(Level.DEBUG, "here");
     }
 
-    /** 現在のカウンタ */
+    /** Current Counter */
     private int logCount = 0;
 
     /** @throws IllegalStateException always be thrown */
+    @Override
     protected Runnable getInputThread() {
         throw new IllegalStateException("This class cannot be input device.");
     }
 
-    /** */
+    @Override
     protected GenericListener getOutputGenericListener() {
 
-        return new GenericListener() {
-            public void eventHappened(GenericEvent ev) {
-                try {
-                    GpsData gpsData = (GpsData) ev.getArguments()[0];
+        return ev -> {
+            try {
+                GpsData gpsData = (GpsData) ev.getArguments()[0];
 //System.err.println((logCount + 1) + "/" + interval);
-                    if (logging && (logCount == (interval - 1))) {
-                        if (gpsData.ready()) {
-                            byte[] line = ((BasicGpsData) gpsData).getRawData();
-                            logger.log(Level.INFO, new String(line));
-                        }
-                        logCount = 0;
-                    } else {
-                        logCount++;
+                if (logging && (logCount == (interval - 1))) {
+                    if (gpsData.ready()) {
+                        byte[] line = ((BasicGpsData) gpsData).getRawData();
+                        logger.log(Level.INFO, new String(line));
                     }
-                } catch (Exception e) {
-Debug.printStackTrace(e);
+                    logCount = 0;
+                } else {
+                    logCount++;
                 }
+            } catch (Exception e) {
+logger.log(Level.ERROR, e.getMessage(), e);
             }
         };
     }
 }
-
-/* */

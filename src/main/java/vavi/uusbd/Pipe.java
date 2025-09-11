@@ -19,19 +19,18 @@ public class Pipe {
     private boolean overlap;
 
     /** */
-    private int interfaceNo;
+    private final int interfaceNo;
 
     /** */
-    private int pipeNo;
+    private final int pipeNo;
 
     /**
-     * USB デバイスのエンドポイントにアクセスするためのオブジェクトを作成する。
-     * 現在のバージョンではインターラプト転送、
-     * バルク転送のエンドポイントについて有効である。
+     * Create an object to access the endpoints of a USB device.
+     * In the current version, this is valid for interrupt transfer and bulk transfer endpoints.
      *
-     * @param interfaceNo インターフェース番号
-     * @param pipeNo パイプ番号
-     * @throws UsbException USBデバイスに指定したパイプが無い
+     * @param interfaceNo Interface Number
+     * @param pipeNo Pipe Number
+     * @throws UsbException The specified pipe does not exist on the USB device
      */
     public Pipe(Usb usb, int interfaceNo, int pipeNo) throws UsbException {
 
@@ -44,13 +43,12 @@ public class Pipe {
     }
 
     /**
-     * USB デバイスのエンドポイントにアクセスするためのオブジェクトを
-     * オーバーラップモードで作成する。
+     * Creates an object for accessing a USB device endpoint in overlapped mode.
      *
-     * @param interfaceNo インターフェース番号
-     * @param pipeNo パイプ番号
-     * @param overlapped オーバーラップ
-     * @throws UsbException USBデバイスに指定したパイプが無い
+     * @param interfaceNo Interface Number
+     * @param pipeNo Pipe Number
+     * @param overlapped Overlap
+     * @throws UsbException The specified pipe does not exist on the USB device
      */
     public Pipe(Usb usb, int interfaceNo, int pipeNo, boolean overlapped)
         throws UsbException {
@@ -64,7 +62,7 @@ public class Pipe {
     }
 
     /**
-     * パイプをクローズします。
+     * Close the pipe.
      */
     public native void close();
 
@@ -74,7 +72,7 @@ public class Pipe {
     public native int read() throws UsbException;
 
     /**
-     * 読み込みます．
+     * Loading.
      */
     public native int read(byte[] b, int off, int len) throws UsbException;
 
@@ -84,26 +82,26 @@ public class Pipe {
     public native void write(int b) throws UsbException;
 
     /**
-     * 書き込みます．
+     * I will write it down.
      */
     public native void write(byte[] b, int off, int len) throws UsbException;
 
-    //-------------------------------------------------------------------------
+    // ----
 
-    /** USB のハンドル */
-    private long usbInstance;
+    /** USB Handle */
+    private final long usbInstance;
 
-    /** パイプのハンドル */
+    /** Pipe handle */
     private long instance;
 
     /**
-     * パイプを作成します。
+     * Create a pipe.
      *
-     * @param usbHandle USB のハンドル
-     * @param interfaceNo インターフェース番号
-     * @param pipeNo パイプ番号
-     * @param overlapped オーバーラップ
-     * @throws UsbException USBデバイスに指定したパイプが無い
+     * @param usbHandle USB Handle
+     * @param interfaceNo Interface Number
+     * @param pipeNo Pipe Number
+     * @param overlapped Overlap
+     * @throws UsbException The specified pipe does not exist on the USB device
      */
     private native void open(long usbHandle,
                              int interfaceNo,
@@ -112,19 +110,17 @@ public class Pipe {
         throws UsbException;
 
     /**
-     * パイプをリセットします。
+     * Reset the pipe.
      */
     private native void reset() throws UsbException;
 
     /**
-     * パイプをアボートします。
+     * Aborts the pipe.
      */
     private native void abort() throws UsbException;
 
-    /** */
+    /* */
     static {
         System.loadLibrary("UusbdWrapper");
     }
 }
-
-/* */

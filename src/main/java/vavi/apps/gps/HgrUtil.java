@@ -9,8 +9,10 @@ package vavi.apps.gps;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
-import vavi.util.Debug;
+import static java.lang.System.getLogger;
 
 
 /**
@@ -20,6 +22,8 @@ import vavi.util.Debug;
  * @version 0.00 030327 nsano initial version <br>
  */
 public class HgrUtil {
+
+    private static final Logger logger = getLogger(HgrUtil.class.getName());
 
     /**
      * <pre>
@@ -38,18 +42,16 @@ public class HgrUtil {
 
         try (
             HgrInputStream is = new HgrInputStream();
-            HgrOutputStream os = new HgrOutputStream();
+            HgrOutputStream os = new HgrOutputStream()
         ) {
 
-            Thread thread = new Thread(new Runnable() {
-                public void run() {
-                    while (true) {
-                        try {
-                            String line = is.readLine();
-                            System.out.println(line);
-                        } catch (Exception e) {
-Debug.println(e);
-                        }
+            Thread thread = new Thread(() -> {
+                while (true) {
+                    try {
+                        String line = is.readLine();
+                        System.out.println(line);
+                    } catch (Exception e) {
+logger.log(Level.ERROR, e.getMessage(), e);
                     }
                 }
             });
@@ -70,5 +72,3 @@ Debug.println(e);
         new HgrUtil();
     }
 }
-
-/* */

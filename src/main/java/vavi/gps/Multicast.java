@@ -6,6 +6,8 @@
 
 package vavi.gps;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,6 +16,8 @@ import java.util.Properties;
 import vavi.util.Debug;
 import vavi.util.event.GenericEvent;
 import vavi.util.event.GenericListener;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -25,8 +29,10 @@ import vavi.util.event.GenericListener;
  */
 public class Multicast extends GpsDevice {
 
+    private static final Logger logger = getLogger(Multicast.class.getName());
+
     /** */
-    private List<GpsDevice> outputDevices = new ArrayList<>();
+    private final List<GpsDevice> outputDevices = new ArrayList<>();
 
     /** */
     public Multicast(String file) {
@@ -41,13 +47,13 @@ public class Multicast extends GpsDevice {
                 String key = "multicast.outputDevices.class." + i;
                 String clazz = props.getProperty(key);
                 if (clazz == null) {
-Debug.println("device." + i + " not found, break");
+logger.log(Level.DEBUG, "device." + i + " not found, break");
                     break;
                 }
                 key = "multicast.outputDevices.name." + i;
                 String name = props.getProperty(key);
                 GpsDevice device = BasicGpsDevice.newInstance(clazz, name);
-Debug.println("device." + i + ": " + name + ": " + clazz);
+logger.log(Level.DEBUG, "device." + i + ": " + name + ": " + clazz);
                 outputDevices.add(device);
                 i++;
             }
@@ -57,41 +63,36 @@ Debug.println("device." + i + ": " + name + ": " + clazz);
     }
 
     /** Starts children. */
+    @Override
     public void start() {
-Debug.println("here");
-        Iterator<GpsDevice> i = outputDevices.iterator();
-        while (i.hasNext()) {
-            i.next().start();
+logger.log(Level.TRACE, "here");
+        for (GpsDevice outputDevice : outputDevices) {
+            outputDevice.start();
         }
     }
 
     /** @throws UnsupportedOperationException always be thrown */
+    @Override
     protected Runnable getInputThread() {
         throw new UnsupportedOperationException("This class cannot be input device.");
     }
 
-    /** */
+    @Override
     protected GenericListener getOutputGenericListener() {
 
-        return new GenericListener() {
-            public void eventHappened(GenericEvent ev) {
+        return ev -> {
 
-                Iterator<GpsDevice> i = outputDevices.iterator();
-                while (i.hasNext()) {
-                    GenericListener listener = i.next().getOutputGenericListener();
-                    listener.eventHappened(ev);
-                }
+            for (GpsDevice outputDevice : outputDevices) {
+                GenericListener listener = outputDevice.getOutputGenericListener();
+                listener.eventHappened(ev);
             }
         };
     }
 
-    /** 汎用イベントリスナを追加します。 */
+    @Override
     public void addGenericListener(GenericListener listener) {
-        Iterator<GpsDevice> i = outputDevices.iterator();
-        while (i.hasNext()) {
-            i.next().addGenericListener(listener);
+        for (GpsDevice outputDevice : outputDevices) {
+            outputDevice.addGenericListener(listener);
         }
     }
 }
-
-/* */

@@ -20,22 +20,22 @@ import vavi.util.properties.annotation.PropsEntity;
  *
  * <pre>
  * <li>
- * GpsFormatConverter.properties に設定する項目
+ * Items to set in GpsFormatConverter.properties
  * </li>
  *
- *  入力デバイスクラス    inputDevice.class
- *  入力デバイス名    inputDevice.name
- *  出力デバイスクラス    outputDevice.class
- *  出力デバイス名    outputDevice.name
+ *  Input Device Class   inputDevice.class
+ *  Input Device Name    inputDevice.name
+ *  Output Device Class  outputDevice.class
+ *  Output Device Name   outputDevice.name
  *
  * <li>
- * 出力デバイスとして {@link vavi.gps.Multicast} を指定した場合
- *  マルチキャストする出力デバイスのリストを設定する
+ * If {@link vavi.gps.Multicast} is specified as the output device,
+ * set the list of output devices to multicast.
  * </li>
  *
- *  出力デバイスクラス    multicast.outputDevice.class.#
- *  出力デバイス名    multicast.outputDevice.name.#
- *  (# は 0 から連番)
+ *  Output Device Class   multicast.outputDevice.class.#
+ *  Output Device Name    multicast.outputDevice.name.#
+ *  (# is a sequential number starting from 0)
  * </pre>
  *
  * @depends GpsFormatConverter.properties
@@ -45,27 +45,23 @@ import vavi.util.properties.annotation.PropsEntity;
 @PropsEntity(url = "classpath:GpsFormatConverter.properties")
 public class GpsFormatConverter {
 
-    /** */
     @Property(name = "inputDevice.class")
     private String inputClass = "vavi.gps.vendor.sony.Hgr";
 
-    /** */
     @Property(name = "inputDevice.name")
     private String inputName = "HGR3S";
 
-    /** */
     @Property(name = "outputDevice.class")
     private String outputClass = "vavi.gps.vendor.nmea.Nmea";
 
-    /** */
     @Property(name = "outputDevice.name")
     private String outputName = "COM3";
 
     /** */
-    private GpsDevice inputDevice;
+    private final GpsDevice inputDevice;
 
     /** */
-    private GpsDevice outputDevice;
+    private final GpsDevice outputDevice;
 
     /** */
     public GpsFormatConverter() {
@@ -90,10 +86,10 @@ public class GpsFormatConverter {
         outputDevice.start();
     }
 
-    // -------------------------------------------------------------------------
+    // ----
 
     /** */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         try {
             new GpsFormatConverter();
         } catch (Throwable e) {
@@ -102,5 +98,3 @@ public class GpsFormatConverter {
         }
     }
 }
-
-/* */

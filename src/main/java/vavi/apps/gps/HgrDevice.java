@@ -7,9 +7,13 @@
 package vavi.apps.gps;
 
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
 import vavi.io.IODevice;
 import vavi.util.Debug;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -21,6 +25,8 @@ import vavi.util.Debug;
  */
 public class HgrDevice implements IODevice {
 
+    private static final Logger logger = getLogger(HgrDevice.class.getName());
+
     /** */
     private HgrDevice() throws IOException {
     }
@@ -29,7 +35,7 @@ public class HgrDevice implements IODevice {
     private static IODevice device;
 
     /** */
-    public static final IODevice getInstance() {
+    public static IODevice getInstance() {
         try {
             if (device == null) {
 //                device = new vavi.gps.vendor.test.DummyHgrDevice("HGR3S");
@@ -37,35 +43,33 @@ public class HgrDevice implements IODevice {
             }
             return device;
         } catch (Exception e) {
-Debug.println(e);
+logger.log(Level.ERROR, e.getMessage(), e);
             throw new InternalError(e.getMessage());
         }
     }
 
-    /** */
+    @Override
     public int read() throws IOException {
         return device.read();
     }
 
-    /** */
+    @Override
     public int available() throws IOException {
         return device.available();
     }
 
-    /** */
+    @Override
     public void write(int c) throws IOException {
         device.write(c);
     }
 
-    /** */
+    @Override
     public void flush() throws IOException {
         device.flush();
     }
 
-    /** */
+    @Override
     public void close() throws IOException {
         device.close();
     }
 }
-
-/* */

@@ -9,11 +9,11 @@ package vavi.gps.vendor.sony;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import vavi.io.IODeviceOutputStream;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 /**
@@ -35,10 +35,10 @@ public class HgrTest {
         public HackedHgr(String name) {
             super(name);
         }
-        public void makeSureInputStreamOpened() {
+        @Override public void makeSureInputStreamOpened() {
             super.makeSureInputStreamOpened();
         }
-        public void makeSureOutputStreamOpened() {
+        @Override public void makeSureOutputStreamOpened() {
             super.makeSureOutputStreamOpened();
         }
         public IODeviceOutputStream getOut() {
@@ -52,8 +52,7 @@ public class HgrTest {
         hgr.start();
         hgr.makeSureInputStreamOpened();
         hgr.makeSureOutputStreamOpened();
-        BufferedReader r =
-            new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             System.err.print("> ");
             String line = r.readLine();
@@ -63,5 +62,3 @@ public class HgrTest {
         }
     }
 }
-
-/* */

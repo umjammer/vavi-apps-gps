@@ -29,9 +29,9 @@ public abstract class JUsbDevice implements IODevice {
     protected abstract int getMaxPacketLength();
 
     /** */
-    protected Queue<Integer> inputFifo = new LinkedList<>();
+    protected final Queue<Integer> inputFifo = new LinkedList<>();
 
-    /** */
+    @Override
     public int read() throws IOException {
         if (inputFifo.peek() == null) {
             readToFifo();
@@ -53,15 +53,15 @@ public abstract class JUsbDevice implements IODevice {
 //      }
     }
 
-    /** */
+    @Override
     public int available() throws IOException {
         return inputFifo.size();
     }
 
     /** */
-    protected Queue<Integer> outputFifo = new LinkedList<>();
+    protected final Queue<Integer> outputFifo = new LinkedList<>();
 
-    /** */
+    @Override
     public void write(int c) throws IOException {
         outputFifo.offer(c);
 
@@ -82,7 +82,7 @@ public abstract class JUsbDevice implements IODevice {
 //      pipe.write(buf, 0, packetLength);
     }
 
-    /** */
+    @Override
     public void flush() throws IOException {
         if (outputFifo.poll() != null) {
 //          for (int i = outputFifo.size(); i < packetLength; i++) {
@@ -92,11 +92,9 @@ public abstract class JUsbDevice implements IODevice {
         }
     }
 
-    /** */
+    @Override
     public void close() throws IOException {
 //      pipe.close();
 //      usb.close();
     }
 }
-
-/* */

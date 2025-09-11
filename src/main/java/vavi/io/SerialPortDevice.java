@@ -9,12 +9,16 @@ package vavi.io;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.Enumeration;
 
-import gnu.io.CommPortIdentifier;
-import gnu.io.SerialPort;
+import javax.comm.CommPortIdentifier;
+import javax.comm.SerialPort;
 
 import vavi.util.Debug;
+
+import static java.lang.System.getLogger;
 
 
 /**
@@ -25,22 +29,24 @@ import vavi.util.Debug;
  */
 public class SerialPortDevice implements IODevice {
 
+    private static final Logger logger = getLogger(SerialPortDevice.class.getName());
+
     /** */
     private String serialName = "COM1";
 
     /** */
-    private SerialPort serialPort;
+    private final SerialPort serialPort;
 
     /** */
-    private InputStream is;
+    private final InputStream is;
 
     /** */
-    private OutputStream os;
+    private final OutputStream os;
 
     /**
      * TODO read from file, COM port properties (4800, 8, 1, none, ...)
      *
-     * @param name シリアルポート番号を指定します
+     * @param name Specifies the serial port number
      */
     public SerialPortDevice(String name) {
 
@@ -49,8 +55,8 @@ public class SerialPortDevice implements IODevice {
         Enumeration<?> e = CommPortIdentifier.getPortIdentifiers();
         while (e.hasMoreElements()) {
             CommPortIdentifier portId = (CommPortIdentifier) e.nextElement();
-            Debug.println("type: " + portId.getPortType());
-            Debug.println("name: [" + portId.getName() + "]");
+            logger.log(Level.DEBUG, "type: " + portId.getPortType());
+            logger.log(Level.DEBUG, "name: [" + portId.getName() + "]");
             if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL && portId.getName().equals(serialName)) {
                 try {
                     serialPort = (SerialPort) portId.open(getClass().getName(), 2000);
@@ -67,34 +73,32 @@ public class SerialPortDevice implements IODevice {
         throw new InternalError("no such port: " + serialName);
     }
 
-    // -------------------------------------------------------------------------
+    // ----
 
-    /** */
+    @Override
     public int read() throws IOException {
         return is.read();
     }
 
-    /** */
+    @Override
     public int available() throws IOException {
         return is.available();
     }
 
-    /** */
+    @Override
     public void write(int b) throws IOException {
         os.write(b);
     }
 
-    /** */
+    @Override
     public void flush() throws IOException {
         os.flush();
     }
 
-    /** */
+    @Override
     public void close() throws IOException {
         is.close();
         os.close();
         serialPort.close();
     }
 }
-
-/* */

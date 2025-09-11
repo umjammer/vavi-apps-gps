@@ -16,6 +16,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.Date;
 import java.util.TimerTask;
 
@@ -36,41 +38,46 @@ import vavi.gps.vendor.sony.IpsGpsData;
 import vavi.gps.vendor.sony.IpsGpsFormat;
 import vavi.util.Debug;
 
+import static java.lang.System.getLogger;
+
 
 /**
- * HGR 入力のエミュレーションを行うクラスです。
+ * This class emulates HGR input.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 030319 nsano initial version <br>
  */
 public class HgrEmulator2 extends HgrEmulator {
 
-    /** */
-    JTextField latField;
+    private static final Logger logger = getLogger(HgrEmulator2.class.getName());
 
     /** */
-    JTextField lonField;
+    final JTextField latField;
 
-    private KeyListener keyListener = new KeyAdapter() {
+    /** */
+    final JTextField lonField;
+
+    private final KeyListener keyListener = new KeyAdapter() {
+        @Override
         public void keyTyped(KeyEvent ev) {
 
             float lat = 0;
             float lon = 0;
 
             int code = ev.getKeyCode();
-Debug.println("code: " + code);
+logger.log(Level.DEBUG, "code: " + code);
             switch (code) {
             case KeyEvent.VK_UP:
-                lat -= 0.1;
+                lat -= 0.1f;
                 break;
             case KeyEvent.VK_DOWN:
-                lat += 0.1;
+                lat += 0.1f;
                 break;
             case KeyEvent.VK_LEFT:
-                lon -= 0.1;
+                lon -= 0.1f;
                 break;
             case KeyEvent.VK_RIGHT:
-                lon += 0.1;
+                lon += 0.1f;
                 break;
             }
 
@@ -132,6 +139,7 @@ Debug.println("code: " + code);
 
         float lat;
 
+        @Override
         public void paint(Graphics g) {
             int w = getSize().width;
             int h = getSize().height;
@@ -143,7 +151,8 @@ Debug.println("code: " + code);
             g.drawLine(x, 0, x, h);
         }
 
-        MouseInputListener mouseListener = new MouseInputAdapter() {
+        final MouseInputListener mouseListener = new MouseInputAdapter() {
+            @Override
             public void mouseDragged(MouseEvent ev) {
                 float w = getSize().width / 2f;
                 float h = getSize().height / 2f;
@@ -160,7 +169,7 @@ Debug.println("code: " + code);
                 repaint();
             }
         };
-        /** */
+        /* */
         {
             addMouseListener(mouseListener);
             addMouseMotionListener(mouseListener);
@@ -212,12 +221,12 @@ Debug.println("code: " + code);
     private Date timeOfFix = new Date();
 
     /** */
-    private PointSurface latitude = new PointSurface();
+    private final PointSurface latitude = new PointSurface();
 
     /** */
-    private PointSurface longitude = new PointSurface();
+    private final PointSurface longitude = new PointSurface();
 
-    /** */
+    @Override
     protected TimerTask getOutputTimerTask() {
         latitude.setType(PointSurface.NORTH_LATITUDE
         /* PointSurface.SOUTH_LATITUDE */);
@@ -233,8 +242,9 @@ Debug.println("code: " + code);
         longitude.setSeconds(0);
 
         return new TimerTask() {
+            @Override
             public void run() {
-                // Debug.println("here");
+                // logger.log(Level.DEBUG, "here");
 
                 IpsGpsData data = new IpsGpsData();
 
@@ -295,16 +305,16 @@ Debug.println("code: " + code);
                 try {
                     os.writeLine(new String(line));
                 } catch (IOException e) {
-                    Debug.println(e);
+                    logger.log(Level.ERROR, e.getMessage(), e);
                 }
             }
         };
     }
 
-    // -------------------------------------------------------------------------
+    // ----
 
     /** */
-    private String ioDeviceName = "dummy2";
+    private static final String ioDeviceName = "dummy2";
 
     /** */
     protected String getIODeviceName() {
@@ -315,5 +325,3 @@ Debug.println("code: " + code);
         new HgrEmulator2();
     }
 }
-
-/* */

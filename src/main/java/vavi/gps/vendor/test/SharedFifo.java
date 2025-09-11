@@ -20,7 +20,7 @@ import java.util.Map;
 public class SharedFifo<E> extends LinkedList<E> {
 
     /** */
-    private static Map<String, SharedFifo<?>> instances = new HashMap<>();
+    private static final Map<String, SharedFifo<?>> instances = new HashMap<>();
 
     /** */
     @SuppressWarnings("unchecked")
@@ -36,5 +36,3 @@ public class SharedFifo<E> extends LinkedList<E> {
         }
     }
 }
-
-/* */

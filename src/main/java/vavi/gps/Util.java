@@ -33,5 +33,3 @@ public class Util {
         return new double[] { lat, lng };
     }
 }
-
-/* */

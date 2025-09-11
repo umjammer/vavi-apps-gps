@@ -23,25 +23,22 @@ import vavi.util.event.GenericSupport;
 public abstract class GpsDevice {
 
     /**
-     * 入力デバイスのポーリングを行うスレッドを取得します。
-     * 以下を <code>{@link java.lang.Runnable#run()}</code> メソッドに記述すること。
+     * Gets the thread that polls the input device.
+     * Write the following in the <code>{@link java.lang.Runnable#run()}</code> method:
      * <ol>
-     * <li>入力デバイスから１ブロックを読み取る</li>
-     * <li>1. のデータを <code>{@link vavi.gps.GpsData}</code> またはそのサブクラスに
-     * 変換する</li>
-     * <li><code>{@link vavi.util.event.GenericEvent}</code> を
-     * argument は 2. のデータ、name は "data" として作成する</li>
-     * <li>3. のイベントを引数にして <code>fireEventHappened()</code>
-     * メソッドを発行する</li>
+     * <li>Read one block from the input device</li>
+     * <li>1. Convert the data to <code>{@link vavi.gps.GpsData}</code> or its subclass</li>
+     * <li>Create a <code>{@link vavi.util.event.GenericEvent}</code> with argument 2. data and name "data".</li>
+     * <li>3. Issue the <code>fireEventHappened()</code> method with the event as an argument</li>
      * </ol>
-     * @return    java.lang.Runnable の実装クラス
+     * @return    java.lang.Runnable implementation class
      */
     protected abstract Runnable getInputThread();
 
-    /** TODO 複数接続未対応 */
+    /** TODO Multiple connections not supported */
     protected volatile boolean loop;
 
-    /** デバイスを機能させます。 */
+    /** Make the device work. */
     public void start() {
         loop = true;
         Thread thread = new Thread(getInputThread());
@@ -49,21 +46,20 @@ public abstract class GpsDevice {
     }
 
     /**
-     * 出力デバイスへデータを出力する、イベントリスナを取得します。
-     * 以下を <code>{@link vavi.util.event.GenericListener#eventHappened(GenericEvent)}</code>
-     * メソッドに記述すること。
+     * Gets the event listener that outputs data to the output device.
+     * Write the following in the
+     * <code>{@link vavi.util.event.GenericListener#eventHappened(GenericEvent)}</code> method.
      * <ol>
-     * <li><code>{@link vavi.util.event.GenericEvent}</code> の getName() が "name"
-     * のイベントの getArgument() から <code>{@link vavi.gps.GpsData}</code> 型の
-     * データを取得する</li>
-     * <li>1. のデータを出力デバイスに適切なフォーマットに変換する</li>
-     * <li>出力デバイスに 2. のデータを出力する
+     * <li>Get data of type <code>{@link vavi.gps.GpsData}</code> from getArgument() of the event
+     * whose getName() of <code>{@link vavi.util.event.GenericEvent}</code> is "name".</li>
+     * <li>1. Convert the data into a format appropriate for the output device</li>
+     * <li>Output the data from step 2 to the output device.
      * </ol>
-     * @return {@link vavi.util.event.GenericListener} の実装クラス
+     * @return Implementation class of {@link vavi.util.event.GenericListener}
      */
     protected abstract GenericListener getOutputGenericListener();
 
-    /** 入力デバイスと出力デバイスを接続します。 */
+    /** Connect your input and output devices. */
     public void connect(GpsDevice outputDevice) {
         // out@outputDevice -> in@inputDevice
         GenericListener listener = outputDevice.getOutputGenericListener();
@@ -73,25 +69,23 @@ public abstract class GpsDevice {
         outputDevice.addGenericListener(listener);
     }
 
-    //-------------------------------------------------------------------------
+    // ----
 
-    /** 汎用イベント機構の実装 */
-    private GenericSupport gs = new GenericSupport();
+    /** Implementing a general-purpose event mechanism */
+    private final GenericSupport gs = new GenericSupport();
 
-    /** 汎用イベントリスナを追加します。 */
+    /** Add a generic event listener. */
     public void addGenericListener(GenericListener listener) {
         gs.addGenericListener(listener);
     }
 
-    /** 汎用イベントリスナを削除します。 */
+    /** Removes a generic event listener. */
     public void removeGenericListener(GenericListener listener) {
         gs.removeGenericListener(listener);
     }
 
-    /** 汎用イベントを発行します。 */
+    /** Publishes a generic event. */
     protected void fireEventHappened(GenericEvent ev) {
         gs.fireEventHappened(ev);
     }
 }
-
-/* */
